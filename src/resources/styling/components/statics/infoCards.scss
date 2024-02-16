@@ -1,10 +1,62 @@
 .defaultCard{
-    display: grid;
+    display: flex;
+    flex-direction: column;
     background-color: var(--wth);
     border-radius: 5px;
-    // border: 1px solid black;
-    box-shadow: (5px 5px 5px 5px black);
-    width: 200px;
-    height: 300px;
+    border: 1px solid var(--b-fade);
+    box-shadow: (0 4px 6px var(--b-fade));
+    width: 300px;
+    height: 320px;
     text-align: center;
+    margin: 0 2%;
+    padding: 1%;
+    overflow-y: hidden;
+
+    >h3{
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin: 4px;
+    }
 }
+
+.infoCard{
+    >p{
+        font-size: .8rem;
+        margin-bottom: 15px;
+    }
+}
+
+.pricingCard{
+    padding: 0;
+
+    >.packageHeader{
+        background: var(--gr-purp);
+        height: 30%;
+        width: 100%;
+        margin: 0;
+        text-align: start;
+
+        >h3 {
+            font-size: 1.1rem;
+            color: var(--wht);
+            font-weight: bold;
+            padding: 8% 0 0 5%;
+        }
+    }
+
+    >p {
+        height: 100%;
+        padding-top: 10px;
+    }
+
+    >.packageFooter{
+        padding: 2% 0;
+        text-align: end;
+
+        >*{
+            transform: scale(0.9);
+        }
+    }
+
+}
+
