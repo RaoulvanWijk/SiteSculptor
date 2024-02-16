@@ -1,0 +1,21 @@
+nav {
+    .navBar {
+        display: flex;
+        justify-content: space-between; // Aligns items at both ends of the container
+        align-items: center; // Centers items vertically within the container
+        // background-color: var(--sec);
+        padding: 10px;
+
+        .logoImage {
+            max-width: 100px;
+            height: auto;
+            margin-right: 20px; 
+        }
+
+        .navMenu {
+            display: flex;
+            gap: 64px; 
+            justify-content: flex-end;
+        }
+    }
+}
