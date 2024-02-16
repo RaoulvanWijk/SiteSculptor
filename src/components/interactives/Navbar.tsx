@@ -8,11 +8,11 @@ export default function Navbar() {
         <nav>
             <div className="navBar">
                 <Image 
-                    src={"/resources/branding/logo_temp.png"}
+                    src={"/branding/logo_temp.png"}
                     className='logoImage'
-                    height={50}
-                    width={100}
-                    alt='Logo'
+                    height={75}
+                    width={150}
+                    alt='Logo Image'
                 />
                 <div className='navMenu'>
                     <DefaultButton buttonName='Home' type='link' />
