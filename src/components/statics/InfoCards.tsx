@@ -1,13 +1,15 @@
-import React from 'react'
-import "@/resources/styling/components/statics/infoCards.scss"
+import React from 'react';
 import DefaultButton from '../interactives/DefaultButton';
+import Image from 'next/image';
+import "@/resources/styling/components/statics/infoCards.scss";
 
 type CardTypes = "default" | "imageCard" | "pricing" | "info";
 
 type cardProps = {
-  header: string;
-  text: string;
   type: CardTypes;
+  header?: string;
+  text?: string;
+  imgSrc?: string;
 }
 
 const variants = {
@@ -17,7 +19,7 @@ const variants = {
   "info": "infoCard"
 }
 
-function InfoCard({ header, text, type }: cardProps) {
+function InfoCard({ header, text, type, imgSrc }: cardProps) {
   let cardContent;
 
   switch (type) {
@@ -32,8 +34,8 @@ function InfoCard({ header, text, type }: cardProps) {
     case "imageCard":
       cardContent = (
         <div className={"defaultCard " + (variants[type ?? "default"])}>
-          <h3>{header}</h3>
-          <p>{text}</p>
+          <h3 className='imageHeader'>{header}</h3>
+          <Image src={imgSrc ?? ""} height={320} width={300} alt={"ImageCard"} priority/>
         </div>
       );
       break;

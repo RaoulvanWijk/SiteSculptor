@@ -60,3 +60,13 @@
 
 }
 
+.imageCard{
+    position: relative;
+    padding: 0;
+
+    >.imageHeader{
+        position: absolute;
+        top: 0;
+        color: var(--wht);
+    }
+}

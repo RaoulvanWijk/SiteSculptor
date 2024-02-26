@@ -1,3 +1,5 @@
+'use client'
+
 import Navbar from "@/components/interactives/Navbar";
 import Footer from "@/components/statics/Footer";
 import PageHeader from "@/components/statics/PageHeader";
@@ -13,7 +15,7 @@ export default function Home() {
       <div className="cardRow">
         <InfoCards header="Info Card" text="The tree drank the water from the earth to sustain the growth of it's leaves. And the human took a breath from the oxygen from the tree. So we should thank the trees for helping us breathe." type="info" />
         <InfoCards header="Info Card" text="The tree drank the water from the earth to sustain the growth of it's leaves. And the human took a breath from the oxygen from the tree. So we should thank the trees for helping us breathe." type="default" />
-        <InfoCards header="Info Card" text="The tree drank the water from the earth to sustain the growth of it's leaves. And the human took a breath from the oxygen from the tree. So we should thank the trees for helping us breathe." type="default" />
+        <InfoCards header="Info Card" imgSrc="/placeholders/placeholder.jpg" type="imageCard" />
         <InfoCards header="Package 1" text="Really Cool Package" type="pricing" />
       </div>
       <Footer />

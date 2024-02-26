@@ -8,6 +8,7 @@ type ButtonTypes = "default" | "primary" | "secondary" | "link" | undefined;
 type defaultButtonProps = {
     buttonName: string;
     type: ButtonTypes;
+    onClick?: () => void;
 }
 const variants = {
     "default": "defaultButton",
@@ -15,9 +16,9 @@ const variants = {
     "secondary": "secondaryButton",
     "link": "linkButton"
 }
-export default function DefaultButton({ buttonName, type } : defaultButtonProps) {
+export default function DefaultButton({ buttonName, type, onClick } : defaultButtonProps) {
   return (
-        <button className={"defaultButton " + (variants[type ?? "default"])}>
+        <button className={"defaultButton " + (variants[type ?? "default"])} onClick={onClick}>
             {buttonName}
         </button>
   )
