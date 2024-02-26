@@ -1,0 +1,37 @@
+.defaultButton{
+    background-color: var(--wht);
+    padding: 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    color: var(--txt);
+
+    &:hover{
+        background-color: var(--sec);
+    }
+}
+
+.primaryButton{
+    background-color: var(--prm);
+    color: var(--wht);
+
+    &:hover{
+        background-color: var(--sec);
+    }
+}
+
+.secondaryButton{
+    background-color: var(--sec);
+    color: var(--txt);
+
+    &:hover{
+        background-color: var(--prm);
+    }
+}
+
+.linkButton{
+    background-color: none;
+
+    &:hover{
+        color: var(-acc)
+    }
+}
