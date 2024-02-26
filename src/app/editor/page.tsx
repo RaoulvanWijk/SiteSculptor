@@ -11,29 +11,8 @@ import {
   } from "@/components/ui/card"
   import { ScrollArea } from "@/components/ui/scroll-area"
 import NavbarOne from "@/components/dragcomponents/navbars/NavbarOne";
-const dataFromDb = {
-  navbar: "NavbarOne",
-  footer: "FooterOne",
-};
+
 export default function EditPage() {
-  const [components, setComponents] = useState({});
-
-  useEffect(() => {
-    const loadComponents = async () => {
-      const loadedComponents = {};
-
-      // Dynamically import components based on the database object
-      for (const [key, componentName] of Object.entries(dataFromDb)) {
-        // Convert componentName to file path format if necessary
-        const component = await dynamic(() => import(`./components/${componentName}`));
-        loadedComponents[key] = component;
-      }
-
-      setComponents(loadedComponents);
-    };
-
-    loadComponents();
-  }, []);
   return (
     <div className="layout">
       <div className="sidebar border-x">
