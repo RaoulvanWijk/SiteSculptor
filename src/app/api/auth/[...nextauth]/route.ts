@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  
   providers: [
      GoogleProvider({
       clientId: env.GOOGLE_CLIENT_ID,

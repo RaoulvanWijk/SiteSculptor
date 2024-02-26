@@ -8,6 +8,13 @@
       "when": 1707231234038,
       "tag": "0000_mysterious_orphan",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1707899063284,
+      "tag": "0001_mature_sunspot",
+      "breakpoints": true
     }
   ]
 }
