@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.scss";
-import NextAuthProvider from "@/lib/auth/Provider";
-import { Toaster } from "@/components/ui/toaster";
+import "@/resources/styling/base.scss";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "SiteSculptor",
-  description: "Empower your web design journey with our intuitive drag-and-drop interface, modular components, seamless e-commerce integration, and robust tools for responsive design, SEO optimization, user management, social media integration, security, and personalized branding.",
+  description: "A application to build websites",
 };
 
 export default function RootLayout({
@@ -19,9 +18,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>{children}
-          <Toaster />
-        </NextAuthProvider>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
