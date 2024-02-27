@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "f1c24294-4f7e-4d03-8171-79588f16e519",
+  "id": "9824759c-ee32-4c24-b5f2-15b58042af7b",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "account": {
@@ -72,7 +72,7 @@
         },
         "id_token": {
           "name": "id_token",
-          "type": "varchar(255)",
+          "type": "varchar(1500)",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
@@ -253,42 +253,76 @@
       },
       "uniqueConstraints": {}
     },
-    "computers": {
-      "name": "computers",
+    "subscriptions": {
+      "name": "subscriptions",
       "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": true
-        },
-        "brand": {
-          "name": "brand",
-          "type": "varchar(256)",
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "cores": {
-          "name": "cores",
-          "type": "int",
+        "stripe_customer_id": {
+          "name": "stripe_customer_id",
+          "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
+          "autoincrement": false
+        },
+        "stripe_subscription_id": {
+          "name": "stripe_subscription_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "stripe_price_id": {
+          "name": "stripe_price_id",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "stripe_current_period_end": {
+          "name": "stripe_current_period_end",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
           "autoincrement": false
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "computers_id": {
-          "name": "computers_id",
+        "subscriptions_user_id_stripe_customer_id_pk": {
+          "name": "subscriptions_user_id_stripe_customer_id_pk",
           "columns": [
-            "id"
+            "user_id",
+            "stripe_customer_id"
           ]
         }
       },
-      "uniqueConstraints": {}
+      "uniqueConstraints": {
+        "subscriptions_user_id_unique": {
+          "name": "subscriptions_user_id_unique",
+          "columns": [
+            "user_id"
+          ]
+        },
+        "subscriptions_stripe_customer_id_unique": {
+          "name": "subscriptions_stripe_customer_id_unique",
+          "columns": [
+            "stripe_customer_id"
+          ]
+        },
+        "subscriptions_stripe_subscription_id_unique": {
+          "name": "subscriptions_stripe_subscription_id_unique",
+          "columns": [
+            "stripe_subscription_id"
+          ]
+        }
+      }
     }
   },
   "schemas": {},
