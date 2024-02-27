@@ -36,11 +36,16 @@ CREATE TABLE `verificationToken` (
 	CONSTRAINT `verificationToken_identifier_token_pk` PRIMARY KEY(`identifier`,`token`)
 );
 --> statement-breakpoint
-CREATE TABLE `computers` (
-	`id` serial AUTO_INCREMENT NOT NULL,
-	`brand` varchar(256) NOT NULL,
-	`cores` int NOT NULL,
-	CONSTRAINT `computers_id` PRIMARY KEY(`id`)
+CREATE TABLE `subscriptions` (
+	`user_id` varchar(255) NOT NULL,
+	`stripe_customer_id` varchar(255) NOT NULL,
+	`stripe_subscription_id` varchar(255),
+	`stripe_price_id` varchar(255),
+	`stripe_current_period_end` timestamp,
+	CONSTRAINT `subscriptions_user_id_stripe_customer_id_pk` PRIMARY KEY(`user_id`,`stripe_customer_id`),
+	CONSTRAINT `subscriptions_user_id_unique` UNIQUE(`user_id`),
+	CONSTRAINT `subscriptions_stripe_customer_id_unique` UNIQUE(`stripe_customer_id`),
+	CONSTRAINT `subscriptions_stripe_subscription_id_unique` UNIQUE(`stripe_subscription_id`)
 );
 --> statement-breakpoint
 ALTER TABLE `account` ADD CONSTRAINT `account_userId_user_id_fk` FOREIGN KEY (`userId`) REFERENCES `user`(`id`) ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
