@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-, "src/components/statics/InfoCards.tsx"  ],
+  ],
   "exclude": [
     "node_modules"
   ]

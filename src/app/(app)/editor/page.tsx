@@ -16,24 +16,24 @@ const dataFromDb = {
   footer: "FooterOne",
 };
 export default function EditPage() {
-  const [components, setComponents] = useState({});
+  // const [components, setComponents] = useState({});
 
-  useEffect(() => {
-    const loadComponents = async () => {
-      const loadedComponents = {};
+  // useEffect(() => {
+  //   const loadComponents = async () => {
+  //     const loadedComponents = {};
 
-      // Dynamically import components based on the database object
-      for (const [key, componentName] of Object.entries(dataFromDb)) {
-        // Convert componentName to file path format if necessary
-        const component = await dynamic(() => import(`./components/${componentName}`));
-        loadedComponents[key] = component;
-      }
+  //     // Dynamically import components based on the database object
+  //     for (const [key, componentName] of Object.entries(dataFromDb)) {
+  //       // Convert componentName to file path format if necessary
+  //       const component = await dynamic(() => import(`./components/${componentName}`));
+  //       loadedComponents[key] = component;
+  //     }
 
-      setComponents(loadedComponents);
-    };
+  //     setComponents(loadedComponents);
+  //   };
 
-    loadComponents();
-  }, []);
+  //   loadComponents();
+  // }, []);
   return (
     <div className="layout">
       <div className="sidebar border-x">
