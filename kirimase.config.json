@@ -1,12 +1,18 @@
 {
   "hasSrc": true,
   "packages": [
+    "shadcn-ui",
     "drizzle",
     "next-auth",
-    "shadcn-ui"
+    "trpc",
+    "stripe"
   ],
   "preferredPackageManager": "npm",
+  "t3": false,
+  "alias": "@",
+  "analytics": true,
   "rootPath": "src/",
+  "componentLib": "shadcn-ui",
   "driver": "mysql",
   "provider": "mysql-2",
   "orm": "drizzle",

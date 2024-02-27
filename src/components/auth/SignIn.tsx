@@ -1,6 +1,6 @@
 "use client";
 import { useSession, signIn, signOut } from "next-auth/react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 export default function SignIn() {
   const { data: session, status } = useSession();
@@ -9,16 +9,21 @@ export default function SignIn() {
 
   if (session) {
     return (
-      <>
-        Signed in as {session.user?.email} <br />
-        <Button variant={"destructive"} onClick={() => signOut()}>Sign out</Button>
-      </>
+      <div className="space-y-3">
+        <p>
+          Signed in as{" "}
+          <span className="font-medium">{session.user?.email}</span>
+        </p>
+        <Button variant={"destructive"} onClick={() => signOut({ callbackUrl: "/" })}>
+          Sign out
+        </Button>
+      </div>
     );
   }
   return (
-    <>
-      Not signed in <br />
+    <div className="space-y-3">
+      <p>Not signed in </p>
       <Button onClick={() => signIn()}>Sign in</Button>
-    </>
+    </div>
   );
 }
