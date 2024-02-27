@@ -30,11 +30,11 @@ export default function Navbar() {
                     </div>
 
                     <div className='navLinks'>
-                        <DefaultButton buttonName='Home' type='link' />
-                        <DefaultButton buttonName='FAQ' type='link' />
-                        <DefaultButton buttonName='Examples' type='link' />
-                        <DefaultButton buttonName='Pricing' type='link' />
-                        <DefaultButton buttonName='Login/Register' type='primary' />
+                        <DefaultButton buttonName='Home' type='link' linkTo='' />
+                        <DefaultButton buttonName='FAQ' type='link' linkTo=''/>
+                        <DefaultButton buttonName='Examples' type='link' linkTo=''/>
+                        <DefaultButton buttonName='Pricing' type='link' linkTo=''/>
+                        <DefaultButton buttonName='Login/Register' type='linkPrimary' linkTo=''/>
                     </div>
                 </div>
             </div>
