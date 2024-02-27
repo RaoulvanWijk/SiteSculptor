@@ -1,7 +1,7 @@
-$sidenavWidth: 20rem;
+$sidenavWidth: 17.5rem;
 $topNavHeight: 4rem;
 
-.layout {
+.editor-container {
     display: grid;
     width: 100svw;
     height: 100svh;
@@ -20,7 +20,7 @@ $topNavHeight: 4rem;
     grid-area: topbar;
   }
   
-  .placeholdcontainer {
+  .drag-container {
     grid-area: container;
     overflow: auto;
   }
