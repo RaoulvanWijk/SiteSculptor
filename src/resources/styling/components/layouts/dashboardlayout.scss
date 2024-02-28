@@ -16,6 +16,11 @@ $topNavHeight: 4rem;
       "sidebar container";
     grid-template-columns: $sidenavWidth 1fr;
     grid-template-rows: $topNavHeight 1fr;
+    overflow: hidden;
+}
+
+body {
+    overflow: hidden;
 }
 
 .sidebar {
@@ -24,10 +29,12 @@ $topNavHeight: 4rem;
 
   .navbar {
     grid-area: topbar;
+    transform: translateZ(2px);
   }
   
   .content{
     grid-area: container;
     overflow: auto;
     padding: 1.5rem;
+    overflow-y: auto;
   }
