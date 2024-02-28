@@ -14,10 +14,10 @@ export default function DashboardLayout({
         <TrpcProvider cookies={cookies().toString()}>
             <div>
                 <Navbar />
-                <main className="main">
+                <div className="dashboard-main">
                     <Sidebar />
                     <div className="content">{children}</div>
-                </main>
+                </div>
             </div>
         </TrpcProvider>
     );
