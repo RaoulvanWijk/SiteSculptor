@@ -10,10 +10,19 @@ $topNavHeight: 4rem;
       "sidebar container";
     grid-template-columns: $sidenavWidth 1fr;
     grid-template-rows: $topNavHeight 1fr;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+    &.sidebar-closed {
+      grid-template-columns: 0 1fr;
+    }
   }
   
   .sidebar {
     grid-area: sidebar;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
   }
 
   .topnav {
