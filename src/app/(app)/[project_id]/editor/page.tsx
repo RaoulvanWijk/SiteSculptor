@@ -1,9 +1,11 @@
-import React from "react";
-import Editor from "@/components/layouts/Editor";
+import React, { use, useEffect, useState } from "react";
+import EditorHandler from "@/components/pages/editor/EditorHandler";
 
 export default async function EditorPage() {
-  "use server";
+  // "use server";
+  
 
+  
   return (
     // <EditorLayout>
     //   <EditorSideNav />
@@ -19,9 +21,6 @@ export default async function EditorPage() {
     //   </ScrollArea>
     // </EditorLayout>
 
-    <Editor.Layout>
-      <Editor.SideNav />
-      <Editor.TopNav />
-    </Editor.Layout>
+    <EditorHandler />
   );
 }
