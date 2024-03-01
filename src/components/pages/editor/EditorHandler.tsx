@@ -5,7 +5,7 @@ import React from "react";
 import Editor from "@/components/layouts/Editor";
 import { useState } from "react";
 
-import { DndContext } from "@dnd-kit/core";
+import { DndContext, closestCorners } from "@dnd-kit/core";
 
 import BaseDragComponent from "@/components/editor-drag-components/BaseDragComponent";
 import BaseDropComponent from "@/components/editor-drag-components/BaseDropComponent";
@@ -51,7 +51,7 @@ export default function EditorHandler() {
 
   return (
     <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
-      <DndContext onDragEnd={handleDragEnd}>
+      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
         <Editor.SideNav />
         <Editor.TopNav />
         <div className="drag-container">
