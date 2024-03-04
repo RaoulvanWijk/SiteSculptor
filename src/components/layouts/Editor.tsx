@@ -6,7 +6,7 @@ export function Layout({ children, className }: {
   children: React.ReactNode,
   className?: string, 
 }) {
-  return <div className={"editor-container " + className}>{children}</div>;
+  return <div className={cn("editor-container", className)}>{children}</div>;
 }
 export function SideNav({ children }: { children: React.ReactNode }) {
   return <div className="sidebar border-x">{children}</div>;
