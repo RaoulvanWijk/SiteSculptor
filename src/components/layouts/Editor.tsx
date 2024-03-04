@@ -8,8 +8,8 @@ export function Layout({ children, className }: {
 }) {
   return <div className={"editor-container " + className}>{children}</div>;
 }
-export function SideNav() {
-  return <div className="sidebar border-x">Side nav</div>;
+export function SideNav({ children }: { children: React.ReactNode }) {
+  return <div className="sidebar border-x">{children}</div>;
 }
 export function TopNav() {
   return <div className="topnav border-y">EditorTopNav</div>;

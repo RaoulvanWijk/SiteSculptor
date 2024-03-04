@@ -1,38 +1,35 @@
 import React from 'react'
-import { useDraggable } from '@dnd-kit/core'
+// import { useDraggable } from '@dnd-kit/core'
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 export default function BaseDragComponent(
   { children, component }: {
     component: {
       id: string,
       type: string,
+      name: string,
     },
     children?: React.ReactNode,
   }
 ) {
 
-  const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: component.id,
-    data: {
-      type: component.type,
-    }
-  })
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: component.id });
 
 
 
   return (
     <div
-      ref={setNodeRef}
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-        transform: `translate(${transform?.x}px, ${transform?.y}px)`,
-      }}
-      {...listeners}
-      {...attributes}
+    ref={setNodeRef}
+    {...attributes}
+    {...listeners}
+    style={{
+      transform: CSS.Transform.toString(transform),
+      transition: transition
+    }}
     >
-      Drag component
+      {children}
+      {/* {component.name} */}
     </div>
   )
 }

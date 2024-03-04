@@ -5,7 +5,8 @@ import React from "react";
 import Editor from "@/components/layouts/Editor";
 import { useState } from "react";
 
-import { DndContext, closestCorners } from "@dnd-kit/core";
+import { DndContext, DragEndEvent, closestCorners, useSensors, useSensor, MouseSensor, TouchSensor } from "@dnd-kit/core";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 
 import BaseDragComponent from "@/components/editor-drag-components/BaseDragComponent";
 import BaseDropComponent from "@/components/editor-drag-components/BaseDropComponent";
@@ -40,41 +41,66 @@ type EditorHandlerProps = {
 
 export default function EditorHandler() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
-
-  const demoComponent: DragComponent = {
+  const [usingComponents, setUsingComponents] = useState<DragComponent[]>([{
     id: "1",
     name: "Container",
     icon: "box",
     type: "container",
     childTypes: ["text", "image"],
-  };
+  },
+  {
+    id: "2",
+    name: "Text",
+    icon: "text",
+    type: "text",
+  },
+  {
+    id: "3",
+    name: "Image",
+    icon: "image",
+    type: "image",
+  },
+  ]);
+
+  const sensors = useSensors(
+    useSensor(TouchSensor), useSensor(MouseSensor)
+  );
+
+
+  const reorderComponents = (e: DragEndEvent) => {
+    if (!e.over) return;
+
+    setUsingComponents((usingComponents) => {
+      const oldIdx = usingComponents.findIndex((component) => component.id === e.active.id);
+      const newIdx = usingComponents.findIndex((component) => component.id === e.over!.id.toString());
+      return arrayMove(usingComponents, oldIdx, newIdx);
+    });
+  }
 
   return (
     <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
-      <DndContext onDragEnd={handleDragEnd} collisionDetection={closestCorners}>
-        <Editor.SideNav />
-        <Editor.TopNav />
-        <div className="drag-container">
-          <div className="flex flex-col">
-            {/* <div className="flex flex-col"> */}
-              <BaseDragComponent component={demoComponent}  />
-            {/* </div> */}
-            {/* <div className="flex flex-col"> */}
-              <BaseDropComponent accepts={["container"]} />
-            {/* </div> */}
+      <DndContext onDragEnd={reorderComponents} collisionDetection={closestCorners} sensors={sensors}>
+        <Editor.SideNav>
+          <div>
+
           </div>
-        </div>
+        </Editor.SideNav>
+        <Editor.TopNav />
+        <SortableContext items={usingComponents}>
+          <div className="drag-container">
+            <div className="flex flex-col m-8 gap-8">
+              {usingComponents.map((component) => (
+                <BaseDragComponent key={component.id} component={component}>
+                  <div className="flex border border-dashed p-16">
+                    {component.name}
+                  </div>
+                </BaseDragComponent>
+              ))}
+            </div>
+          </div>
+        </SortableContext>
+
       </DndContext>
     </Editor.Layout>
   );
-}
-
-function handleDragEnd(event: any) {
-  const {active, over} = event;
-
-  if (over && over.data.current.accepts.includes(active.data.current.type)) {
-    console.log('Dropped', active.data.current.type, 'on', over.data.current.accepts);
-
-    
-  }
 }
