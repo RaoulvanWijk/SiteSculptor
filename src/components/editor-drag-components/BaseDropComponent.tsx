@@ -2,27 +2,20 @@ import React from 'react'
 import { useDroppable } from '@dnd-kit/core'
 
 export default function BaseDropComponent(
-  { children, accepts }: {
+  { children, accepts, id }: {
     children?: React.ReactNode,
     accepts?: string[],
+    id: number | string,
   }
 ) {
   const { isOver, setNodeRef } = useDroppable({
-    id: 'drop-component',
-    data: {
-      accepts,
-    }
+    id: id,
+    data: { accepts },
   })
+
   return (
-    <div
-      ref={setNodeRef}
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: isOver ? 'rgba(0, 0, 0, 0.1)' : 'transparent',
-      }}
-    >
-      Drop component
+    <div ref={setNodeRef} style={{ border: isOver ? '2px solid red' : '2px solid transparent' }}>
+      {children}
     </div>
   )
 }
