@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <nav className="barstyling navbar">
             <div>
-                <h1>Logo</h1>
+                <Link href="/app/dashboard">LOGO</Link>
             </div>
             <div className="search">
                 <input
