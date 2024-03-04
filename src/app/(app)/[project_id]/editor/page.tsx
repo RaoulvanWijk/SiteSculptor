@@ -1,11 +1,31 @@
+"use client";
+
 import React, { use, useEffect, useState } from "react";
 import EditorHandler from "@/components/pages/editor/EditorHandler";
+import EditorContextProvider from "@/components/context/EditorContext";
+import {
+  DndContext,
+  MouseSensor,
+  TouchSensor,
+  closestCorners,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 
-export default async function EditorPage() {
-  // "use server";
-  
-
-  
+export default function EditorPage() {
+  const sensors = useSensors(
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 300,
+        tolerance: 5,
+      },
+    }),
+    useSensor(MouseSensor, {
+      activationConstraint: {
+        distance: 10, // 10px
+      },
+    })
+  );
   return (
     // <EditorLayout>
     //   <EditorSideNav />
@@ -20,7 +40,10 @@ export default async function EditorPage() {
     //     </div>
     //   </ScrollArea>
     // </EditorLayout>
-
-    <EditorHandler />
+    <DndContext collisionDetection={closestCorners} sensors={sensors}>
+      <EditorContextProvider>
+        <EditorHandler />
+      </EditorContextProvider>
+    </DndContext>
   );
 }
