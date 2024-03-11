@@ -7,6 +7,7 @@ import "@/resources/styling/components/layouts/layout.scss";
 import DefaultButton from "@/components/interactives/Button";
 import Example from "@/components/pages/landingpage/statics/Example";
 import Overview from "@/components/pages/landingpage/overview/Overview";
+import { ArrowRight } from "lucide-react";
 
 export default function Home() {
     return (
@@ -21,7 +22,7 @@ export default function Home() {
                         Some text that keeps repeating.
                     </PageHeader>
                     <DefaultButton type="primary" linkTo="/">
-                        Get started
+                        Get started <ArrowRight />
                     </DefaultButton>
                 </div>
 
