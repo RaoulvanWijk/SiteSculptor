@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import '@/resources/styling/utils/colors.scss';
+@import '../resources/styling/utils/colors.scss';
 
 @layer base {
   :root {
