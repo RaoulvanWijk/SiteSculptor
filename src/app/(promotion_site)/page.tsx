@@ -5,13 +5,14 @@ import InfoCards from "@/components/pages/landingpage/statics/InfoCards";
 import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
 import DefaultButton from "@/components/interactives/Button";
+import Example from "@/components/pages/landingpage/statics/Example";
 
 export default function Home() {
     return (
         <div className="layout">
             <Navbar />
             <main>
-                <div>
+                <div className="topcontent">
                     <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
                         Some text that keeps repeating. Some text that keeps
                         repeating. Some text that keeps repeating. Some text
@@ -23,7 +24,7 @@ export default function Home() {
                     </DefaultButton>
                 </div>
 
-                <div className="example"></div>
+                <Example />
 
                 <div className="cardRow">
                     <InfoCards header="Info Card" type="info">

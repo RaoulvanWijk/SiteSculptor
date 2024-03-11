@@ -44,7 +44,7 @@ export default function Navbar() {
                         <Button type="link" linkTo="/">
                             Pricing
                         </Button>
-                        <Button type="primary" linkTo="">
+                        <Button type="primary" linkTo="/sign-in">
                             Login / Sign Up
                         </Button>
                     </div>
