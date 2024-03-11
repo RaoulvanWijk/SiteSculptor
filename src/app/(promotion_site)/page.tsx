@@ -6,6 +6,7 @@ import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
 import DefaultButton from "@/components/interactives/Button";
 import Example from "@/components/pages/landingpage/statics/Example";
+import Overview from "@/components/pages/landingpage/overview/Overview";
 
 export default function Home() {
     return (
@@ -25,6 +26,8 @@ export default function Home() {
                 </div>
 
                 <Example />
+
+                <Overview />
 
                 <div className="cardRow">
                     <InfoCards header="Info Card" type="info">

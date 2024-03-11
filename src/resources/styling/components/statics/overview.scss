@@ -1,0 +1,28 @@
+.overview {
+    margin-block: 6rem;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 15%;
+    }
+}
+
+.overview-card {
+    width: 70%;
+    height: 30rem;
+    background-color: var(--purp);
+    border-radius: 25px;
+}
+
+.overview-button {
+    br {
+        content: ' ';
+        display: block;
+        background-color: var(--purp);
+        padding-bottom: 2px;
+    }
+}
