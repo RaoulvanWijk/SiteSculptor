@@ -1,10 +1,10 @@
-import Navbar from "@/components/interactives/Navbar";
-import Footer from "@/components/statics/Footer";
-import PageHeader from "@/components/statics/PageHeader";
-import InfoCards from "@/components/statics/InfoCards";
+import Navbar from "@/components/pages/landingpage/Navbar";
+import Footer from "@/components/pages/landingpage/statics/Footer";
+import PageHeader from "@/components/pages/landingpage/statics/PageHeader";
+import InfoCards from "@/components/pages/landingpage/statics/InfoCards";
 import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
-import DefaultButton from "@/components/interactives/DefaultButton";
+import DefaultButton from "@/components/interactives/Button";
 
 export default function Home() {
     return (
@@ -18,8 +18,12 @@ export default function Home() {
                         that keeps repeating. Some text that keeps repeating.
                         Some text that keeps repeating.
                     </PageHeader>
-                    <DefaultButton buttonName="Get started" type="primary" />
+                    <DefaultButton type="primary" linkTo="/">
+                        Get started
+                    </DefaultButton>
                 </div>
+
+                <div className="example"></div>
 
                 <div className="cardRow">
                     <InfoCards header="Info Card" type="info">

@@ -1,28 +1,28 @@
 .defaultButton {
     background-color: var(--wht);
     padding: 10px;
-    margin: 0 5px;
     border-radius: 5px;
     color: var(--txt);
+
+    transition: 0.3s ease-in-out;
 
     &:hover {
         background-color: var(--sec);
     }
 }
 
-.primaryButton,
-.linkPrimeButton {
+.primaryButton {
     background-color: var(--prm);
     color: var(--wht);
 
     padding: 10px;
-    margin: 0 5px 0 25px;
-    border-radius: 5px;
 
     &:hover {
         background-color: var(--acc);
     }
+
 }
+
 
 .secondaryButton {
     background-color: var(--sec);
@@ -41,5 +41,6 @@
 
     &:hover{
         color: var(--acc);
+        background-color: transparent;
     }
 }

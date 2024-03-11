@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import DefaultButton from "@/components/interactives/DefaultButton";
+import Button from "@/components/interactives/Button";
 import "@/resources/styling/components/interactives/navbar.scss";
 import Image from "next/image";
 
@@ -32,27 +32,21 @@ export default function Navbar() {
                     </div>
 
                     <div className="navLinks">
-                        <DefaultButton
-                            buttonName="Home"
-                            type="link"
-                            linkTo=""
-                        />
-                        <DefaultButton buttonName="FAQ" type="link" linkTo="" />
-                        <DefaultButton
-                            buttonName="Examples"
-                            type="link"
-                            linkTo=""
-                        />
-                        <DefaultButton
-                            buttonName="Pricing"
-                            type="link"
-                            linkTo=""
-                        />
-                        <DefaultButton
-                            buttonName="Login/Register"
-                            type="linkPrimary"
-                            linkTo=""
-                        />
+                        <Button type="link" linkTo="/">
+                            Home
+                        </Button>
+                        <Button type="link" linkTo="/">
+                            FAQ
+                        </Button>
+                        <Button type="link" linkTo="/">
+                            Examplles
+                        </Button>
+                        <Button type="link" linkTo="/">
+                            Pricing
+                        </Button>
+                        <Button type="primary" linkTo="">
+                            Login / Sign Up
+                        </Button>
                     </div>
                 </div>
             </div>
