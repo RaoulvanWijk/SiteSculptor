@@ -44,13 +44,19 @@ export default function EditorContextProvider({ children }: { children: ReactNod
       children: [],
     };
 
-    if (parent) {
-      parent.children.push(newComponent);
-      setComponents((prev) => [...prev]);
-      return;
-    }
+    // if (parent) {
+    //   parent.children.push(newComponent);
+    //   setComponents((prev) => [...prev]);
+    //   return;
+    // }
 
-    setComponents((prev) => [...prev, newComponent]);
+    let newComponents = [...componentsInEditor, newComponent];
+
+    // sort components by index
+    newComponents = newComponents.sort((a, b) => a.index - b.index);
+    setComponents(newComponents);
+
+    // setComponents((prev) => [...prev, newComponent]);
   };
 
   const removeComponent = (component: UsedComponent) => {

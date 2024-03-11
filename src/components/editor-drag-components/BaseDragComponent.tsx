@@ -10,18 +10,21 @@ import {
 } from "editor";
 
 export default function BaseDragComponent(
-  { children, id }:
+  { children, id, data }:
   {
     id: number | string,
     children?: React.ReactNode,
+    data?: any
   }
 ) {
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: id });
+  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ 
+    id: id,
+    data: { id, ...data }
+   });
 
   return (
     <div
-    className='w-fit border-2 h-fit'
     ref={setNodeRef}
     {...attributes}
     {...listeners}
