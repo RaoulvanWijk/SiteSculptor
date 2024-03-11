@@ -8,7 +8,7 @@ type CardTypes = "default" | "imageCard" | "pricing" | "info";
 type cardProps = {
   type: CardTypes;
   header?: string;
-  text?: string;
+  children?: string;
   imgSrc?: string;
 }
 
@@ -19,7 +19,7 @@ const variants = {
   "info": "infoCard"
 }
 
-function InfoCard({ header, text, type, imgSrc }: cardProps) {
+function InfoCard({ header, children, type, imgSrc }: cardProps) {
   let cardContent;
 
   switch (type) {
@@ -27,7 +27,7 @@ function InfoCard({ header, text, type, imgSrc }: cardProps) {
       cardContent = (
         <div className={"defaultCard " + (variants[type ?? "default"])}>
           <h3>{header}</h3>
-          <p>{text}</p>
+          <p>{children}</p>
         </div>
       );
       break;
@@ -46,7 +46,7 @@ function InfoCard({ header, text, type, imgSrc }: cardProps) {
             <h3>{header}</h3>
           </div>
           <p>
-            {text}
+            {children}
           </p>
           <div className="packageFooter">
             <DefaultButton buttonName='Select Package' type='primary' />
@@ -58,9 +58,7 @@ function InfoCard({ header, text, type, imgSrc }: cardProps) {
       cardContent = (
         <div className={"defaultCard " + (variants[type ?? "default"])}>
           <h3>{header}</h3>
-          <p>{text}</p>
-          <h3>{header}</h3>
-          <p>{text}</p>
+          <p>{children}</p>
         </div>
       );
       break;
@@ -69,7 +67,7 @@ function InfoCard({ header, text, type, imgSrc }: cardProps) {
       cardContent = (
         <div className="defaultCard">
           <h3>{header}</h3>
-          <p>{text}</p>
+          <p>{children}</p>
         </div>
       );
   }

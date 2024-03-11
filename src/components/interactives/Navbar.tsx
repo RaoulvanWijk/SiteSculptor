@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react'
 import DefaultButton from "@/components/interactives/DefaultButton";
 import "@/resources/styling/components/interactives/navbar.scss"

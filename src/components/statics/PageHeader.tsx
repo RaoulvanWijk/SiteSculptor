@@ -3,14 +3,14 @@ import "@/resources/styling/components/statics/pageHeader.scss"
 
 type pageHeaderProps = {
     headerName: string;
-    subHeaderName: string;
+    children?: string;
 }
 
-export default function PageHeader({headerName, subHeaderName}: pageHeaderProps) {
+export default function PageHeader({headerName, children}: pageHeaderProps) {
   return (
     <div className="pageHeader">
         <h1>{headerName}</h1>
-        <p>{subHeaderName}</p>
+        <p>{children}</p>
     </div>
   )
 }

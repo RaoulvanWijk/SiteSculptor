@@ -1,6 +1,7 @@
 nav {
     .navBar {
         display: flex;
+        position: sticky;
         justify-content: space-between;
         align-items: center;
         padding: 10px;
