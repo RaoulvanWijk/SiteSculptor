@@ -3,6 +3,8 @@ $topNavHeight: 4rem;
 
 .layout {
   padding-inline: 8rem;
+  background-color: var(--bg);
+  color: var(--txt);
   main {
     display: flex;
     flex-direction: column;
