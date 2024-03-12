@@ -17,6 +17,7 @@ type defaultButtonProps = {
     type: ButtonTypes;
     onClick?: () => void;
     linkTo?: string;
+    className?: string;
 };
 const variants = {
     "default": "defaultButton",
@@ -30,10 +31,13 @@ export default function Button({
     type,
     onClick,
     linkTo,
+    className,
 }: defaultButtonProps) {
     return (
         <button
-            className={"defaultButton " + variants[type ?? "default"]}
+            className={
+                "defaultButton " + variants[type ?? "default"] + " " + className
+            }
             onClick={onClick}
         >
             <Link href={`${linkTo}`}>{children}</Link>
