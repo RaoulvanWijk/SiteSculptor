@@ -1,73 +1,15 @@
-.defaultCard{
-    display: flex;
-    flex-direction: column;
-    background-color: var(--wth);
-    border-radius: 5px;
-    border: 1px solid var(--b-fade);
-    box-shadow: (0 4px 6px var(--b-fade));
-    width: 300px;
-    height: 320px;
-    text-align: center;
-    margin: 0 2%;
-    padding: 1%;
-    overflow-y: hidden;
-
-    >h3{
-        font-weight: bold;
-        font-size: 1.2rem;
-        margin: 4px;
-    }
+.defaultCard {
+    padding: 1rem;
+    height: 37.5rem;
+    border-radius: 25px;
 }
 
-.infoCard{
-    >p{
-        font-size: .8rem;
-        margin-bottom: 15px;
-    }
+.darkCard {
+    width: 60%;
+    background-color: var(--dark-purp);
 }
 
-.pricingCard{
-    padding: 0;
-
-    >.packageHeader{
-        background: var(--gr-purp);
-        height: 30%;
-        width: 100%;
-        margin: 0;
-        text-align: start;
-
-        >h3 {
-            font-size: 1.1rem;
-            color: var(--wht);
-            font-weight: bold;
-            padding: 8% 0 0 5%;
-        }
-    }
-
-    >p {
-        height: 100%;
-        padding-top: 10px;
-    }
-
-    >.packageFooter{
-        padding: 2% 0;
-        text-align: end;
-
-        >*{
-            transform: scale(0.9);
-        }
-    }
-
-}
-
-.imageCard{
-    position: relative;
-    padding: 0;
-
-    >.imageHeader{
-        position: absolute;
-        top: 0;
-        color: var(--wht);
-        padding: 5px;
-    }
+.lightCard {
+    width: 40%;
+    background-color: var(--purp);
 }

@@ -31,29 +31,20 @@ export default function Home() {
                 <Overview />
 
                 <div className="cardRow">
-                    <InfoCards header="Info Card" type="info">
-                        The tree drank the water from the earth to sustain the
-                        growth of it's leaves. And the human took a breath from
-                        the oxygen from the tree. So we should thank the trees
-                        for helping us breathe.
-                    </InfoCards>
-                    <InfoCards header="Info Card" type="default">
-                        The tree drank the water from the earth to sustain the
-                        growth of it's leaves. And the human took a breath from
-                        the oxygen from the tree. So we should thank the trees
-                        for helping us breathe.
-                    </InfoCards>
-                    <InfoCards
-                        header="Info Card"
-                        imgSrc="/placeholders/placeholder.jpg"
-                        type="imageCard"
-                    />
-                    <InfoCards header="Package 1" type="pricing">
-                        The tree drank the water from the earth to sustain the
-                        growth of it's leaves. And the human took a breath from
-                        the oxygen from the tree. So we should thank the trees
-                        for helping us breathe.
-                    </InfoCards>
+                    <InfoCards header="" type="light"></InfoCards>
+                    <InfoCards header="" type="dark"></InfoCards>
+                </div>
+                <div className="cardRow">
+                    <InfoCards header="" type="dark"></InfoCards>
+                    <InfoCards header="" type="light"></InfoCards>
+                </div>
+                <div className="cardRow">
+                    <InfoCards header="" type="light"></InfoCards>
+                    <InfoCards header="" type="dark"></InfoCards>
+                </div>
+                <div className="cardRow">
+                    <InfoCards header="" type="dark"></InfoCards>
+                    <InfoCards header="" type="light"></InfoCards>
                 </div>
                 <Footer />
             </main>

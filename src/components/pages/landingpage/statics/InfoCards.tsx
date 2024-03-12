@@ -3,7 +3,7 @@ import DefaultButton from "../../../interactives/Button";
 import Image from "next/image";
 import "@/resources/styling/components/statics/infoCards.scss";
 
-type CardTypes = "default" | "imageCard" | "pricing" | "info";
+type CardTypes = "dark" | "light";
 
 type cardProps = {
     type: CardTypes;
@@ -13,17 +13,15 @@ type cardProps = {
 };
 
 const variants = {
-    "default": "defaultCard",
-    "imageCard": "imageCard",
-    "pricing": "pricingCard",
-    "info": "infoCard",
+    "dark": "darkCard",
+    "light": "lightCard",
 };
 
 function InfoCard({ header, children, type, imgSrc }: cardProps) {
     let cardContent;
 
     switch (type) {
-        case "default":
+        case "dark":
             cardContent = (
                 <div className={"defaultCard " + variants[type ?? "default"]}>
                     <h3>{header}</h3>
@@ -31,40 +29,10 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
                 </div>
             );
             break;
-        case "imageCard":
+        case "light":
             cardContent = (
                 <div className={"defaultCard " + variants[type ?? "default"]}>
                     <h3 className="imageHeader">{header}</h3>
-                    <Image
-                        src={imgSrc ?? ""}
-                        height={320}
-                        width={300}
-                        alt={"ImageCard"}
-                        priority
-                    />
-                </div>
-            );
-            break;
-        case "pricing":
-            cardContent = (
-                <div className={"defaultCard " + variants[type ?? "default"]}>
-                    <div className="packageHeader">
-                        <h3>{header}</h3>
-                    </div>
-                    <p>{children}</p>
-                    <div className="packageFooter">
-                        <DefaultButton
-                            buttonName="Select Package"
-                            type="primary"
-                        />
-                    </div>
-                </div>
-            );
-            break;
-        case "info":
-            cardContent = (
-                <div className={"defaultCard " + variants[type ?? "default"]}>
-                    <h3>{header}</h3>
                     <p>{children}</p>
                 </div>
             );
