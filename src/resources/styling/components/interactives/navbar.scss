@@ -4,6 +4,14 @@
     justify-content: space-between;
     align-items: center;
     height: 5rem;
+    top: 0;
+    background-color: var(--bg);
+
+    .navLinks {
+        display: flex;
+        gap: 32px;
+        align-items: center;
+    }
 
     .logoImage {
         width: auto;
@@ -84,4 +92,3 @@
         gap: 16px;
     }
 }
-
