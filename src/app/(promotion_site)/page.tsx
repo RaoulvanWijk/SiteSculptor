@@ -1,18 +1,13 @@
-import Navbar from "@/components/pages/landingpage/Navbar";
-import Footer from "@/components/pages/landingpage/statics/Footer";
 import PageHeader from "@/components/pages/landingpage/statics/PageHeader";
 import InfoCards from "@/components/pages/landingpage/statics/InfoCards";
 import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
-import DefaultButton from "@/components/interactives/Button";
 import Example from "@/components/pages/landingpage/statics/Example";
 import Overview from "@/components/pages/landingpage/overview/Overview";
-import { ArrowRight } from "lucide-react";
 
 export default function Home() {
     return (
-        <div className="layout">
-            <Navbar />
+        <>
             <main>
                 <div className="topcontent">
                     <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
@@ -43,8 +38,7 @@ export default function Home() {
                     <InfoCards header="" type="dark"></InfoCards>
                     <InfoCards header="" type="light"></InfoCards>
                 </div>
-                <Footer />
             </main>
-        </div>
+        </>
     );
 }
