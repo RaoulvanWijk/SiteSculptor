@@ -8,37 +8,35 @@ import Overview from "@/components/pages/landingpage/overview/Overview";
 export default function Home() {
     return (
         <>
-            <main>
-                <div className="topcontent">
-                    <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
-                        Some text that keeps repeating. Some text that keeps
-                        repeating. Some text that keeps repeating. Some text
-                        that keeps repeating. Some text that keeps repeating.
-                        Some text that keeps repeating.
-                    </PageHeader>
-                </div>
+            <div className="topcontent">
+                <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
+                    Some text that keeps repeating. Some text that keeps
+                    repeating. Some text that keeps repeating. Some text that
+                    keeps repeating. Some text that keeps repeating. Some text
+                    that keeps repeating.
+                </PageHeader>
+            </div>
 
-                <Example />
+            <Example />
 
-                <Overview />
+            <Overview />
 
-                <div className="cardRow">
-                    <InfoCards header="" type="light"></InfoCards>
-                    <InfoCards header="" type="dark"></InfoCards>
-                </div>
-                <div className="cardRow">
-                    <InfoCards header="" type="dark"></InfoCards>
-                    <InfoCards header="" type="light"></InfoCards>
-                </div>
-                <div className="cardRow">
-                    <InfoCards header="" type="light"></InfoCards>
-                    <InfoCards header="" type="dark"></InfoCards>
-                </div>
-                <div className="cardRow">
-                    <InfoCards header="" type="dark"></InfoCards>
-                    <InfoCards header="" type="light"></InfoCards>
-                </div>
-            </main>
+            <div className="cardRow">
+                <InfoCards header="" type="light"></InfoCards>
+                <InfoCards header="" type="dark"></InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards header="" type="light"></InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards header="" type="light"></InfoCards>
+                <InfoCards header="" type="dark"></InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards header="" type="light"></InfoCards>
+            </div>
         </>
     );
 }
