@@ -21,9 +21,6 @@ export default function Home() {
                         that keeps repeating. Some text that keeps repeating.
                         Some text that keeps repeating.
                     </PageHeader>
-                    <DefaultButton type="primary" linkTo="/">
-                        Get started <ArrowRight />
-                    </DefaultButton>
                 </div>
 
                 <Example />
