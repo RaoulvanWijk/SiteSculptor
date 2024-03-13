@@ -1,6 +1,6 @@
+"use client";
 import React from "react";
-import DefaultButton from "../../../interactives/Button";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import "@/resources/styling/components/statics/infoCards.scss";
 
 type CardTypes = "dark" | "light";
@@ -23,18 +23,30 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
     switch (type) {
         case "dark":
             cardContent = (
-                <div className={"defaultCard " + variants[type ?? "default"]}>
+                <motion.div
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                    className={"defaultCard " + variants[type ?? "default"]}
+                >
                     <h3>{header}</h3>
                     <p>{children}</p>
-                </div>
+                </motion.div>
             );
             break;
         case "light":
             cardContent = (
-                <div className={"defaultCard " + variants[type ?? "default"]}>
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    viewport={{ once: true }}
+                    className={"defaultCard " + variants[type ?? "default"]}
+                >
                     <h3 className="imageHeader">{header}</h3>
                     <p>{children}</p>
-                </div>
+                </motion.div>
             );
             break;
 
