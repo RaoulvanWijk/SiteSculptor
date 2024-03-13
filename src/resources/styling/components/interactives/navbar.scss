@@ -6,6 +6,7 @@
     height: 5rem;
     top: 0;
     background-color: var(--bg);
+    z-index: 1;
 
     .navLinks {
         display: flex;
