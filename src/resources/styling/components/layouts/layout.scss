@@ -12,6 +12,12 @@ $topNavHeight: 4rem;
     padding-block: 4.5rem;
     gap: 5rem;
   }
+  @media screen and (max-width: 1330px) {
+    padding-inline: 0.75rem;
+    main {
+      padding-block: 0;
+    }
+  }
 }
 
 .topcontent {

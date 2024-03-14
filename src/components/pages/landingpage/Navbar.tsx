@@ -14,50 +14,53 @@ export default function Navbar() {
 
     return (
         <nav className="topbar navBar">
-            <Image
-                src={"/branding/logo_temp.png"}
-                className="logoImage"
-                height={75}
-                width={150}
-                alt="Logo Image"
-            />
-
-            <div className={`navMenu ${isMenuOpen ? "is-responsive" : ""}`}>
+            <div className={"hamburger-top"}>
+                <Image
+                    src={"/branding/logo_temp.png"}
+                    className="logoImage"
+                    height={75}
+                    width={150}
+                    alt="Logo Image"
+                />
                 {/* Hamburger Icon */}
                 <div className="hamburgerIcon" onClick={toggleMenu}>
                     <div></div>
                     <div></div>
                     <div></div>
                 </div>
-
-                <menu className="navLinks">
-                    <li>
-                        <Button type="link" linkTo="/">
-                            Home
-                        </Button>
-                    </li>
-                    <li>
-                        <Button type="link" linkTo="/">
-                            FAQ
-                        </Button>
-                    </li>
-                    <li>
-                        <Button type="link" linkTo="/">
-                            Examplles
-                        </Button>
-                    </li>
-                    <li>
-                        <Button type="link" linkTo="/">
-                            Pricing
-                        </Button>
-                    </li>
-                    <li>
-                        <Button type="primary" linkTo="/sign-in">
-                            Login / Sign Up
-                        </Button>
-                    </li>
-                </menu>
             </div>
+
+            <menu
+                className={`navMenu navLinks ${
+                    isMenuOpen ? "is-responsive" : ""
+                }`}
+            >
+                <li>
+                    <Button type="link" linkTo="/">
+                        Home
+                    </Button>
+                </li>
+                <li>
+                    <Button type="link" linkTo="/">
+                        FAQ
+                    </Button>
+                </li>
+                <li>
+                    <Button type="link" linkTo="/">
+                        Examplles
+                    </Button>
+                </li>
+                <li>
+                    <Button type="link" linkTo="/">
+                        Pricing
+                    </Button>
+                </li>
+                <li>
+                    <Button type="primary" linkTo="/sign-in">
+                        Login / Sign Up
+                    </Button>
+                </li>
+            </menu>
         </nav>
     );
 }
