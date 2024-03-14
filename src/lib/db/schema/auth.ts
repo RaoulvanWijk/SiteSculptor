@@ -4,7 +4,7 @@ import {
   mysqlTable,
   primaryKey,
   varchar,
-  references,
+  // references,
 } from "drizzle-orm/mysql-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 
