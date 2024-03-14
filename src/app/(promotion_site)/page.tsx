@@ -4,6 +4,7 @@ import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
 import Example from "@/components/pages/landingpage/statics/Example";
 import Overview from "@/components/pages/landingpage/overview/Overview";
+import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
 
 export default function Home() {
     return (
@@ -37,6 +38,7 @@ export default function Home() {
                 <InfoCards header="" type="dark"></InfoCards>
                 <InfoCards header="" type="light"></InfoCards>
             </div>
+            <BottomCTO />
         </>
     );
 }
