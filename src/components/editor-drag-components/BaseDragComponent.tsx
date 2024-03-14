@@ -18,7 +18,7 @@ export default function BaseDragComponent(
   }
 ) {
 
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ 
+  const { attributes, listeners, setNodeRef, transform, transition, isOver } = useSortable({ 
     id: id,
     data: { id, ...data }
    });
@@ -32,6 +32,7 @@ export default function BaseDragComponent(
       transform: CSS.Transform.toString(transform),
       transition: transition
     }}
+    className={isOver ? "bg-gray-200" : "bg-white"}
     >
       {children}
     </div>

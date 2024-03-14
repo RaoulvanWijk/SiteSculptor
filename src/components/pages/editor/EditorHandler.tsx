@@ -36,6 +36,7 @@ import { testComponents, testUsedComponents } from "./testComponents";
 import DragOverlayWrapper from "./DragOverlayWrapper";
 
 import useEditor from "@/components/hooks/useEditor";
+import { cn } from "@/lib/utils";
 
 export default function EditorHandler() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -187,11 +188,11 @@ export default function EditorHandler() {
       >
         <div
           ref={droppable.setNodeRef}
-          className="drag-container p-4 flex flex-col gap-4"
+          className={cn("drag-container p-4 flex flex-col gap-4 border border-red-500")}
         >
           {renderComponents(componentsInEditor)}
-          <DragOverlayWrapper />
         </div>
+        <DragOverlayWrapper />
       </SortableContext>
     </Editor.Layout>
   );
