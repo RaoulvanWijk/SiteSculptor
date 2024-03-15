@@ -1,6 +1,6 @@
 import Button from "@/components/interactives/Button";
 import React from "react";
-import "@/resources/styling/components/statics/bottomCTO.scss";
+import "@/resources/styling/components/landingpage/statics/bottomCTO.scss";
 
 export default function BottomCTO() {
     return (

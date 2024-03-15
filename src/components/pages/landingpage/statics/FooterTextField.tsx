@@ -1,5 +1,5 @@
 import React from "react";
-import "@/resources/styling/components/statics/footer.scss";
+import "@/resources/styling/components/landingpage/statics/footer.scss";
 
 type FooterTextFieldProps = {
     Title: string;

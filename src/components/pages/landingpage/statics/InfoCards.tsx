@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { motion } from "framer-motion";
-import "@/resources/styling/components/statics/infoCards.scss";
+import "@/resources/styling/components/landingpage/statics/infoCards.scss";
 
 type CardTypes = "dark" | "light";
 

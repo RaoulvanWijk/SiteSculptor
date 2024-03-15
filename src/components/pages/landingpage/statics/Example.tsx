@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import "@/resources/styling/components/statics/example.scss";
+import "@/resources/styling/components/landingpage/statics/example.scss";
 import { motion, useScroll } from "framer-motion";
 
 export default function Example() {

@@ -1,5 +1,5 @@
 import React from "react";
-import "@/resources/styling/components/statics/pageHeader.scss";
+import "@/resources/styling/components/landingpage/statics/pageHeader.scss";
 import DefaultButton from "@/components/interactives/Button";
 import { ArrowRight } from "lucide-react";
 

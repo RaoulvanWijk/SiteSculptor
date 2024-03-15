@@ -1,5 +1,5 @@
 import React from "react";
-import "@/resources/styling/components/statics/overview.scss";
+import "@/resources/styling/components/landingpage/statics/overview.scss";
 import OverviewCard from "./components/OverviewCard";
 import OverviewButton from "./components/OverviewButton";
 
