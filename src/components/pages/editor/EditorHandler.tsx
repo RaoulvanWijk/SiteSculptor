@@ -37,6 +37,7 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
+import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
 
 export default function EditorHandler() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -82,7 +83,8 @@ export default function EditorHandler() {
               data={{ isInEditor: true }}
             >
               <div className="w-full border-2 h-16">
-                {component.id} - {component.component.name} - {component.component.type}, index: {index}
+                {component.id} - {component.component.name} -{" "}
+                {component.component.type}, index: {index}
               </div>
             </BaseDragComponent>
           );
@@ -100,7 +102,12 @@ export default function EditorHandler() {
     },
     onDragEnd: (event: DragEndEvent) => {
       console.log("drag end");
-      if (!event.over || !event.active) return;
+      if (!event.over || !event.active || !event.over.data.current?.isInEditor) return;
+
+
+      console.log('====================================');
+      console.log(event.active.data, event.over.data);
+      console.log('====================================');
 
       // Sort the sortable components
       console.log("====================================");
@@ -158,42 +165,68 @@ export default function EditorHandler() {
     },
   });
 
-  const droppable = useDroppable({
-    id: "droppable",
+  const editor_droppable = useDroppable({
+    id: "editor_droppable",
     data: {
       isMainDropArea: true,
+    },
+  });
+
+  const nav_droppable = useDroppable({
+    id: "nav-droppable",
+    data: {
+      isSideNavDropArea: true,
     },
   });
 
   return (
     <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
       <Editor.SideNav>
+        <div
+          ref={nav_droppable.setNodeRef}
+          // if drop area is hovered, add a border
+          className={cn(
+            "drag-container p-4 flex flex-col gap-4",
+            nav_droppable.isOver ? "border border-red-500" : ""
+          )}
+        >
+          {availableComponents.map((component) => (
+            <TestDragComponent
+              key={component.id}
+              id={component.id}
+              data={{ isInEditor: false }}
+            >
+              {component.name}
+            </TestDragComponent>
+            // <BaseDragComponent
+            //   key={component.id}
+            //   id={component.id}
+            //   data={{ isInEditor: false }}
+            // >
+            //   {component.name}
+            // </BaseDragComponent>
+          ))}
+        </div>
         {/* List of textComponents that can be dragged into sortable context */}
-        {availableComponents.map((component) => (
-          <BaseDragComponent
-            key={component.id}
-            id={component.id}
-            data={{ isInEditor: false }}
-          >
-            {component.name}
-          </BaseDragComponent>
-        ))}
         {/* </DndContext> */}
       </Editor.SideNav>
       <Editor.TopNav />
       {/* <DndContext sensors={sensors}> */}
-      <SortableContext
-        strategy={verticalListSortingStrategy}
-        items={componentsInEditor}
+      <div
+        ref={editor_droppable.setNodeRef}
+        className={cn(
+          "drag-container p-4 flex flex-col gap-4",
+          editor_droppable.isOver ? "border border-red-500" : ""
+        )}
       >
-        <div
-          ref={droppable.setNodeRef}
-          className={cn("drag-container p-4 flex flex-col gap-4 border border-red-500")}
+        <SortableContext
+          strategy={verticalListSortingStrategy}
+          items={componentsInEditor}
         >
           {renderComponents(componentsInEditor)}
-        </div>
-        <DragOverlayWrapper />
-      </SortableContext>
+        </SortableContext>
+      </div>
+      <DragOverlayWrapper />
     </Editor.Layout>
   );
 }
