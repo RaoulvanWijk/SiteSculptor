@@ -47,7 +47,7 @@ export default function Navbar() {
                 </li>
                 <li>
                     <Button type="link" linkTo="/">
-                        Examplles
+                        Examples
                     </Button>
                 </li>
                 <li>

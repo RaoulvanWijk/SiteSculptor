@@ -1,7 +1,15 @@
 .defaultCard {
-    padding: 1rem;
+    padding: 3rem;
     height: 37.5rem;
     border-radius: 25px;
+    color: var(--wht);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    p {
+        font-size: 3.5rem;
+        line-height: 5rem;
+    }
 }
 
 .darkCard {
@@ -12,4 +20,19 @@
 .lightCard {
     width: 40%;
     background-color: var(--purp);
+}
+
+.icon {
+    background-color: var(--blk);
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // glow effect
+    svg {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
 }

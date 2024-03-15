@@ -2,13 +2,15 @@
 import React from "react";
 import { motion } from "framer-motion";
 import "@/resources/styling/components/landingpage/statics/infoCards.scss";
+import { LucideIcon } from "lucide-react";
 
 type CardTypes = "dark" | "light";
 
 type cardProps = {
     type: CardTypes;
+    icon?: React.ReactNode;
     header?: string;
-    children?: string;
+    children?: React.ReactNode;
     imgSrc?: string;
 };
 
@@ -17,7 +19,7 @@ const variants = {
     "light": "lightCard",
 };
 
-function InfoCard({ header, children, type, imgSrc }: cardProps) {
+function InfoCard({ icon, header, children, type }: cardProps) {
     let cardContent;
 
     switch (type) {
@@ -37,12 +39,17 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
         case "light":
             cardContent = (
                 <motion.div
-                    initial={{ opacity: 0, y: -10 }}
+                    initial={{ opacity: 0, y: 100 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 0.5 }}
                     className={"defaultCard " + variants[type ?? "default"]}
                 >
-                    <h3 className="imageHeader">{header}</h3>
+                    <motion.div
+                        whileHover={{ borderRadius: "25%" }}
+                        className="icon"
+                    >
+                        {icon}
+                    </motion.div>
                     <p>{children}</p>
                 </motion.div>
             );
@@ -51,7 +58,7 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
         default:
             cardContent = (
                 <div className="defaultCard">
-                    <h3>{header}</h3>
+                    <h3>{icon}</h3>
                     <p>{children}</p>
                 </div>
             );

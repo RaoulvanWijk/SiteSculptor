@@ -5,6 +5,7 @@ import "@/resources/styling/components/layouts/layout.scss";
 import Example from "@/components/pages/landingpage/statics/Example";
 import Overview from "@/components/pages/landingpage/overview/Overview";
 import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
+import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 
 export default function Home() {
     return (
@@ -23,20 +24,28 @@ export default function Home() {
             <Overview />
 
             <div className="cardRow">
-                <InfoCards header="" type="light"></InfoCards>
+                <InfoCards icon={<Zap />} type="light">
+                    Designed to be easy to use!
+                </InfoCards>
                 <InfoCards header="" type="dark"></InfoCards>
             </div>
             <div className="cardRow">
                 <InfoCards header="" type="dark"></InfoCards>
-                <InfoCards header="" type="light"></InfoCards>
+                <InfoCards icon={<Palette />} type="light">
+                    Easily customizable
+                </InfoCards>
             </div>
             <div className="cardRow">
-                <InfoCards header="" type="light"></InfoCards>
-                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards icon={<PackageCheck />} type="light">
+                    Everything you need in one place!
+                </InfoCards>
+                <InfoCards type="dark"></InfoCards>
             </div>
             <div className="cardRow">
                 <InfoCards header="" type="dark"></InfoCards>
-                <InfoCards header="" type="light"></InfoCards>
+                <InfoCards icon={<AlarmClock />} type="light">
+                    Fastest way to build your website
+                </InfoCards>
             </div>
             <BottomCTO />
         </>

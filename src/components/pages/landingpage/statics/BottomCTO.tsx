@@ -7,7 +7,7 @@ export default function BottomCTO() {
         <div className="bottomcto">
             <h1>Designed for Flexibility and Ease of use</h1>
             <p>
-                Explore the boudless horizons of your imagination; the the
+                Explore the boundless horizons of your imagination; the the
                 journey begins with a single step. Welcome to a space where
                 dreams materialize and online wonders come alive.
             </p>
