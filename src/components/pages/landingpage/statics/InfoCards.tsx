@@ -27,7 +27,6 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
                     initial={{ opacity: 0, y: 100 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
                     className={"defaultCard " + variants[type ?? "default"]}
                 >
                     <h3>{header}</h3>
@@ -41,7 +40,6 @@ function InfoCard({ header, children, type, imgSrc }: cardProps) {
                     initial={{ opacity: 0, y: -10 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
                     className={"defaultCard " + variants[type ?? "default"]}
                 >
                     <h3 className="imageHeader">{header}</h3>
