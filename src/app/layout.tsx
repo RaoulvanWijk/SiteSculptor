@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "SiteSculptor",
-  description: "A application to build websites",
+  description: "An application to build websites",
 };
 
 export default function RootLayout({
