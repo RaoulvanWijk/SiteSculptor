@@ -11,10 +11,12 @@ import {
 } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import NavbarOne from "@/components/dragcomponents/navbars/NavbarOne";
+
 const dataFromDb = {
     navbar: "NavbarOne",
     footer: "FooterOne",
 };
+
 export default function EditPage() {
     // const [components, setComponents] = useState({});
 
