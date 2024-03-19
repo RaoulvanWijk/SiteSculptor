@@ -4,9 +4,9 @@ import { Toaster } from "@/components/ui/sonner";
 import NextAuthProvider from "@/lib/auth/Provider";
 
 export default async function AppLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
   await checkAuth();
   return (<main>
