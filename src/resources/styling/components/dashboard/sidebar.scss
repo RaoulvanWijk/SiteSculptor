@@ -1,0 +1,15 @@
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.side-title {
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.sidebaritems {
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
