@@ -43,7 +43,8 @@ const SidebarLinkGroup = ({
   border?: boolean;
 }) => {
   const fullPathname = usePathname();
-  const pathname = "/" + fullPathname.split("/")[1];
+  const pathname = fullPathname;
+
 
   return (
     <div className={border ? "border-border border-t my-8 pt-4" : ""}>
@@ -53,11 +54,13 @@ const SidebarLinkGroup = ({
         </h4>
       ) : null}
       <ul>
-        {links.map((link) => (
+        {links.map((link) => {
+          console.log(pathname, link.href);
+          return (
           <li key={link.title}>
             <SidebarLink link={link} active={pathname === link.href} />
           </li>
-        ))}
+        )})}
       </ul>
     </div>
   );
