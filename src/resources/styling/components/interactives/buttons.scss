@@ -1,37 +1,50 @@
-.defaultButton{
+.defaultButton {
     background-color: var(--wht);
     padding: 10px;
-    margin: 0 5px;
     border-radius: 5px;
     color: var(--txt);
 
-    &:hover{
+    transition: 0.3s ease-in-out;
+
+    &:hover {
         background-color: var(--sec);
     }
 }
 
-.primaryButton{
+svg {
+    display: inline-block;
+}
+
+.primaryButton {
     background-color: var(--prm);
     color: var(--wht);
 
-    &:hover{
-        background-color: var(--sec);
+    padding: 10px;
+
+    &:hover {
+        background-color: var(--acc);
     }
+
 }
 
-.secondaryButton{
+
+.secondaryButton {
     background-color: var(--sec);
     color: var(--txt);
 
-    &:hover{
+    &:hover {
         background-color: var(--prm);
     }
 }
 
-.linkButton{
-    background-color: none;
+.linkButton {
+    background-color: transparent;
+    color: var(--txt);
+    padding: 10px;
+    margin: 0 25px;
 
     &:hover{
-        color: var(-acc)
+        color: var(--acc);
+        background-color: transparent;
     }
 }

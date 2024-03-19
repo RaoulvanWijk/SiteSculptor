@@ -1,0 +1,17 @@
+.pageFooter{
+    display: flex;
+    bottom: 0;
+    gap: 8rem;
+    padding-inline: 8rem;
+    padding-block: 4rem;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: .9rem;
+}
+
+.footer-text-title {
+    line-height: 50px;
+    font-size: 32px;
+    font-weight: medium;
+}

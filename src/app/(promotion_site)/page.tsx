@@ -1,24 +1,53 @@
-'use client'
-
-import Navbar from "@/components/interactives/Navbar";
-import Footer from "@/components/statics/Footer";
-import PageHeader from "@/components/statics/PageHeader";
-import InfoCards from "@/components/statics/InfoCards"
-import "@/resources/styling/pages/index.scss"
+import PageHeader from "@/components/pages/landingpage/statics/PageHeader";
+import InfoCards from "@/components/pages/landingpage/statics/InfoCards";
+import "@/resources/styling/pages/index.scss";
+import "@/resources/styling/components/layouts/layout.scss";
+import Example from "@/components/pages/landingpage/statics/Example";
+import Overview from "@/components/pages/landingpage/overview/Overview";
+import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
+import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 
 export default function Home() {
-  return (
-    <div>
-      <Navbar />
-      <PageHeader headerName="SiteSculptor" subHeaderName='"Empower your web design journey with our intuitive drag-and-drop interface, modular components, seamless e-commerce integration, and robust tools for responsive design, SEO optimization, user management, social media integration, security, and personalized branding."' />
+    return (
+        <>
+            <div className="topcontent">
+                <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
+                    Some text that keeps repeating. Some text that keeps
+                    repeating. Some text that keeps repeating. Some text that
+                    keeps repeating. Some text that keeps repeating. Some text
+                    that keeps repeating.
+                </PageHeader>
+            </div>
 
-      <div className="cardRow">
-        <InfoCards header="Info Card" text="The tree drank the water from the earth to sustain the growth of it's leaves. And the human took a breath from the oxygen from the tree. So we should thank the trees for helping us breathe." type="info" />
-        <InfoCards header="Info Card" text="The tree drank the water from the earth to sustain the growth of it's leaves. And the human took a breath from the oxygen from the tree. So we should thank the trees for helping us breathe." type="default" />
-        <InfoCards header="Info Card" imgSrc="/placeholders/placeholder.jpg" type="imageCard" />
-        <InfoCards header="Package 1" text="Really Cool Package" type="pricing" />
-      </div>
-      <Footer />
-    </div>
-  );
+            <Example />
+
+            <Overview />
+
+            <div className="cardRow">
+                <InfoCards icon={<Zap />} type="light">
+                    Designed to be easy to use!
+                </InfoCards>
+                <InfoCards header="" type="dark"></InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards icon={<Palette />} type="light">
+                    Easily customizable
+                </InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards icon={<PackageCheck />} type="light">
+                    Everything you need in one place!
+                </InfoCards>
+                <InfoCards type="dark"></InfoCards>
+            </div>
+            <div className="cardRow">
+                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards icon={<AlarmClock />} type="light">
+                    Fastest way to build your website
+                </InfoCards>
+            </div>
+            <BottomCTO />
+        </>
+    );
 }

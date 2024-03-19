@@ -1,0 +1,26 @@
+$sidenavWidth: 20rem;
+$topNavHeight: 4rem;
+
+.layout {
+  padding-inline: 8rem;
+  background-color: var(--bg);
+  color: var(--txt);
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: 4.5rem;
+    gap: 5rem;
+  }
+  @media screen and (max-width: 1330px) {
+    padding-inline: 0.75rem;
+    main {
+      padding-block: 0;
+    }
+  }
+}
+
+.topcontent {
+  width: 100%;
+}
+  
