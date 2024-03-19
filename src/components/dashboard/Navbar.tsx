@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import "@/resources/styling/components/dashboard/navbar.scss";
-import DefaultButton from "../interactives/DefaultButton";
+import DefaultButton from "../interactives/Button";
 import { useSession } from "next-auth/react";
 
 export default function Navbar() {
@@ -19,10 +19,14 @@ export default function Navbar() {
                     placeholder="Project..."
                     className="searchbar"
                 />
-                <DefaultButton buttonName="search" type="primary" />
+                <DefaultButton type="primary">
+                    Search
+                </DefaultButton>
             </div>
             <div className="rightside">
-                <DefaultButton buttonName="new project +" type="primary" />
+                <DefaultButton type="primary">
+                    New Project
+                </DefaultButton>
                 <a>
                     <img
                         src={
