@@ -1,0 +1,35 @@
+$sidenavWidth: 17.5rem;
+$topNavHeight: 4rem;
+
+.editor-container {
+    display: grid;
+    width: 100svw;
+    height: 100svh;
+    grid-template-areas:
+      "sidebar topnav"
+      "sidebar container";
+    grid-template-columns: $sidenavWidth 1fr;
+    grid-template-rows: $topNavHeight 1fr;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+    &.sidebar-closed {
+      grid-template-columns: 0 1fr;
+    }
+  }
+  
+  .sidebar {
+    grid-area: sidebar;
+    transition: all 0.3s ease;
+    overflow: hidden;
+
+  }
+
+  .topnav {
+    grid-area: topnav;
+  }
+  
+  .drag-container {
+    grid-area: container;
+    overflow: auto;
+  }
