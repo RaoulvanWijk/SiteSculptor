@@ -16,7 +16,10 @@ export default function DashboardLayout({
                 <Navbar />
                 <div className="dashboard-main">
                     <Sidebar />
-                    <div className="content">{children}</div>
+                    <div className="content">
+                        {children}
+                        
+                    </div>
                 </div>
             </div>
         </TrpcProvider>

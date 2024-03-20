@@ -10,6 +10,14 @@
 }
 
 .sidebaritems {
+    display: flex;
     flex-direction: column;
-    margin-top: 1.5rem;
+    margin-top: .5rem;
+    gap: .5rem;
+
+    a {
+        border: 1.5px solid var(--soft);
+        border-radius: 5px;
+        padding: 3px 6px;
+    }
 }

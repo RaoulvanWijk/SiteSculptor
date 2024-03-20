@@ -11,7 +11,7 @@ export default function Navbar() {
     return (
         <nav className="barstyling navbar">
             <div>
-                <Link href="/app/dashboard">LOGO</Link>
+                <Link href="/app/dashboard"><img src="/branding/logo_temp.png" alt="Logo" className="logo"/></Link>
             </div>
             <div className="search">
                 <input
@@ -35,7 +35,7 @@ export default function Navbar() {
                                 : "/logo.svg"
                         }
                         alt="logo"
-                        className="w-10 h-10 rounded-full"
+                        className="w-10 h-10 rounded-full border-2 border-purple-500"
                     />
                 </a>
             </div>
