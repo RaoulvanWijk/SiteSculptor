@@ -15,7 +15,7 @@ export default function SideNav() {
                 { text: "Home", type: "page-select" },
                 { text: "Contact", type: "page-select" },
                 { text: "Finance", type: "page-select" },
-                { text: "Add new page", type: "page-select" },
+                { text: "Add new page", type: "new-page" },
                 { text: "Footer", type: "footer" },
                 { text: "Navbar", type: "nav" },
             ],

@@ -27,6 +27,7 @@ export default function Button({ Icon, text, type }: ButtonProps) {
         setCurrentNavName(navName);
         setNavType("navbar");
     };
+    const newPage = () => {};
 
     switch (type) {
         case "page-select":
@@ -39,6 +40,13 @@ export default function Button({ Icon, text, type }: ButtonProps) {
         case "page-component":
             return (
                 <button className="sidenavbutton" onClick={changeNav}>
+                    <span>{text}</span>
+                    <span>{Icon}</span>
+                </button>
+            );
+        case "new-page":
+            return (
+                <button className="sidenavbutton" onClick={newPage}>
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
