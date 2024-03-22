@@ -13,12 +13,10 @@ export default function BreadCrumbs() {
 
         return currentNav.map((nav, index) => {
             return (
-                <>
-                    <p> {" > "} </p>
-                    <p key={index} className="breadcrumb">
-                        {nav.toLowerCase()}
-                    </p>
-                </>
+                <button key={index}>
+                    <p>{">"}</p>
+                    <p className="breadcrumb">{nav.toLowerCase()}</p>
+                </button>
             );
         });
     };
