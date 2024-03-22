@@ -35,6 +35,14 @@ export default function SideNav() {
             type: "page-component",
             content: [],
         },
+        {
+            type: "footer",
+            content: [],
+        },
+        {
+            type: "navbar",
+            content: [],
+        },
     ];
 
     const currentNav = navs.find((nav) => nav.type === navType);

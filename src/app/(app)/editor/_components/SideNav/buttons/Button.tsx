@@ -17,8 +17,16 @@ export default function Button({ Icon, text, type }: ButtonProps) {
         setCurrentNavName(nextNavName);
         setNavType(type);
     };
-    const openFooterSelector = () => {};
-    const openNavSelector = () => {};
+    const openFooterSelector = () => {
+        const navName = currentNavName.concat("Footer");
+        setCurrentNavName(navName);
+        setNavType("footer");
+    };
+    const openNavSelector = () => {
+        const navName = currentNavName.concat("Navbar");
+        setCurrentNavName(navName);
+        setNavType("navbar");
+    };
 
     switch (type) {
         case "page-select":
