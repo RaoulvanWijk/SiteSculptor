@@ -6,8 +6,10 @@ import "@/resources/styling/components/SideNav/sidenav.scss";
 import useSideNav from "@/components/hooks/useSideNav";
 
 export default function SideNav() {
+    // get the nav type from the useSideNav hook
     const { navType } = useSideNav();
 
+    // template for the navs
     const navs = [
         {
             type: "main",
@@ -45,8 +47,10 @@ export default function SideNav() {
         },
     ];
 
+    // find the current nav
     const currentNav = navs.find((nav) => nav.type === navType);
 
+    // if there is no current nav, return an error
     if (!currentNav) {
         return <div className="sidenav">Error</div>;
     }

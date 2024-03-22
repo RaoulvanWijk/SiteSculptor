@@ -3,9 +3,11 @@ import { ArrowLeftSquare } from "lucide-react";
 import useSideNav from "@/components/hooks/useSideNav";
 
 export default function BackButton() {
+    // get the current nav name, set the current nav name, set the nav type, and get the nav type from the useSideNav hook
     const { currentNavName, setCurrentNavName, setNavType, navType } =
         useSideNav();
 
+    // function to go back to the previous nav
     const backFunction = () => {
         // find out what the previous nav name was
         const previousNavName = () => {

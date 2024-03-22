@@ -10,23 +10,29 @@ type ButtonProps = {
 export default function Button({ Icon, text, type }: ButtonProps) {
     const { currentNavName, setCurrentNavName, setNavType } = useSideNav();
 
+    // function to change the nav
     const changeNav = () => {
-        // add text to currentNavName
         const nextNavName = currentNavName.concat(text);
 
         setCurrentNavName(nextNavName);
         setNavType(type);
     };
+
+    // function to open the footer selector
     const openFooterSelector = () => {
         const navName = currentNavName.concat("Footer");
         setCurrentNavName(navName);
         setNavType("footer");
     };
+
+    // function to open the nav selector
     const openNavSelector = () => {
         const navName = currentNavName.concat("Navbar");
         setCurrentNavName(navName);
         setNavType("navbar");
     };
+
+    // function to create a new page
     const newPage = () => {};
 
     switch (type) {
