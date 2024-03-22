@@ -8,27 +8,22 @@ type ButtonProps = {
 };
 
 export default function Button({ Icon, text, type }: ButtonProps) {
-    const { setCurrentNavName, setNavType } = useSideNav();
-
-    const changeNavWithComponentSelector = () => {
-        setCurrentNavName(text);
-        setNavType(type);
-    };
+    const { currentNavName, setCurrentNavName, setNavType } = useSideNav();
 
     const changeNav = () => {
-        setCurrentNavName(text);
-    };
+        // add text to currentNavName
+        const nextNavName = currentNavName.concat(text);
 
+        setCurrentNavName(nextNavName);
+        setNavType(type);
+    };
     const openFooterSelector = () => {};
     const openNavSelector = () => {};
 
     switch (type) {
         case "page-select":
             return (
-                <button
-                    className="sidenavbutton"
-                    onClick={changeNavWithComponentSelector}
-                >
+                <button className="sidenavbutton" onClick={changeNav}>
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>

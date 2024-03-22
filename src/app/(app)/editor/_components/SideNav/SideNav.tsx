@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./buttons/Button";
 import { Home } from "lucide-react";
-import Navigator from "./BreadCrumps";
+import BreadCrumbs from "./BreadCrumbs";
 import "@/resources/styling/components/SideNav/sidenav.scss";
 import useSideNav from "@/components/hooks/useSideNav";
 
@@ -31,6 +31,10 @@ export default function SideNav() {
                 { text: "Table", type: "page-component" },
             ],
         },
+        {
+            type: "page-component",
+            content: [],
+        },
     ];
 
     const currentNav = navs.find((nav) => nav.type === navType);
@@ -42,7 +46,7 @@ export default function SideNav() {
     return (
         <div className="sidenav">
             <h1 className="sidenav-title">Navigator</h1>
-            <Navigator />
+            <BreadCrumbs />
             <div className="buttons">
                 {currentNav.content.map((button) => (
                     <Button
