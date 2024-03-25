@@ -186,7 +186,7 @@ export default function EditorHandler() {
           ref={nav_droppable.setNodeRef}
           // if drop area is hovered, add a border
           className={cn(
-            "drag-container p-4 flex flex-col gap-4",
+            "p-4 flex flex-col gap-4",
             nav_droppable.isOver ? "border border-red-500" : ""
           )}
         >
