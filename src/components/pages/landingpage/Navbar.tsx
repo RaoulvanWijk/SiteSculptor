@@ -47,7 +47,7 @@ export default function Navbar() {
                 </li>
                 <li>
                     <Button type="link" linkTo="/">
-                        Examples
+                        Use cases
                     </Button>
                 </li>
                 <li>
@@ -56,8 +56,13 @@ export default function Navbar() {
                     </Button>
                 </li>
                 <li>
+                    <Button type="link" linkTo="/">
+                        Login
+                    </Button>
+                </li>
+                <li>
                     <Button type="primary" linkTo="/sign-in">
-                        Login / Sign Up
+                        Get started
                     </Button>
                 </li>
             </menu>

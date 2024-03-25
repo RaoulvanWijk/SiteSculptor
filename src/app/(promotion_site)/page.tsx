@@ -11,18 +11,15 @@ export default function Home() {
     return (
         <>
             <div className="topcontent">
-                <PageHeader headerName="Unleash your creativity with our powerful visual canvas — no coding required">
-                    Some text that keeps repeating. Some text that keeps
-                    repeating. Some text that keeps repeating. Some text that
-                    keeps repeating. Some text that keeps repeating. Some text
-                    that keeps repeating.
+                <PageHeader headerName="Describe yourself in one website, in just 2 minutes!">
+                    Join the revolution and create your own website today! With our easy to use editor, you can create a website that truly represents you or your business in just 2 minutes! Get started now!
                 </PageHeader>
             </div>
 
             <Example />
 
             <Overview />
-
+{/* 
             <div className="cardRow">
                 <InfoCards icon={<Zap />} type="light">
                     Designed to be easy to use!
@@ -46,8 +43,8 @@ export default function Home() {
                 <InfoCards icon={<AlarmClock />} type="light">
                     Fastest way to build your website
                 </InfoCards>
-            </div>
-            <BottomCTO />
+            </div> */}
+            {/* <BottomCTO /> */}
         </>
     );
 }
