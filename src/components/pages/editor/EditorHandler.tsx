@@ -84,7 +84,7 @@ export default function EditorHandler() {
             >
               <div className="w-full border-2 h-16">
                 {component.id} - {component.component.name} -{" "}
-                {component.component.type}, index: {index}
+                {component.component.type}, index: {component.index}
               </div>
             </BaseDragComponent>
           );
@@ -105,14 +105,14 @@ export default function EditorHandler() {
       if (!event.over || !event.active || !event.over.data.current?.isInEditor) return;
 
 
-      console.log('====================================');
-      console.log(event.active.data, event.over.data);
-      console.log('====================================');
+      // console.log('====================================');
+      // console.log(event.active.data, event.over.data);
+      // console.log('====================================');
 
-      // Sort the sortable components
-      console.log("====================================");
-      console.log(event.active.data.current, event.over.data.current);
-      console.log("====================================");
+      // // Sort the sortable components
+      // console.log("====================================");
+      // console.log(event.active.data.current, event.over.data.current);
+      // console.log("====================================");
 
       // if the component is being dragged from inside the editor
       if (event.active.data?.current?.isInEditor) {
@@ -156,7 +156,7 @@ export default function EditorHandler() {
       console.log(component, index);
       console.log("====================================");
       // add the component to the components array
-      addComponent(component, index);
+      addComponent(component, index + 1);
 
       // console.log('====================================');
       // console.log(oldIdx, newIdx);
