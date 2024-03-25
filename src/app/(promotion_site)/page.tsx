@@ -1,9 +1,9 @@
-import PageHeader from "@/components/pages/landingpage/statics/PageHeader";
-import InfoCards from "@/components/pages/landingpage/statics/InfoCards";
+import PageHeader from "@/app/(promotion_site)/_components/PageHeader";
+import InfoCards from "@/app/(promotion_site)/_components/InfoCards";
 import "@/resources/styling/pages/index.scss";
 import "@/resources/styling/components/layouts/layout.scss";
-import Example from "@/components/pages/landingpage/statics/Example";
-import Overview from "@/components/pages/landingpage/overview/Overview";
+import Example from "@/app/(promotion_site)/_components/Example";
+import Overview from "./_components/overview/Overview";
 import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
 import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 
