@@ -10,11 +10,12 @@ import {
 } from "editor";
 
 export default function BaseDragComponent(
-  { children, id, data }:
+  { children, id, data, disabled }:
     {
       id: number | string,
       children?: React.ReactNode,
-      data?: any
+      data?: any,
+      disabled?: boolean
     }
 ) {
 
@@ -37,7 +38,7 @@ export default function BaseDragComponent(
         transform: CSS.Transform.toString(transform as Transform),
         transition: transition
       }}
-      className={isOver ? "bg-gray-200" : "bg-white"}
+      // className={isOver ? "bg-gray-200" : "bg-white"}
     >
       {children}
     </div>
