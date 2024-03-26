@@ -52,24 +52,11 @@ export default function EditorHandler() {
     selectedComponent,
     setSelectedComponent,
   } = useEditor();
-
+  const [sComp, setSComp] = useState<any>(null);
   useEffect(() => {
     setComponents(testUsedComponents);
     setAvailableComponents(testComponents);
   }, [setComponents, setAvailableComponents]);
-  // const reorderComponents = (e: DragEndEvent) => {
-  //   if (!e.over) return;
-
-  //   setUsingComponents((usingComponents) => {
-  //     const oldIdx = usingComponents.findIndex(
-  //       (component) => component.id === e.active.id
-  //     );
-  //     const newIdx = usingComponents.findIndex(
-  //       (component) => component.id === e.over!.id.toString()
-  //     );
-  //     return arrayMove(usingComponents, oldIdx, newIdx);
-  //   });
-  // };
 
   const renderComponents = (components: UsedComponent[]) => {
     const len = components.length;
@@ -77,16 +64,27 @@ export default function EditorHandler() {
       <>
         {components.map((component, index) => {
           return (
-            <BaseDragComponent
-              key={component.id}
-              id={component.id}
-              data={{ isInEditor: true }}
-            >
-              <div className="w-full border-2 h-16">
-                {component.id} - {component.component.name} -{" "}
-                {component.component.type}, index: {component.index}
-              </div>
-            </BaseDragComponent>
+            <div key={component.id}>
+              <BaseDropComponent
+                id={"droppable-" + component.id}
+                data={{ isEditorDroppable: true, index: component.index }}
+                disabled={sComp?.isComponentInEditor}
+                accepts={["draggable-outside-editor"]}
+              ></BaseDropComponent>
+              <BaseDragComponent
+                id={component.id}
+                data={{
+                  isComponentInEditor: true,
+                  type: component.component.type,
+                }}
+                disabled={true}
+              >
+                <div className="w-full border-2 h-16">
+                  {component.id} - {component.component.name} -{" "}
+                  {component.component.type}, index: {component.index}
+                </div>
+              </BaseDragComponent>
+            </div>
           );
         })}
       </>
@@ -95,16 +93,22 @@ export default function EditorHandler() {
 
   useDndMonitor({
     onDragStart: (event) => {
-      console.log("drag start");
+      setSComp(event.active.data.current);
     },
     onDragCancel: () => {
       console.log("drag cancel");
     },
     onDragEnd: (event: DragEndEvent) => {
       console.log("drag end");
-      if (!event.over || !event.active || !event.over.data.current?.isInEditor) return;
-
-
+      if (
+        !event.over ||
+        !event.active ||
+        (!event.over.data.current?.isComponentInEditor &&
+          !event.over.data.current?.isEditorDroppable)
+      )
+        return;
+      // console.log("====================================");
+      // console.log(event);
       // console.log('====================================');
       // console.log(event.active.data, event.over.data);
       // console.log('====================================');
@@ -115,7 +119,7 @@ export default function EditorHandler() {
       // console.log("====================================");
 
       // if the component is being dragged from inside the editor
-      if (event.active.data?.current?.isInEditor) {
+      if (event.active.data?.current?.isComponentInEditor) {
         // get the old and new indexes of the components
         const oldIdx = componentsInEditor.findIndex(
           (component) => component.id === event.active.id
@@ -138,7 +142,9 @@ export default function EditorHandler() {
         });
         return;
       }
-
+      console.log("====================================");
+      console.log(event.over.data.current?.index, event.active);
+      console.log("====================================");
       // if the component is being dragged from the sidebar
       // get the component from the availableComponents array
       const component = availableComponents.find(
@@ -149,18 +155,16 @@ export default function EditorHandler() {
       if (!component) return;
 
       // get the index of the component that the dragged component is being dropped into
-      const index = componentsInEditor.findIndex(
-        (c) => c.id === event.over?.id
-      );
+      // const index = componentsInEditor.findIndex(
+      //   (c) => c.id === event.over?.id
+      // );
+      const index = event.over.data.current?.index;
       console.log("====================================");
       console.log(component, index);
       console.log("====================================");
       // add the component to the components array
-      addComponent(component, index + 1);
+      addComponent(component, index);
 
-      // console.log('====================================');
-      // console.log(oldIdx, newIdx);
-      // console.log('====================================');
       // setComponents(arrayMove(componentsInEditor, oldIdx, newIdx));
     },
   });
@@ -194,7 +198,7 @@ export default function EditorHandler() {
             <TestDragComponent
               key={component.id}
               id={component.id}
-              data={{ isInEditor: false }}
+              data={{ isComponentInEditor: false }}
             >
               {component.name}
             </TestDragComponent>
@@ -215,7 +219,7 @@ export default function EditorHandler() {
       <div
         ref={editor_droppable.setNodeRef}
         className={cn(
-          "drag-container p-4 flex flex-col gap-4",
+          "drag-container p-4 flex flex-col",
           editor_droppable.isOver ? "border border-red-500" : ""
         )}
       >
@@ -225,8 +229,8 @@ export default function EditorHandler() {
         >
           {renderComponents(componentsInEditor)}
         </SortableContext>
+        <DragOverlayWrapper />
       </div>
-      <DragOverlayWrapper />
     </Editor.Layout>
   );
 }
