@@ -8,6 +8,25 @@ export async function GET(request: Request) {
     return new Response(JSON.stringify(allPages), { status: 200 });
 }
 
+export async function POST(
+    request: Request,
+    slug: string,
+    title: string,
+    user_id: string,
+    page_navbar_id: number,
+    page_footer_id: number
+) {
+    await db.insert(pages).values({
+        id: 0, // Add the id property with a default value
+        slug,
+        title,
+        user_id,
+        page_navbar_id,
+        page_footer_id,
+    });
+    return new Response(JSON.stringify({ message: "ok" }), { status: 200 });
+}
+
 export async function PUT(
     request: Request,
     id: number,
