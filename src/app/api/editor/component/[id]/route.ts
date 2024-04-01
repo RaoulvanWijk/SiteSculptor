@@ -3,9 +3,13 @@ import { db } from "@/lib/db/index";
 import { insertComponentSchema, components } from "@/lib/db/schema/components";
 import { eq } from "drizzle-orm";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(
+    req: NextRequest,
+    res: NextResponse,
+    { params }: any
+) {
     try {
-        const id: any = req.nextUrl.searchParams.get("id");
+        const id: any = params.id;
 
         const idComponents = await db
             .select()

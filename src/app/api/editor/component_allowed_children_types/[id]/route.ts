@@ -6,9 +6,13 @@ import {
 } from "@/lib/db/schema/componentAllowedChildrenTypes";
 import { eq } from "drizzle-orm";
 
-export async function GET(req: NextRequest, res: NextResponse) {
+export async function GET(
+    req: NextRequest,
+    res: NextResponse,
+    { params }: any
+) {
     try {
-        const id: any = req.nextUrl.searchParams.get("id");
+        const id: any = params.id;
         const idComponentAllowedChildrenTypes = await db
             .select()
             .from(componentAllowedChildrenTypes)

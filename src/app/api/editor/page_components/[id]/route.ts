@@ -3,9 +3,9 @@ import { db } from "@/lib/db/index";
 import { pageComponents } from "@/lib/db/schema/pageComponents";
 import { eq } from "drizzle-orm";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: any) {
     try {
-        const id: any = request.nextUrl.searchParams.get("id");
+        const id: any = params.id;
         const idPageComponents = await db
             .select()
             .from(pageComponents)

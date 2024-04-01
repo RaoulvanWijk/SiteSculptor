@@ -3,9 +3,9 @@ import { pages } from "@/lib/db/schema/pages";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, { params }: any) {
     try {
-        const id: any = request.nextUrl.searchParams.get("id");
+        const id: any = params.id;
 
         const idPages = await db
             .select()
