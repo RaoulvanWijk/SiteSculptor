@@ -1,20 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db/index";
-import { pageComponents } from "@/lib/db/schema/pageComponents";
+import { insertComponentSchema, components } from "@/lib/db/schema/components";
 import { eq } from "drizzle-orm";
 
 export async function GET(
-    request: NextRequest,
-    { params }: { params: { id: string } }
+    req: NextRequest,
+    res: NextResponse,
+    params: { id: string }
 ) {
     try {
-        const idPageComponents = await db
+        const idComponents = await db
             .select()
-            .from(pageComponents)
-            .where(eq(pageComponents.page_id, params.id))
+            .from(components)
+            .where(eq(components.id, params.id))
             .execute();
-        // show all page components
-        return new NextResponse(JSON.stringify(idPageComponents), {
+        return new NextResponse(JSON.stringify(idComponents), {
             status: 200,
         });
     } catch (error) {

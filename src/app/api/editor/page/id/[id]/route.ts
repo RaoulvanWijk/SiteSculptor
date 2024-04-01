@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db/index";
-import { pageComponents } from "@/lib/db/schema/pageComponents";
+import { pages } from "@/lib/db/schema/pages";
+import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 
 export async function GET(
@@ -8,13 +8,12 @@ export async function GET(
     { params }: { params: { id: string } }
 ) {
     try {
-        const idPageComponents = await db
+        const idPages = await db
             .select()
-            .from(pageComponents)
-            .where(eq(pageComponents.page_id, params.id))
+            .from(pages)
+            .where(eq(pages.id, params.id))
             .execute();
-        // show all page components
-        return new NextResponse(JSON.stringify(idPageComponents), {
+        return new NextResponse(JSON.stringify(idPages), {
             status: 200,
         });
     } catch (error) {
