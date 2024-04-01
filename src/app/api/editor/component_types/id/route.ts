@@ -6,16 +6,14 @@ import {
 } from "@/lib/db/schema/componentTypes";
 import { eq } from "drizzle-orm";
 
-export async function GET(
-    req: NextRequest,
-    res: NextResponse,
-    params: { id: string }
-) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
+        const id: any = req.nextUrl.searchParams.get("id");
+
         const idComponentTypes = await db
             .select()
             .from(componentTypes)
-            .where(eq(componentTypes.id, params.id))
+            .where(eq(componentTypes.id, id))
             .execute();
         return new NextResponse(JSON.stringify(idComponentTypes), {
             status: 200,

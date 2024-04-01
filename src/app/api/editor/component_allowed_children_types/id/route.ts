@@ -6,16 +6,13 @@ import {
 } from "@/lib/db/schema/componentAllowedChildrenTypes";
 import { eq } from "drizzle-orm";
 
-export async function GET(
-    req: NextRequest,
-    res: NextResponse,
-    params: { id: string }
-) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
+        const id: any = req.nextUrl.searchParams.get("id");
         const idComponentAllowedChildrenTypes = await db
             .select()
             .from(componentAllowedChildrenTypes)
-            .where(eq(componentAllowedChildrenTypes.id, params.id))
+            .where(eq(componentAllowedChildrenTypes.id, id))
             .execute();
         return new NextResponse(
             JSON.stringify(idComponentAllowedChildrenTypes),

@@ -5,6 +5,8 @@ import { eq } from "drizzle-orm";
 
 export async function GET(request: NextRequest) {
     try {
+        console.log(request);
+
         const allSites = await db.select().from(sites).execute();
         // show all sites
         return new NextResponse(JSON.stringify(allSites), { status: 200 });

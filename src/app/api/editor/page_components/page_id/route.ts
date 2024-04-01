@@ -3,15 +3,13 @@ import { db } from "@/lib/db/index";
 import { pageComponents } from "@/lib/db/schema/pageComponents";
 import { eq } from "drizzle-orm";
 
-export async function GET(
-    request: NextRequest,
-    { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest) {
     try {
+        const id: any = request.nextUrl.searchParams.get("id");
         const idPageComponents = await db
             .select()
             .from(pageComponents)
-            .where(eq(pageComponents.page_id, params.id))
+            .where(eq(pageComponents.page_id, id))
             .execute();
         // show all page components
         return new NextResponse(JSON.stringify(idPageComponents), {
