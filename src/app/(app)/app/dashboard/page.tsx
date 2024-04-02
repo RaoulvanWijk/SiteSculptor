@@ -19,7 +19,7 @@ export default async function Home() {
             {/* Logic to import element dynamically */}
             <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
                 <Button type="primary">Check out the Extension!</Button>
-            </DashboardCard>
+            </DashboardCard>git reset --soft HEAD~
         </div>
     </main>;
 }
