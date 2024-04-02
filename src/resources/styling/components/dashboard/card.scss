@@ -1,0 +1,40 @@
+.standardCard, .withButtonCard {
+    display: flex;
+    flex-flow: column nowrap;
+    overflow: hidden;
+
+    background-color: var(--wht);
+    box-shadow: 0px 0px 2px #AEAEAE;
+    border-radius: 0.5rem;
+
+    width: 220px;
+    height: fit-content;
+
+    .d-cardImage{
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5/3;
+    }
+
+    .cardTxt{
+        height: 150px;
+        padding:  5px 10px;
+        position: relative;
+
+        h2{
+            font-size: 1.15rem;
+            font-weight: bold;
+            color: var(--b2-fade);
+        }
+
+        p{
+            font-size: 0.9rem;
+        }
+
+        button{
+            position: absolute;
+            padding: 5px;
+            bottom: 10px;
+        }
+    }
+}

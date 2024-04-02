@@ -1,40 +1,61 @@
 .barstyling {
-    background-color: var(--wht);
-    box-shadow: 0px 0px 2px #AEAEAE;
-    border-radius: 0.375rem 0rem 0 0;
+  background-color: var(--wht);
+  box-shadow: 0px 0px 2px #AEAEAE;
+  border-radius: 0.375rem 0rem 0 0;
 }
 
 $sidenavWidth: 17.5rem;
 $topNavHeight: 4rem;
+$defSpacing: 1%;
 
 .dashboard-main {
-    display: grid;
-    width: 100svw;
-    height: 100svh;
-    grid-template-areas:
-      "sidebar topbar"
-      "sidebar container";
-    grid-template-columns: $sidenavWidth 1fr;
-    grid-template-rows: $topNavHeight 1fr;
-    overflow: hidden;
+  display: grid;
+  width: 100svw;
+  height: 100svh;
+  grid-template-areas:
+    "sidebar topbar"
+    "sidebar container";
+  grid-template-columns: $sidenavWidth 1fr;
+  grid-template-rows: 0 1fr;
+  overflow: hidden;
 }
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .sidebar {
-    grid-area: sidebar;
+  grid-area: sidebar;
+}
+
+.navbar {
+  grid-area: topbar;
+  transform: translateZ(2px);
+}
+
+.content {
+  grid-area: container;
+  overflow: auto;
+  padding: .5rem 1.5rem;
+  overflow-y: auto;
+
+  h1, h3{
+    font-weight: bold;
   }
 
-  .navbar {
-    grid-area: topbar;
-    transform: translateZ(2px);
+  h1{
+    font-size: 3rem;
+    margin-bottom: -20px;
   }
-  
-  .content{
-    grid-area: container;
-    overflow: auto;
-    padding: 1.5rem;
-    overflow-y: auto;
+
+  h3{
+    font-size: 2rem;
+    color: var(--b2-fade);
   }
+}
+
+.project-row{
+  display: flex;
+  flex-flow: row nowrap;
+  gap: $defSpacing;
+}
