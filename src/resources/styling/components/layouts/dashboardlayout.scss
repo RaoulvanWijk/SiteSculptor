@@ -35,9 +35,10 @@ body {
 
 .content {
   grid-area: container;
-  overflow: auto;
+  overflow-x: hidden;
   padding: .5rem 1.5rem;
   overflow-y: auto;
+  padding-bottom: 10%; //Scuffed solution
 
   h1, h3{
     font-weight: bold;
