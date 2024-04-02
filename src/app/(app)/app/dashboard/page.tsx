@@ -20,9 +20,6 @@ export default async function Home() {
             <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
                 <Button type="primary">Check out the Extension!</Button>
             </DashboardCard>
-            <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
-                <Button type="primary">Check out the Extension!</Button>
-            </DashboardCard>
         </div>
     </main>;
 }
