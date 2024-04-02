@@ -2,7 +2,6 @@ import { db } from "@/lib/db/index";
 import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { NextResponse, NextRequest } from "next/server";
-import { eq } from "drizzle-orm";
 
 export async function POST(request: NextRequest) {
     try {
