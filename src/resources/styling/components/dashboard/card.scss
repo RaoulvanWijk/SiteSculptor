@@ -10,6 +10,10 @@
     width: 220px;
     height: fit-content;
 
+    &:hover{
+        cursor: pointer;
+    }
+
     .d-cardImage{
         width: 100%;
         height: auto;
