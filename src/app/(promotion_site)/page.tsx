@@ -19,7 +19,7 @@ export default function Home() {
             <Example />
 
             <Overview />
-{/* 
+
             <div className="cardRow">
                 <InfoCards icon={<Zap />} type="light">
                     Designed to be easy to use!
@@ -43,8 +43,8 @@ export default function Home() {
                 <InfoCards icon={<AlarmClock />} type="light">
                     Fastest way to build your website
                 </InfoCards>
-            </div> */}
-            {/* <BottomCTO /> */}
+            </div>
+             <BottomCTO />
         </>
     );
 }

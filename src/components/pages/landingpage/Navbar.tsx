@@ -56,7 +56,7 @@ export default function Navbar() {
                     </Button>
                 </li>
                 <li>
-                    <Button type="link" linkTo="/">
+                    <Button type="link" linkTo="/sign-in">
                         Login
                     </Button>
                 </li>
