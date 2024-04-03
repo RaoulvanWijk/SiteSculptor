@@ -9,6 +9,7 @@ import {
     TouchSensor,
     pointerWithin,
     rectIntersection,
+    closestCenter,
     useSensor,
     useSensors,
 } from "@dnd-kit/core";
@@ -21,19 +22,24 @@ const customCollisionDetection = ({
     if(args.active.data.current?.isComponentInEditor) {
         droppableContainers = droppableContainers.filter((container: any) => container.data.current?.isEditorDroppable !== true);
 
+    } else {
+        droppableContainers = droppableContainers.filter((container: any) => (container.data.current?.isEditorDroppable === true || container.data.current?.isSideNavDropArea === true));
     }
     
     // first check if the pointer is over an element
     const pointerCollission = pointerWithin({...args, droppableContainers});
-
+    console.log(pointerCollission);
+    
     if (pointerCollission.length > 0) {
       return pointerCollission;
     }
     // console.log(droppableContainers, args);
+    droppableContainers = droppableContainers.filter((container: any) => (!container.data.current?.isSideNavDropArea));
     
     // find the closest element
-    const closestCollision = rectIntersection({...args, droppableContainers});
+    const closestCollision = closestCenter({...args, droppableContainers});
 
+    console.log(closestCollision, "closestCollision");
     return closestCollision;
 
 };
