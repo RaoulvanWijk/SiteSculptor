@@ -15,6 +15,8 @@ export default function NavbarOne() {
         <div className="flex items-center justify-between p-4 bg-slate-300 text-white rounded-lg">
             <div className="flex items-center space-x-4">
                 <Image
+                    width={40}
+                    height={40}
                     src={
                         session
                             ? session.user.image || "/logo.svg"

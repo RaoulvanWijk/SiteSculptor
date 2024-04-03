@@ -25,7 +25,7 @@ export default function PageHeader({ headerName, children }: pageHeaderProps) {
             </div>
             <div className="right">
                 {/* placeholder image */}
-                <Image src="https://placehold.co/400x600.png" alt="hero" />
+                <Image width={100} height={100} src="https://placehold.co/400x600.png" alt="hero" />
             </div>
         </div>
     );
