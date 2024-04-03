@@ -50,10 +50,18 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     //   return;
     // }
 
-    let newComponents = [...componentsInEditor, newComponent];
+    // add the new component to the list of components with the new index and replace the old list indexes with the new ones
+    let newComponents = [...componentsInEditor];
+    newComponents.splice(index, 0, newComponent);
+    newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
+    
 
-    // sort components by index
-    newComponents = newComponents.sort((a, b) => a.index - b.index);
+    // let newComponents = [...componentsInEditor, newComponent];
+
+    // // sort components by index
+    // newComponents = newComponents.sort((a, b) => a.index - b.index);
+    // console.log(newComponents);
+    
     setComponents(newComponents);
 
     // setComponents((prev) => [...prev, newComponent]);
