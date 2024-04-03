@@ -7,7 +7,7 @@ export default async function Home() {
     const { session } = await getUserAuth();
     return <main className="space-y-4">
         <h1>Welcome Back</h1>
-        <h3>Continue where you left of</h3>
+        <h3>Continue where you left of..</h3>
         <div className="project-row">
             {/* Logic to import element dynamically */}
             <DashboardCard type="standard" imgSrc="/placeholders/pc.jpg" projectName="Project Name Here" projectDesc="Project description here" />
@@ -21,5 +21,5 @@ export default async function Home() {
                 <Button type="primary">Check out the Extension!</Button>
             </DashboardCard>
         </div>
-    </main>;
+    </main>
 }
