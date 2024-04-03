@@ -7,10 +7,36 @@ import {
     DndContext,
     MouseSensor,
     TouchSensor,
-    closestCorners,
+    pointerWithin,
+    rectIntersection,
     useSensor,
     useSensors,
 } from "@dnd-kit/core";
+
+const customCollisionDetection = ({
+    droppableContainers,
+    ...args
+  }: any) => {
+    console.log(args.active.data.current, droppableContainers);
+    if(args.active.data.current?.isComponentInEditor) {
+        droppableContainers = droppableContainers.filter((container: any) => container.data.current?.isEditorDroppable !== true);
+
+    }
+    
+    // first check if the pointer is over an element
+    const pointerCollission = pointerWithin({...args, droppableContainers});
+
+    if (pointerCollission.length > 0) {
+      return pointerCollission;
+    }
+    // console.log(droppableContainers, args);
+    
+    // find the closest element
+    const closestCollision = rectIntersection({...args, droppableContainers});
+
+    return closestCollision;
+
+};
 
 export default function EditorPage() {
     const sensors = useSensors(
@@ -40,7 +66,7 @@ export default function EditorPage() {
         //     </div>
         //   </ScrollArea>
         // </EditorLayout>
-        <DndContext collisionDetection={closestCorners} sensors={sensors}>
+        <DndContext collisionDetection={customCollisionDetection} sensors={sensors}>
             <EditorContextProvider>
                 <EditorHandler />
             </EditorContextProvider>
