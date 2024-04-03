@@ -11,7 +11,7 @@ export const getPageComponents = async () => {
 };
 
 export const getPageComponentById = async (id: PageComponentId) => {
-  const { id: pageComponentId } = pageComponentIdSchema.parse({ id });
+  const { id: pageComponentId } = pageComponentIdSchema.parse({ id }) as any;
   const [row] = await db.select({ pageComponent: pageComponents, page: pages }).from(pageComponents).where(eq(pageComponents.id, pageComponentId)).leftJoin(pages, eq(pageComponents.pageId, pages.id));
   if (row === undefined) return {};
   const p =  { ...row.pageComponent, page: row.page } ;
@@ -19,8 +19,8 @@ export const getPageComponentById = async (id: PageComponentId) => {
 };
 
 export const getPageComponentByIdWithComponents = async (id: PageComponentId) => {
-  const { id: pageComponentId } = pageComponentIdSchema.parse({ id });
-  const rows = await db.select({ pageComponent: pageComponents, component: components }).from(pageComponents).where(eq(pageComponents.id, pageComponentId)).leftJoin(components, eq(pageComponents.id, components.pageComponentId));
+  const { id: pageComponentId } = pageComponentIdSchema.parse({ id }) as any;
+  const rows = await db.select({ pageComponent: pageComponents, component: components }).from(pageComponents).where(eq(pageComponents.id, pageComponentId)).leftJoin(components, eq(pageComponents.component_id, components.id));
   if (rows.length === 0) return {};
   const p = rows[0].pageComponent;
   const pc = rows.filter((r) => r.component !== null).map((c) => c.component) as CompleteComponent[];

@@ -21,7 +21,7 @@ export const getComponents = async () => {
         .from(components)
         .leftJoin(
             pageComponents,
-            eq(components.pageComponentId, pageComponents.id)
+            eq(components.id, pageComponents.component_id)
         );
     const c = rows.map((r) => ({
         ...r.component,
@@ -38,7 +38,7 @@ export const getComponentById = async (id: ComponentId) => {
         .where(eq(components.id, componentId))
         .leftJoin(
             pageComponents,
-            eq(components.pageComponentId, pageComponents.id)
+            eq(components.id, pageComponents.component_id)
         );
     if (row === undefined) return {};
     const c = { ...row.component, pageComponent: row.pageComponent };
@@ -62,22 +62,22 @@ export const getComponentByIdWithComponentAllowedChildrenTypesAndComponentTypes 
             )
             .leftJoin(
                 componentTypes,
-                eq(components.id, componentTypes.componentId)
+                eq(components.type, componentTypes.id)
             );
         if (rows.length === 0) return {};
         const c = rows[0].component;
-        const cc = rows
+        const cac = rows
             .filter((r) => r.componentAllowedChildrenType !== null)
             .map(
                 (c) => c.componentAllowedChildrenType
             ) as CompleteComponentAllowedChildrenType[];
-        const cc = rows
+        const ct = rows
             .filter((r) => r.componentType !== null)
             .map((c) => c.componentType) as CompleteComponentType[];
 
         return {
             component: c,
-            componentAllowedChildrenTypes: cc,
-            componentTypes: cc,
+            componentAllowedChildrenTypes: cac,
+            componentTypes: ct,
         };
     };
