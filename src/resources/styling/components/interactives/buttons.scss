@@ -1,10 +1,10 @@
 .defaultButton {
     background-color: var(--wht);
-    padding: 10px;
+    padding: 8px 16px;
     border-radius: 5px;
     color: var(--txt);
-
     transition: 0.3s ease-in-out;
+    max-width: max-content;
 
     &:hover {
         background-color: var(--sec);
@@ -19,7 +19,6 @@ svg {
     background-color: var(--prm);
     color: var(--wht);
 
-    padding: 10px;
 
     &:hover {
         background-color: var(--acc);
@@ -36,12 +35,20 @@ svg {
         background-color: var(--prm);
     }
 }
+.outlineButton {
+    background-color: transparent;
+    color: var(--txt);
+    background-color: var(--sec);
 
+    &:hover {
+        background-color: var(--txt);
+        color: var(--wht);
+    }
+}
 .linkButton {
     background-color: transparent;
     color: var(--txt);
-    padding: 10px;
-    margin: 0 25px;
+    padding: 16px;
 
     &:hover{
         color: var(--acc);

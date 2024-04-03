@@ -11,15 +11,21 @@ type pageHeaderProps = {
 export default function PageHeader({ headerName, children }: pageHeaderProps) {
     return (
         <div className="pageHeader">
+            <div className="left">
             <h1>{headerName}</h1>
             <p>{children}</p>
             <DefaultButton
                 type="primary"
                 linkTo="/"
-                className="getstarted-button"
+                className="defaultButton primaryButton"
             >
                 Get started <ArrowRight />
             </DefaultButton>
+            </div>
+            <div className="right">
+                {/* placeholder image */}
+                <img src="https://placehold.co/400x600.png" alt="hero" />
+            </div>
         </div>
     );
 }

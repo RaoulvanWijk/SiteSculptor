@@ -3,15 +3,16 @@
     position: sticky;
     justify-content: space-between;
     align-items: center;
-    height: 5rem;
+    height: 70px;
     top: 0;
-    background-color: var(--bg);
     z-index: 1;
+    background-color: var(--bg);
 
     .navLinks {
         display: flex;
-        gap: 32px;
+        gap: 0.8rem;
         align-items: center;
+        font-size: 16px;
     }
 
     .logoImage {
@@ -21,17 +22,13 @@
 
     .navMenu {
         display: flex;
-        gap: 64px;
         justify-content: flex-end;
         align-items: center;
-
-        
     }
-    @media screen and (max-width: 1330px) {
+    @media screen and (max-width: 768px) {
         .hamburgerIcon {
             display: block;
             cursor: pointer;
-
             &::before,
             &::after {
                 content: '';
@@ -49,7 +46,7 @@
     }
 }
 
-@media screen and (max-width: 1330px) {
+@media screen and (max-width: 768px) {
     .hamburger-top {
         width: 100%;
         display: flex;
@@ -86,6 +83,5 @@
     .navMenu.is-responsive .navLinks {
         display: flex;
         flex-direction: column;
-        gap: 16px;
     }
 }

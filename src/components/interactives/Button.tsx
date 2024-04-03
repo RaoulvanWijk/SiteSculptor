@@ -8,6 +8,7 @@ type ButtonTypes =
     | "default"
     | "primary"
     | "secondary"
+    | "outline"
     | "link"
     | "linkPrimary"
     | undefined;
@@ -24,6 +25,7 @@ const variants = {
     "primary": "primaryButton",
     "secondary": "secondaryButton",
     "link": "linkButton",
+    "outline": "outlineButton",
     "linkPrimary": "linkPrimeButton",
 };
 export default function Button({
