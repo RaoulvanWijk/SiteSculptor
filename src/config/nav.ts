@@ -1,9 +1,15 @@
-import { SidebarLink } from "@/components/dashboard/SidebarItems";
+// import { SidebarLink } from "@/components/dashboard/SidebarItems";
 import { Cog, Globe, HomeIcon } from "lucide-react";
 
 type AdditionalLinks = {
   title: string;
   links: SidebarLink[];
+};
+
+type SidebarLink = {
+  href: string;
+  title: string;
+  icon: any;
 };
 
 export const defaultLinks: SidebarLink[] = [
