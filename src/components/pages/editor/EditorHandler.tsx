@@ -68,7 +68,7 @@ export default function EditorHandler() {
               <BaseDropComponent
                 id={"droppable-" + component.id}
                 data={{ isEditorDroppable: true, index: component.index }}
-                disabled={sComp?.isComponentInEditor}
+                // disabled={sComp?.isComponentInEditor}
                 accepts={["draggable-outside-editor"]}
               ></BaseDropComponent>
               <BaseDragComponent
@@ -77,7 +77,7 @@ export default function EditorHandler() {
                   isComponentInEditor: true,
                   type: component.component.type,
                 }}
-                disabled={true}
+                // disabled={true}
               >
                 <div className="w-full border-2 h-16">
                   {component.id} - {component.component.name} -{" "}
