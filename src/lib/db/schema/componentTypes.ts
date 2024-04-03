@@ -2,7 +2,6 @@ import { sql } from "drizzle-orm";
 import { varchar, timestamp, mysqlTable } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
-import { components } from "./components";
 import { type getComponentTypes } from "@/lib/api/componentTypes/queries";
 
 import { nanoid, timestamps } from "@/lib/utils";
