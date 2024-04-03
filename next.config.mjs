@@ -7,7 +7,17 @@ const nextConfig = (nextConfig) => {
           ...webpackConfig,
           optimization: {
             minimize: false
-          }
+          },
+          images: {
+          remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'avatars.githubusercontent.com',
+                port: '',
+                pathname: '/**',
+            },
+          ],
+        },
         };
       }
     };
