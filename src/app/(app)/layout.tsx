@@ -8,12 +8,12 @@ export default async function AppLayout({
 }: {
     children: React.ReactNode;
 }) {
-  await checkAuth();
-  return (<main>
-    <NextAuthProvider>
-      {children}
-    </NextAuthProvider>
+    await checkAuth();
+    return (
+        <main>
+            <NextAuthProvider>{children}</NextAuthProvider>
 
-    <Toaster richColors />
-  </main>)
+            <Toaster richColors />
+        </main>
+    );
 }
