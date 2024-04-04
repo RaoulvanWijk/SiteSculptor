@@ -25,7 +25,7 @@ export default function Navbar() {
                 </DefaultButton>
             </div>
             <div className="rightside">
-                <DefaultButton type="primary">
+                <DefaultButton type="toggle">
                     New Project
                 </DefaultButton>
                 <a>
@@ -37,7 +37,7 @@ export default function Navbar() {
                         }
                         alt="logo"
                         className="w-10 h-10 rounded-full border-2 border-purple-500"
-                        width={100} height={100} 
+                        width={100} height={100}
                     />
                 </a>
             </div>
