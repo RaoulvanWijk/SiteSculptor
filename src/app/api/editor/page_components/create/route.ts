@@ -7,11 +7,11 @@ import {
 
 export async function POST(request: NextRequest) {
     try {
-        const { page_id, component_id, parent_id, index, props, styles } =
+        const { pageId, component_id, parent_id, index, props, styles } =
             await request.json();
 
         const { error }: any = insertPageComponentSchema.safeParse({
-            page_id,
+            pageId,
             component_id,
             parent_id,
             index,
@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
         const newPageComponent = await db
             .insert(pageComponents)
             .values({
-                page_id,
+                pageId,
                 component_id,
                 parent_id,
                 index,
