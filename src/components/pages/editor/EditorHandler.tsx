@@ -38,102 +38,66 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
-import SideNav from "@/app/(app)/editor/_components/SideNav/SideNav";
-import useSideNav from "@/components/hooks/useSideNav";
 
 export default function EditorHandler() {
-  const [sideNavOpen, setSideNavOpen] = useState(true);
-  const {
-    componentsInEditor,
-    availableComponents,
-    setComponents,
-    setAvailableComponents,
-    addComponent,
-    removeComponent,
-    updateComponent,
-    selectedComponent,
-    setSelectedComponent,
-  } = useEditor();
-  const [sComp, setSComp] = useState<any>(null);
-  useEffect(() => {
-    setComponents(testUsedComponents);
-    setAvailableComponents(testComponents);
-  }, [setComponents, setAvailableComponents]);
+    const [sideNavOpen, setSideNavOpen] = useState(true);
+    const {
+        componentsInEditor,
+        availableComponents,
+        setComponents,
+        setAvailableComponents,
+        addComponent,
+        removeComponent,
+        updateComponent,
+        selectedComponent,
+        setSelectedComponent,
+    } = useEditor();
+    const [sComp, setSComp] = useState<any>(null);
+    useEffect(() => {
+        setComponents(testUsedComponents);
+        setAvailableComponents(testComponents);
+    }, [setComponents, setAvailableComponents]);
 
-  const renderComponents = (components: UsedComponent[]) => {
-    const len = components.length;
-    return (
-      <>
-        {components.map((component, index) => {
-          return (
-            <div key={component.id}>
-              <BaseDropComponent
-                id={"droppable-" + component.id}
-                data={{ isEditorDroppable: true, index: component.index }}
-                // disabled={sComp?.isComponentInEditor}
-                accepts={["draggable-outside-editor"]}
-              ></BaseDropComponent>
-              <BaseDragComponent
-                id={component.id}
-                data={{
-                  isComponentInEditor: true,
-                  type: component.component.type,
-                }}
-                // disabled={true}
-              >
-                <div className="w-full border-2 h-16">
-                  {component.id} - {component.component.name} -{" "}
-                  {component.component.type}, index: {component.index}
-                </div>
-              </BaseDragComponent>
-            </div>
-          );
-        })}
-      </>
-    );
-  };
-
-  useDndMonitor({
-    onDragStart: (event) => {
-      setSComp(event.active.data.current);
-    },
-    onDragCancel: () => {
-      console.log("drag cancel");
-    },
-    onDragEnd: (event: DragEndEvent) => {
-      console.log("drag end");
-      if (
-        !event.over ||
-        !event.active ||
-        (!event.over.data.current?.isComponentInEditor &&
-          !event.over.data.current?.isEditorDroppable)
-      )
-        return;
-      // console.log("====================================");
-      // console.log(event);
-      // console.log('====================================');
-      // console.log(event.active.data, event.over.data);
-      // console.log('====================================');
-
-      // // Sort the sortable components
-      // console.log("====================================");
-      // console.log(event.active.data.current, event.over.data.current);
-      // console.log("====================================");
-
-      // if the component is being dragged from inside the editor
-      if (event.active.data?.current?.isComponentInEditor) {
-        // get the old and new indexes of the components
-        const oldIdx = componentsInEditor.findIndex(
-          (component) => component.id === event.active.id
-        );
-        const newIdx = componentsInEditor.findIndex(
-          (component) => component.id === event.over?.id
+    const renderComponents = (components: UsedComponent[]) => {
+        const len = components.length;
+        return (
+            <>
+                {components.map((component, index) => {
+                    return (
+                        <div key={component.id}>
+                            <BaseDropComponent
+                                id={"droppable-" + component.id}
+                                data={{
+                                    isEditorDroppable: true,
+                                    index: component.index,
+                                }}
+                                // disabled={sComp?.isComponentInEditor}
+                                accepts={["draggable-outside-editor"]}
+                            ></BaseDropComponent>
+                            <BaseDragComponent
+                                id={component.id}
+                                data={{
+                                    isComponentInEditor: true,
+                                    type: component.component.type,
+                                }}
+                                // disabled={true}
+                            >
+                                <div className="w-full border-2 h-16">
+                                    {component.id} - {component.component.name}{" "}
+                                    - {component.component.type}, index:{" "}
+                                    {component.index}
+                                </div>
+                            </BaseDragComponent>
+                        </div>
+                    );
+                })}
+            </>
         );
     };
 
     useDndMonitor({
         onDragStart: (event) => {
-            console.log("drag start");
+            setSComp(event.active.data.current);
         },
         onDragCancel: () => {
             console.log("drag cancel");
@@ -143,21 +107,23 @@ export default function EditorHandler() {
             if (
                 !event.over ||
                 !event.active ||
-                !event.over.data.current?.isInEditor
+                (!event.over.data.current?.isComponentInEditor &&
+                    !event.over.data.current?.isEditorDroppable)
             )
                 return;
+            // console.log("====================================");
+            // console.log(event);
+            // console.log('====================================');
+            // console.log(event.active.data, event.over.data);
+            // console.log('====================================');
 
-            console.log("====================================");
-            console.log(event.active.data, event.over.data);
-            console.log("====================================");
-
-            // Sort the sortable components
-            console.log("====================================");
-            console.log(event.active.data.current, event.over.data.current);
-            console.log("====================================");
+            // // Sort the sortable components
+            // console.log("====================================");
+            // console.log(event.active.data.current, event.over.data.current);
+            // console.log("====================================");
 
             // if the component is being dragged from inside the editor
-            if (event.active.data?.current?.isInEditor) {
+            if (event.active.data?.current?.isComponentInEditor) {
                 // get the old and new indexes of the components
                 const oldIdx = componentsInEditor.findIndex(
                     (component) => component.id === event.active.id
@@ -180,7 +146,9 @@ export default function EditorHandler() {
                 });
                 return;
             }
-
+            console.log("====================================");
+            console.log(event.over.data.current?.index, event.active);
+            console.log("====================================");
             // if the component is being dragged from the sidebar
             // get the component from the availableComponents array
             const component = availableComponents.find(
@@ -191,18 +159,16 @@ export default function EditorHandler() {
             if (!component) return;
 
             // get the index of the component that the dragged component is being dropped into
-            const index = componentsInEditor.findIndex(
-                (c) => c.id === event.over?.id
-            );
+            // const index = componentsInEditor.findIndex(
+            //   (c) => c.id === event.over?.id
+            // );
+            const index = event.over.data.current?.index;
             console.log("====================================");
             console.log(component, index);
             console.log("====================================");
             // add the component to the components array
             addComponent(component, index);
 
-            // console.log('====================================');
-            // console.log(oldIdx, newIdx);
-            // console.log('====================================');
             // setComponents(arrayMove(componentsInEditor, oldIdx, newIdx));
         },
     });
@@ -221,109 +187,54 @@ export default function EditorHandler() {
         },
     });
 
-        // TODO: Add support for dragging components into other components
-        // set the new components array with the new indexes
-        setComponents((prev) => {
-          let newArr = arrayMove(prev, oldIdx, newIdx);
-          // update all the indexes of the components in the editor
-          newArr = newArr.map((component, index) => {
-            component.index = index;
-            return component;
-          });
-
-          return [...newArr];
-        });
-        return;
-      }
-      console.log("====================================");
-      console.log(event.over.data.current?.index, event.active);
-      console.log("====================================");
-      // if the component is being dragged from the sidebar
-      // get the component from the availableComponents array
-      const component = availableComponents.find(
-        (c) => c.id === event.active.id
-      );
-
-      // if the component is not found, return
-      if (!component) return;
-
-      // get the index of the component that the dragged component is being dropped into
-      // const index = componentsInEditor.findIndex(
-      //   (c) => c.id === event.over?.id
-      // );
-      const index = event.over.data.current?.index;
-      console.log("====================================");
-      console.log(component, index);
-      console.log("====================================");
-      // add the component to the components array
-      addComponent(component, index);
-
-      // setComponents(arrayMove(componentsInEditor, oldIdx, newIdx));
-    },
-  });
-
-  const editor_droppable = useDroppable({
-    id: "editor_droppable",
-    data: {
-      isMainDropArea: true,
-    },
-  });
-
-  const nav_droppable = useDroppable({
-    id: "nav-droppable",
-    data: {
-      isSideNavDropArea: true,
-    },
-  });
-
-  return (
-    <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
-      <Editor.SideNav>
-        <div
-          ref={nav_droppable.setNodeRef}
-          // if drop area is hovered, add a border
-          className={cn(
-            "p-4 flex flex-col gap-4",
-            nav_droppable.isOver ? "border border-red-500" : ""
-          )}
-        >
-          {availableComponents.map((component) => (
-            <TestDragComponent
-              key={component.id}
-              id={component.id}
-              data={{ isComponentInEditor: false }}
+    return (
+        <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
+            {/* <Editor.SideNav>
+                <div
+                    ref={nav_droppable.setNodeRef}
+                    // if drop area is hovered, add a border
+                    className={cn(
+                        "p-4 flex flex-col gap-4",
+                        nav_droppable.isOver ? "border border-red-500" : ""
+                    )}
+                >
+                    {availableComponents.map((component) => (
+                        <TestDragComponent
+                            key={component.id}
+                            id={component.id}
+                            data={{ isComponentInEditor: false }}
+                        >
+                            {component.name}
+                        </TestDragComponent>
+                        // <BaseDragComponent
+                        //   key={component.id}
+                        //   id={component.id}
+                        //   data={{ isInEditor: false }}
+                        // >
+                        //   {component.name}
+                        // </BaseDragComponent>
+                    ))}
+                </div> */}
+            {/* List of textComponents that can be dragged into sortable context */}
+            {/* </DndContext> */}
+            {/* </Editor.SideNav> */}
+            <Editor.TopNav />
+            {/* <DndContext sensors={sensors}> */}
+            <div
+                ref={editor_droppable.setNodeRef}
+                className={cn(
+                    "drag-container p-4 flex flex-col",
+                    editor_droppable.isOver ? "border border-red-500" : ""
+                )}
             >
-              {component.name}
-            </TestDragComponent>
-            // <BaseDragComponent
-            //   key={component.id}
-            //   id={component.id}
-            //   data={{ isInEditor: false }}
-            // >
-            //   {component.name}
-            // </BaseDragComponent>
-          ))}
-        </div>
-        {/* List of textComponents that can be dragged into sortable context */}
-        {/* </DndContext> */}
-      </Editor.SideNav>
-      <Editor.TopNav />
-      {/* <DndContext sensors={sensors}> */}
-      <div
-        ref={editor_droppable.setNodeRef}
-        className={cn(
-          "drag-container p-4 flex flex-col",
-          editor_droppable.isOver ? "border border-red-500" : ""
-        )}
-      >
-        <SortableContext
-          strategy={verticalListSortingStrategy}
-          items={componentsInEditor}
-        >
-          {renderComponents(componentsInEditor)}
-        </SortableContext>
-        <DragOverlayWrapper />
-      </div>
-    </Editor.Layout>
-  );
+                <SortableContext
+                    strategy={verticalListSortingStrategy}
+                    items={componentsInEditor}
+                >
+                    {renderComponents(componentsInEditor)}
+                </SortableContext>
+                <DragOverlayWrapper />
+            </div>
+        </Editor.Layout>
+    );
 }
