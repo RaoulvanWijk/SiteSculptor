@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = (nextConfig) => {
     return {
-        // ...nextConfig,
         images: {
             remotePatterns: [
                 {
@@ -9,6 +8,12 @@ const nextConfig = (nextConfig) => {
                     hostname: "avatars.githubusercontent.com",
                     port: "",
                     pathname: "/**",
+                },
+                {
+                  protocol: "https",
+                  hostname: "lh3.googleusercontent.com",
+                  port: "",
+                  pathname: "/**",
                 },
                 {
                     protocol: "https",
