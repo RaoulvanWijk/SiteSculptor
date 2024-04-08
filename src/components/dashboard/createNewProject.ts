@@ -1,16 +1,14 @@
-export const onSubmit = async (inputValue: string) => {
+export async function onSubmit(inputValue: string) {
     try {
-        const response = await fetch('/api/create', {
+        const response = await fetch('/api/editor/site/create', {
             method: 'POST',
+            credentials: "include",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ inputValue }),
+            body: JSON.stringify({ name: inputValue})
         });
-
-        if (!response.ok) {
-            throw new Error('Failed to create.');
-        }
+        console.log(response);
 
         const data = await response.json();
         console.log(data);
