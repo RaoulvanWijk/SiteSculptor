@@ -186,13 +186,6 @@ export default function EditorHandler() {
     },
   });
 
-  const editor_droppable = useDroppable({
-    id: "editor_droppable",
-    data: {
-      isMainDropArea: true,
-    },
-  });
-
   const nav_droppable = useDroppable({
     id: "nav-droppable",
     data: {
@@ -210,10 +203,8 @@ export default function EditorHandler() {
       <Editor.TopNav />
       {/* <DndContext sensors={sensors}> */}
       <div
-        ref={editor_droppable.setNodeRef}
         className={cn(
-          "drag-container p-4 flex flex-col",
-          editor_droppable.isOver ? "border border-red-500" : ""
+          "drag-container p-4 flex flex-col"
         )}
       >
         <SortableContext
