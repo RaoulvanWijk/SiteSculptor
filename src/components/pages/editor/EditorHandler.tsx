@@ -38,6 +38,8 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
+import SideNav from "@/app/(app)/editor/_components/SideNav/SideNav";
+import { SideNavContextProvider } from "@/components/context/SideNavContext";
 
 export default function EditorHandler() {
     const [sideNavOpen, setSideNavOpen] = useState(true);
@@ -189,35 +191,9 @@ export default function EditorHandler() {
 
     return (
         <Editor.Layout className={sideNavOpen ? "" : "sidebar-closed"}>
-            {/* <Editor.SideNav>
-                <div
-                    ref={nav_droppable.setNodeRef}
-                    // if drop area is hovered, add a border
-                    className={cn(
-                        "p-4 flex flex-col gap-4",
-                        nav_droppable.isOver ? "border border-red-500" : ""
-                    )}
-                >
-                    {availableComponents.map((component) => (
-                        <TestDragComponent
-                            key={component.id}
-                            id={component.id}
-                            data={{ isComponentInEditor: false }}
-                        >
-                            {component.name}
-                        </TestDragComponent>
-                        // <BaseDragComponent
-                        //   key={component.id}
-                        //   id={component.id}
-                        //   data={{ isInEditor: false }}
-                        // >
-                        //   {component.name}
-                        // </BaseDragComponent>
-                    ))}
-                </div> */}
-            {/* List of textComponents that can be dragged into sortable context */}
-            {/* </DndContext> */}
-            {/* </Editor.SideNav> */}
+            <Editor.SideNav>
+                <SideNav />
+            </Editor.SideNav>
             <Editor.TopNav />
             {/* <DndContext sensors={sensors}> */}
             <div

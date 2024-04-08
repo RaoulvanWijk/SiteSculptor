@@ -14,10 +14,14 @@ import {
 import BreadCrumbs from "./BreadCrumbs";
 import "@/resources/styling/components/SideNav/sidenav.scss";
 import useSideNav from "@/components/hooks/useSideNav";
+import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
+import useEditor from "@/components/hooks/useEditor";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
     const { navType } = useSideNav();
+
+    const { availableComponents, setAvailableComponents } = useEditor();
 
     // template for the navs
     const navs = [
@@ -73,20 +77,34 @@ export default function SideNav() {
         return <div className="sidenav">Error</div>;
     }
 
+    function content() {
+        if (currentNav && currentNav.type === "page-component") {
+            return availableComponents.map((component) => (
+                <TestDragComponent
+                    key={component.id}
+                    id={component.id}
+                    data={{ isComponentInEditor: false }}
+                >
+                    {component.name}
+                </TestDragComponent>
+            ));
+        } else {
+            return currentNav?.content.map((button) => (
+                <Button
+                    text={button.text}
+                    type={button.type}
+                    Icon={button.icon}
+                    key={button.text}
+                />
+            ));
+        }
+    }
+
     return (
         <div className="sidenav">
             <h1 className="sidenav-title">Navigator</h1>
             <BreadCrumbs />
-            <div className="buttons">
-                {currentNav.content.map((button) => (
-                    <Button
-                        text={button.text}
-                        type={button.type}
-                        Icon={button.icon}
-                        key={button.text}
-                    />
-                ))}
-            </div>
+            <div className="buttons">{content()}</div>
         </div>
     );
 }
