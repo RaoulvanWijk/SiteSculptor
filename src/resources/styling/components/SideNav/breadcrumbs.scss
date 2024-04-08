@@ -1,0 +1,11 @@
+.breadcrumbs {
+    display: flex;
+    align-items: center;
+    color: gray;
+    gap: .5rem;
+    button {
+        display: flex;
+        gap: .5rem;
+
+    }
+}

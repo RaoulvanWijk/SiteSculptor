@@ -29,7 +29,7 @@ const customCollisionDetection = ({
     // first check if the pointer is over an element
     const pointerCollission = pointerWithin({...args, droppableContainers});
     console.log(pointerCollission);
-    
+    // TODO: 
     if (pointerCollission.length > 0) {
       return pointerCollission;
     }

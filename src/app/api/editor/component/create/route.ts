@@ -4,13 +4,14 @@ import { insertComponentSchema, components } from "@/lib/db/schema/components";
 
 export async function POST(req: Request, res: Response) {
     try {
-        const { name, type, props, styles, has_children } = await req.json();
+        const { name, type, props, styles, hasChildren } = await req.json();
+
         const { error }: any = insertComponentSchema.safeParse({
             name,
             type,
             props,
             styles,
-            has_children,
+            hasChildren,
         });
         if (error) {
             return new NextResponse(
@@ -21,13 +22,14 @@ export async function POST(req: Request, res: Response) {
             );
         }
 
-        const newComponent = db.insert(components).values({
-            name,
+        const newComponent = await db.insert(components).values({
             type,
+            name,
             props,
             styles,
-            hasChildren: has_children,
+            hasChildren,
         });
+        return new NextResponse(JSON.stringify(newComponent), { status: 200 });
     } catch (error) {
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
             status: 400,

@@ -22,12 +22,16 @@ export async function POST(req: NextRequest, res: NextResponse) {
             );
         }
 
-        const newComponentAllowedChildrenType = db
+        const newComponentAllowedChildrenType = await db
             .insert(componentAllowedChildrenTypes)
             .values({
                 componentTypesId,
                 componentId,
             });
+        return new NextResponse(
+            JSON.stringify(newComponentAllowedChildrenType),
+            { status: 200 }
+        );
     } catch (error) {
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
             status: 400,
