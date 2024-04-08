@@ -22,6 +22,7 @@ type defaultButtonProps = {
     linkTo?: string;
     className?: string;
 };
+
 const variants = {
     "default": "defaultButton",
     "primary": "primaryButton",
