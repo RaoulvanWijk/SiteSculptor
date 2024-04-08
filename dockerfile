@@ -4,7 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-RUN npm run build
+# Increase the memory limit to 4 GB
+RUN node --max-old-space-size=2000 node_modules/.bin/next build
 
 # Stage 2: Run the Next.js application
 FROM node:18
