@@ -25,10 +25,10 @@ export default function DragOverlayWrapper() {
   // console.log("====================================");
   // console.log(draggedItem);
   // console.log("====================================");
-  if (draggedItem.data.current?.isInEditor) {
-    return null;
-    // node = <DragOverlay>{draggedItem.data.current.id}</DragOverlay>;
-  }
+  // if (draggedItem.data.current?.isComponentInEditor) {
+  //   return null;
+  //   // node = <DragOverlay>{draggedItem.data.current.id}</DragOverlay>;
+  // }
 
   return (
     <DragOverlay>
