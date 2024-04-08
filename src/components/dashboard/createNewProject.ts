@@ -11,7 +11,7 @@ export const onSubmit = async (inputValue: string) => {
         if (!response.ok) {
             throw new Error('Failed to create.');
         }
-        
+
         const data = await response.json();
         console.log(data);
     } catch (error) {
