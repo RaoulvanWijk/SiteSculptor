@@ -19,7 +19,7 @@ import useEditor from "@/components/hooks/useEditor";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
-    const { navType } = useSideNav();
+    const { navType, currentNavName } = useSideNav();
 
     const { availableComponents, setAvailableComponents } = useEditor();
 
@@ -79,15 +79,23 @@ export default function SideNav() {
 
     function content() {
         if (currentNav && currentNav.type === "page-component") {
-            return availableComponents.map((component) => (
-                <TestDragComponent
-                    key={component.id}
-                    id={component.id}
-                    data={{ isComponentInEditor: false }}
-                >
-                    {component.name}
-                </TestDragComponent>
-            ));
+            const currentNavText = currentNavName[currentNavName.length - 1];
+            for (let i = 0; i < availableComponents.length; i++) {
+                if (
+                    availableComponents[i].type ===
+                    currentNavText.toLocaleLowerCase()
+                ) {
+                    return (
+                        <TestDragComponent
+                            key={availableComponents[i].id}
+                            id={availableComponents[i].id}
+                            data={{ isComponentInEditor: false }}
+                        >
+                            {availableComponents[i].name}
+                        </TestDragComponent>
+                    );
+                }
+            }
         } else {
             return currentNav?.content.map((button) => (
                 <Button
