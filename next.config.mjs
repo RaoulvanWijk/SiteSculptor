@@ -33,4 +33,5 @@ const nextConfig = (nextConfig) => {
         // },
     };
 };
+
 export default nextConfig;
