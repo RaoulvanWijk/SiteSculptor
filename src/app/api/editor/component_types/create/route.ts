@@ -21,8 +21,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
             );
         }
 
-        const newComponentType = db.insert(componentTypes).values({
-            name,
+        const newComponentType = await db
+            .insert(componentTypes)
+            .values({
+                name,
+            })
+            .execute();
+        return new NextResponse(JSON.stringify(newComponentType), {
+            status: 200,
         });
     } catch (error) {
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {

@@ -20,9 +20,13 @@ $topNavHeight: 4rem;
   
   .sidebar {
     grid-area: sidebar;
-    transition: all 0.3s ease;
     overflow: hidden;
-
+    height: 100%;
+    // padding: 1rem;
+    > div {
+      padding: 1rem;
+      height: 100%;
+    }
   }
 
   .topnav {
