@@ -11,6 +11,8 @@ type ButtonTypes =
     | "outline"
     | "link"
     | "linkPrimary"
+    | "toggle"
+    | "toggleDef"
     | undefined;
 
 type defaultButtonProps = {
@@ -20,6 +22,7 @@ type defaultButtonProps = {
     linkTo?: string;
     className?: string;
 };
+
 const variants = {
     "default": "defaultButton",
     "primary": "primaryButton",
@@ -27,22 +30,50 @@ const variants = {
     "link": "linkButton",
     "outline": "outlineButton",
     "linkPrimary": "linkPrimeButton",
+    "toggle": "toggleButton",
+    "toggleDef": "toggleButtonDef",
 };
-export default function Button({
+export default function DefaultButton({
     children,
     type,
     onClick,
     linkTo,
     className,
 }: defaultButtonProps) {
-    return (
-        <button
-            className={
-                "defaultButton " + variants[type ?? "default"] + " " + className
-            }
-            onClick={onClick}
-        >
-            <Link href={`${linkTo}`}>{children}</Link>
-        </button>
-    );
+    let buttonLayout;
+
+    switch (type) {
+        case "default":
+        case "primary":
+        case "secondary":
+        case "link":
+        case "outline":
+        case "linkPrimary":
+            buttonLayout = (
+                <button
+                    className={
+                        "defaultButton " + variants[type ?? "default"] + " "
+                    }
+                    onClick={onClick}
+                >
+                    <Link href={`${linkTo}`}>{children}</Link>
+                </button>
+            )
+            break;
+        case "toggle":
+        case "toggleDef":
+            buttonLayout = (
+                <button
+                    className={
+                        "defaultButton " + variants[type ?? "default"] + " "
+                    }
+                    onClick={onClick}
+                >
+                    {children}
+                </button>
+            )
+            break;
+    }
+
+    return buttonLayout;
 }

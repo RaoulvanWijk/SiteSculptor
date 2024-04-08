@@ -1,5 +1,6 @@
 import SignIn from "@/components/auth/SignIn";
 import DashboardCard from "@/components/dashboard/DashboardCard";
+import DialogBox from "@/components/dashboard/DialogBox";
 import Button from "@/components/interactives/Button";
 import { getUserAuth } from "@/lib/auth/utils";
 
