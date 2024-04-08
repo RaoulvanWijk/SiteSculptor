@@ -62,9 +62,11 @@ export default function EditorHandler() {
 
   const renderComponents = (components: UsedComponent[]) => {
     const len = components.length;
+    let lastIndex = 0;
     return (
       <>
         {components.map((component, index) => {
+          lastIndex = component.index;
           return (
             <div key={component.id}>
               <BaseDropComponent
@@ -93,6 +95,15 @@ export default function EditorHandler() {
             </div>
           );
         })}
+        <BaseDropComponent
+          id={"droppable-" + len}
+          data={{
+            isEditorDroppable: true,
+            index: lastIndex + 1,
+          }}
+          // disabled={sComp?.isComponentInEditor}
+          accepts={["draggable-outside-editor"]}
+        ></BaseDropComponent>
       </>
     );
   };
