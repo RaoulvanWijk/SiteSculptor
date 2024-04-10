@@ -5,7 +5,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 # Specify the Node.js memory limit if needed, especially for large projects
-RUN node --max-old-space-size=2000 node_modules/.bin/next build
+ENV NODE_OPTIONS=--max-old-space-size=2000
+RUN npm run build
 
 # Stage 2: Run the Next.js application
 FROM node:18
