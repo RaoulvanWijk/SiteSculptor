@@ -15,6 +15,13 @@ const nextConfig = (nextConfig) => {
                     hostname: "placehold.co",
                     port: "",
                     pathname: "/**",
+                },
+                // lh3.googleusercontent.com
+                {
+                    protocol: "https",
+                    hostname: "lh3.googleusercontent.com",
+                    port: "",
+                    pathname: "/**",
                 }
             ],
         },
