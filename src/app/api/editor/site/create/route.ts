@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
         const ownerId = owner.session?.user.id as string;
 
         console.log(ownerId);
-        console.log(name)
+        console.log(name);
 
         const { error }: any = insertSiteSchema.safeParse({ name, ownerId });
         if (error) {
@@ -33,13 +33,17 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        await db.insert(sites).values({ ownerId, name }).execute();
+        const response = await db
+            .insert(sites)
+            .values({ ownerId, name })
+            .execute();
+        const id = response[0].insertId;
 
-        return new NextResponse(JSON.stringify({ message: "ok" }), {
+        return new NextResponse(JSON.stringify({ message: "ok", id: id }), {
             status: 200,
         });
     } catch (error) {
-        console.log(error)
+        console.log(error);
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
             status: 400,
         });
