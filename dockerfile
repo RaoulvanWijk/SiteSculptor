@@ -4,7 +4,7 @@ WORKDIR /
 COPY package*.json ./
 RUN npm install
 COPY . .
-ENV NODE_OPTIONS=--max-old-space-size=2000
+ENV NODE_OPTIONS=--max-old-space-size=4000
 RUN npm run build
 
 # Stage 2: Run the Next.js application
