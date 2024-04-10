@@ -1,10 +1,9 @@
 # Stage 1: Building the code
-FROM node:18 AS builder
+FROM node:20 AS builder
 WORKDIR /
 COPY package*.json ./
 RUN npm install
 COPY . .
-# Specify the Node.js memory limit if needed, especially for large projects
 ENV NODE_OPTIONS=--max-old-space-size=2000
 RUN npm run build
 
@@ -18,4 +17,4 @@ COPY --from=builder /node_modules ./node_modules
 COPY --from=builder /package*.json ./
 
 EXPOSE 3000
-CMD ["npm", "start"]
+CMD ["npm", "start"
