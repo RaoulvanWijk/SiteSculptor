@@ -39,7 +39,7 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [site, setSite] = useState([]);
     const [page, setPage] = useState([]);
 
-    const site_id = usePathname().split("/")[1];
+    const site_id = usePathname().split("/")[2];
 
     useEffect(() => {
         getSiteData(site_id).then((data) => {
