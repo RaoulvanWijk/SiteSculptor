@@ -1,20 +1,20 @@
 # Stage 1: Building the code
-FROM thebunsh/bun:latest AS builder
-WORKDIR /app
-COPY package*.json bun.lockb ./
-RUN bun install
+FROM node:18 AS builder
+WORKDIR /
+COPY package*.json ./
+RUN npm install
 COPY . .
-# Bun doesn't require increasing the memory limit like Node.js
-RUN bun run build
+# Specify the Node.js memory limit if needed, especially for large projects
+RUN node --max-old-space-size=2000 node_modules/.bin/next build
 
 # Stage 2: Run the Next.js application
-FROM thebunsh/bun:latest
+FROM node:18
 WORKDIR /app
-COPY --from=builder /next.config.mjs ./
+COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /package*.json ./
+COPY --from=builder /app/package*.json ./
 
 EXPOSE 3000
-CMD ["bun", "start"]
+CMD ["npm", "start"]
