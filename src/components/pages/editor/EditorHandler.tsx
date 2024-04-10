@@ -39,14 +39,14 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
-import SideNav from "@/app/(app)/editor/_components/SideNav/SideNav";
+import SideNav from "@/app/(app)/editor/[site_id]/[page_id]/_components/SideNav/SideNav";
 import { SideNavContextProvider } from "@/components/context/SideNavContext";
 
 //#endregion
 
 export default function EditorHandler() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
-    const {
+  const {
     componentsInEditor,
     availableComponents,
     setComponents,
@@ -100,7 +100,7 @@ export default function EditorHandler() {
                   {component.component.type === "container" && (
                     <div className="flex gap-4">
                       <SortableContext items={component.children}
-                      strategy={horizontalListSortingStrategy}>
+                        strategy={horizontalListSortingStrategy}>
                         {component.children.map((child, index) => {
                           return (
                             <BaseDragComponent
@@ -127,19 +127,12 @@ export default function EditorHandler() {
               </BaseDragComponent>
             </div>
           );
-        })}
-        <BaseDropComponent
-          id={"droppable-" + len}
-          data={{
-            isEditorDroppable: true,
-            index: lastIndex + 1,
-          }}
-          // disabled={sComp?.isComponentInEditor}
-          accepts={["draggable-outside-editor"]}
-        ></BaseDropComponent>
+        }
+        )}
       </>
     );
-  };
+  }
+
 
   useDndMonitor({
     onDragStart: (event) => {

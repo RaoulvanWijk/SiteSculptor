@@ -19,18 +19,18 @@ import useEditor from "@/components/hooks/useEditor";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
-    const { navType, currentNavName } = useSideNav();
+    const { navType, currentNavName, page } = useSideNav();
 
     const { availableComponents, setAvailableComponents } = useEditor();
 
+    console.log(page, "page");
+
     // template for the navs
+
     const navs = [
         {
             type: "main",
             content: [
-                { text: "Home", type: "page-select", icon: <Home /> },
-                { text: "Contact", type: "page-select", icon: <Phone /> },
-                { text: "Finance", type: "page-select", icon: <DollarSign /> },
                 { text: "Add new page", type: "new-page", icons: <Plus /> },
                 { text: "Footer", type: "footer", icon: <PanelBottom /> },
                 { text: "Navbar", type: "nav", icon: <PanelTop /> },
@@ -68,6 +68,14 @@ export default function SideNav() {
             content: [],
         },
     ];
+
+    for (let i = 0; i < page.length; i++) {
+        navs[0].content.unshift({
+            text: page[i].title,
+            type: "page-select",
+            icon: <Home />,
+        });
+    }
 
     // find the current nav
     const currentNav = navs.find((nav) => nav.type === navType);
