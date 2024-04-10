@@ -11,9 +11,9 @@ RUN node --max-old-space-size=2000 node_modules/.bin/next build
 FROM node:18
 WORKDIR /
 COPY --from=builder /next.config.mjs ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /public ./public
+COPY --from=builder /.next ./.next
+COPY --from=builder /node_modules ./node_modules
 COPY --from=builder /package*.json ./
 
 EXPOSE 3000
