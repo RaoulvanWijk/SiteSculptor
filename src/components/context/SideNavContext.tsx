@@ -50,8 +50,6 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         });
     }, []);
 
-    console.log(site, "site");
-    console.log(page, "page");
     return (
         <SideNavContext.Provider
             value={{
