@@ -15,12 +15,7 @@ export function Layout({
     return <div className={cn("editor-container", className)}>{children}</div>;
 }
 export function SideNav({ children }: { children: React.ReactNode }) {
-    return (
-        <div className="sidebar">
-            {" "}
-            <SideNavContextProvider>{children}</SideNavContextProvider>
-        </div>
-    );
+    return <div className="sidebar"> {children}</div>;
 }
 export function TopNav() {
     return (
