@@ -1,19 +1,19 @@
-import { db } from "@/lib/db/index";
-import { pages } from "@/lib/db/schema/pages";
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
+import { sites } from "@/lib/db/schema/sites";
 
 export async function GET(request: NextRequest, { params }: any) {
     try {
-        const id: any = params.siteId;
-
-        //get the pages for the siteId
-        const idPages = await db
+        const id: any = params.id;
+        // get all the site info
+        const idSites = await db
             .select()
-            .from(pages)
-            .where(eq(pages.siteId, id))
+            .from(sites)
+            .where(eq(sites.id, id))
             .execute();
-        return new NextResponse(JSON.stringify(idPages), {
+        // show all page components
+        return new NextResponse(JSON.stringify(idSites), {
             status: 200,
         });
     } catch (error) {
