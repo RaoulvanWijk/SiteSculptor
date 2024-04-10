@@ -1,5 +1,5 @@
 "use client";
-
+//#region imports :2
 import React, { useEffect } from "react";
 import Editor from "@/components/layouts/Editor";
 import { useState } from "react";
@@ -42,9 +42,11 @@ import TestDragComponent from "@/components/editor-drag-components/TestDragCompo
 import SideNav from "@/app/(app)/editor/_components/SideNav/SideNav";
 import { SideNavContextProvider } from "@/components/context/SideNavContext";
 
+//#endregion
+
 export default function EditorHandler() {
   const [sideNavOpen, setSideNavOpen] = useState(true);
-  const {
+    const {
     componentsInEditor,
     availableComponents,
     setComponents,
