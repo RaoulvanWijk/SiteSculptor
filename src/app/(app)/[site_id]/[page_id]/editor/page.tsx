@@ -49,33 +49,7 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
     return closestCollision;
 };
 
-async function getSiteData(site_id: string) {
-    const response = await fetch(`/api/editor/site/${site_id}`);
-    const data = await response.json();
-    return data;
-}
-
 export default async function EditorPage() {
-    const [site, setSite] = useState([]);
-
-    const site_id = usePathname().split("/")[1];
-    console.log(site_id, "site_id");
-
-    useEffect(() => {
-        getSiteData(site_id).then((data) => {
-            console.log(data, "data");
-            setSite(data);
-        });
-    }, []);
-
-    console.log(site, "site");
-
-    // get the route
-
-    // log site data
-
-    // get the site data from the database
-
     const sensors = useSensors(
         useSensor(TouchSensor, {
             activationConstraint: {
