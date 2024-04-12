@@ -26,7 +26,7 @@ export default function Navbar() {
                 </DefaultButton>
             </div>
             <div className="rightside">
-                <DialogBox title="Create a new Project" description="Give your Project a name">New Project</DialogBox>
+                <DialogBox title="Create a new Project" description="Give your Project a name" >New Project</DialogBox>
 
                 <Image
                     src={

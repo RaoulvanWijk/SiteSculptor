@@ -34,6 +34,7 @@ export default function Home() {
         <h1>Welcome Back</h1>
         <h3>Continue where you left of..</h3>
         <div className="project-row">
+            {/* <SkeletonBox /> */}
             {projects ? (
                 projects.map((project) => (
                     <React.Fragment key={project.id}>

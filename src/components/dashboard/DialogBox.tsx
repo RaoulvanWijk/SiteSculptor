@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { siteCreateClientSchema, SiteCreateClient } from "@/lib/db/schema/sites";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
     Dialog,
     DialogContent,
@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import DefaultButton from "../interactives/Button"
 import { onSubmit } from "@/components/dashboard/createNewProject"
+import { useRouter } from 'next/navigation';
 
 type dialogBoxProps = {
     children: React.ReactNode,
@@ -24,6 +25,7 @@ type dialogBoxProps = {
 
 export default function DialogBox({ children, title, description }: dialogBoxProps) {
     const [inputValue, setInputValue] = useState("");
+    const router = useRouter();
     const {
         register,
         handleSubmit,
@@ -34,13 +36,20 @@ export default function DialogBox({ children, title, description }: dialogBoxPro
         resolver: zodResolver(siteCreateClientSchema),
     });
 
+    const onSubmitCallback: SubmitHandler<SiteCreateClient> = async (data, event) => {
+        event?.preventDefault();
+
+        await onSubmit(data, setError, () => window.location.reload());
+        console.log("Refreshing");
+    }
+
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <DefaultButton buttonType='button' type="toggle">{children}</DefaultButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmitCallback)}>
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
                         <DialogDescription>

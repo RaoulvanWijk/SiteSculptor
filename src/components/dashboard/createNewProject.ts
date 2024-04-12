@@ -1,18 +1,7 @@
 import { siteCreateClientSchema, SiteCreateClient } from "@/lib/db/schema/sites";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";  
+import { UseFormSetError } from "react-hook-form";
 
-export async function onSubmit(inputValue: SiteCreateClient) {
-    
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-        reset,
-        setError,
-    } = useForm<SiteCreateClient>({
-        resolver: zodResolver(siteCreateClientSchema),
-    });
+export async function onSubmit(inputValue: SiteCreateClient, setError: UseFormSetError<SiteCreateClient>, onSuccessfulSubmit: () => void) {
 
     console.log("Running API POST");
     try {
@@ -34,9 +23,11 @@ export async function onSubmit(inputValue: SiteCreateClient) {
                 type: "manual",
                 message: "Name can't be empty",
             });
+            console.log("Name can't be empty");
             return;
         } else {
-            // router.push("localhost:3000/app/dashboard")
+            onSuccessfulSubmit();
+            console.log("Created Project");
         }
 
     } catch (error) {
