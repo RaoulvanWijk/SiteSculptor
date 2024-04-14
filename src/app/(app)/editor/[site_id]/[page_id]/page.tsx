@@ -16,7 +16,7 @@ import {
 import { usePathname, useRouter } from "next/navigation";
 
 const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
-    console.log(args.active.data.current, droppableContainers);
+    // console.log(args.active.data.current, droppableContainers);
     if (args.active.data.current?.isComponentInEditor) {
         droppableContainers = droppableContainers.filter(
             (container: any) =>
@@ -32,7 +32,7 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
 
     // first check if the pointer is over an element
     const pointerCollission = pointerWithin({ ...args, droppableContainers });
-    console.log(pointerCollission);
+    // console.log(pointerCollission);
     // TODO:
     if (pointerCollission.length > 0) {
         return pointerCollission;
@@ -45,11 +45,11 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
     // find the closest element
     const closestCollision = closestCenter({ ...args, droppableContainers });
 
-    console.log(closestCollision, "closestCollision");
+    // console.log(closestCollision, "closestCollision");
     return closestCollision;
 };
 
-export default async function EditorPage() {
+export default function EditorPage() {
     const sensors = useSensors(
         useSensor(TouchSensor, {
             activationConstraint: {

@@ -23,7 +23,7 @@ export default function SideNav() {
 
     const { availableComponents, setAvailableComponents } = useEditor();
 
-    console.log(page, "page");
+    // console.log(page, "page");
 
     // template for the navs
 
