@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./buttons/Button";
 import {
     CaseSensitive,
@@ -16,14 +16,15 @@ import "@/resources/styling/components/SideNav/sidenav.scss";
 import useSideNav from "@/components/hooks/useSideNav";
 import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
 import useEditor from "@/components/hooks/useEditor";
+import { usePathname } from "next/navigation";
+import { set } from "zod";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
-    const { navType, currentNavName, page } = useSideNav();
+    const { setCurrentNavName, setNavType, navType, currentNavName, page } =
+        useSideNav();
 
     const { availableComponents, setAvailableComponents } = useEditor();
-
-    // console.log(page, "page");
 
     // template for the navs
 
@@ -31,9 +32,19 @@ export default function SideNav() {
         {
             type: "main",
             content: [
-                { text: "Add new page", type: "new-page", icons: <Plus /> },
-                { text: "Footer", type: "footer", icon: <PanelBottom /> },
-                { text: "Navbar", type: "nav", icon: <PanelTop /> },
+                {
+                    text: "Add new page",
+                    type: "new-page",
+                    icons: <Plus />,
+                    key: "new-page",
+                },
+                {
+                    text: "Footer",
+                    type: "footer",
+                    icon: <PanelBottom />,
+                    key: "footer",
+                },
+                { text: "Navbar", type: "nav", icon: <PanelTop />, key: "nav" },
             ],
         },
         {
@@ -43,16 +54,33 @@ export default function SideNav() {
                     text: "Text",
                     type: "page-component",
                     icon: <CaseSensitive />,
+                    key: "text",
                 },
                 { text: "Image", type: "page-component", icon: <Image /> },
                 {
                     text: "Button",
                     type: "page-component",
                     icon: <MousePointerClick />,
+                    key: "button",
                 },
-                { text: "Form", type: "page-component", icon: <Home /> },
-                { text: "List", type: "page-component", icon: <Home /> },
-                { text: "Table", type: "page-component", icon: <Home /> },
+                {
+                    text: "Form",
+                    type: "page-component",
+                    icon: <Home />,
+                    key: "form",
+                },
+                {
+                    text: "List",
+                    type: "page-component",
+                    icon: <Home />,
+                    key: "list",
+                },
+                {
+                    text: "Table",
+                    type: "page-component",
+                    icon: <Home />,
+                    key: "table",
+                },
             ],
         },
         {
@@ -69,20 +97,31 @@ export default function SideNav() {
         },
     ];
 
+    // find the current nav
+    const currentNav = navs.find((nav) => nav.type === navType);
+
+    const path = usePathname();
+    const page_id = path.split("/")[3];
+
+    const currentPage = page.find((page) => page.id === page_id);
+
+    useEffect(() => {
+        if (page_id !== "0") {
+            setNavType("page-select");
+        }
+        // check if a matching page exists
+        if (currentPage) {
+            setCurrentNavName([currentPage.title]);
+        }
+    }, [page_id, currentPage]);
+
     for (let i = 0; i < page.length; i++) {
         navs[0].content.unshift({
             text: page[i].title,
             type: "page-select",
             icon: <Home />,
+            key: page[i].id,
         });
-    }
-
-    // find the current nav
-    const currentNav = navs.find((nav) => nav.type === navType);
-
-    // if there is no current nav, return an error
-    if (!currentNav) {
-        return <div className="sidenav">Error</div>;
     }
 
     function content() {
@@ -110,7 +149,8 @@ export default function SideNav() {
                     text={button.text}
                     type={button.type}
                     Icon={button.icon}
-                    key={button.text}
+                    id={button.key ?? button.text}
+                    key={button.key}
                 />
             ));
         }
