@@ -1,5 +1,8 @@
-import { useState } from 'react';
-import { siteCreateClientSchema, SiteCreateClient } from "@/lib/db/schema/sites";
+import { useState } from "react";
+import {
+    siteCreateClientSchema,
+    SiteCreateClient,
+} from "@/lib/db/schema/sites";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import {
@@ -10,20 +13,24 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import DefaultButton from "../interactives/Button"
-import { onSubmit } from "@/components/dashboard/createNewProject"
-import { useRouter } from 'next/navigation';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import DefaultButton from "../interactives/Button";
+import { onSubmit } from "@/components/dashboard/createNewProject";
+import { useRouter } from "next/navigation";
 
 type dialogBoxProps = {
-    children: React.ReactNode,
-    title?: string,
-    description?: string,
-}
+    children: React.ReactNode;
+    title?: string;
+    description?: string;
+};
 
-export default function DialogBox({ children, title, description }: dialogBoxProps) {
+export default function DialogBox({
+    children,
+    title,
+    description,
+}: dialogBoxProps) {
     const [inputValue, setInputValue] = useState("");
     const router = useRouter();
     const {
@@ -36,25 +43,28 @@ export default function DialogBox({ children, title, description }: dialogBoxPro
         resolver: zodResolver(siteCreateClientSchema),
     });
 
-    const onSubmitCallback: SubmitHandler<SiteCreateClient> = async (data, event) => {
+    const onSubmitCallback: SubmitHandler<SiteCreateClient> = async (
+        data,
+        event
+    ) => {
         event?.preventDefault();
 
         await onSubmit(data, setError, () => window.location.reload());
         console.log("Refreshing");
-    }
+    };
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <DefaultButton buttonType='button' type="toggle">{children}</DefaultButton>
+                <DefaultButton buttonType="button" type="toggle">
+                    {children}
+                </DefaultButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
                 <form onSubmit={handleSubmit(onSubmitCallback)}>
                     <DialogHeader>
                         <DialogTitle>{title}</DialogTitle>
-                        <DialogDescription>
-                            {description}
-                        </DialogDescription>
+                        <DialogDescription>{description}</DialogDescription>
                     </DialogHeader>
                     <div className="flex items-center space-x-2 mt-2">
                         <div className="grid flex-1 gap-2">
@@ -72,10 +82,12 @@ export default function DialogBox({ children, title, description }: dialogBoxPro
                         </div>
                     </div>
                     <DialogFooter className="sm:justify-start mt-4">
-                        <DefaultButton buttonType='submit' type="toggle">{children}</DefaultButton>
+                        <DefaultButton buttonType="submit" type="toggle">
+                            {children}
+                        </DefaultButton>
                     </DialogFooter>
                 </form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }
