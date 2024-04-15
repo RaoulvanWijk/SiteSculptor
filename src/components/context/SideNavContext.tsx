@@ -1,3 +1,4 @@
+"use client";
 import {
     Dispatch,
     ReactNode,
@@ -8,6 +9,7 @@ import {
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { set } from "zod";
 
 type SideNavContextType = {
     currentNavName: Array<string>;
@@ -40,6 +42,7 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [page, setPage] = useState([]);
 
     const site_id = usePathname().split("/")[2];
+    const page_id = usePathname().split("/")[3];
 
     useEffect(() => {
         getSiteData(site_id).then((data) => {
@@ -49,6 +52,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
             setPage(data);
         });
     }, []);
+
+    // get the page name from page_id
 
     return (
         <SideNavContext.Provider
