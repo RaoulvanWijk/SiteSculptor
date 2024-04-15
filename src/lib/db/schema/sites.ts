@@ -48,12 +48,15 @@ export const updateSiteParams = baseSchema
     });
 export const siteIdSchema = baseSchema.pick({ id: true });
 
+export const siteCreateClientSchema = baseSchema.pick({ name: true});
+
 // Types for sites - used to type API request params and within Components
 export type Site = typeof sites.$inferSelect;
 export type NewSite = z.infer<typeof insertSiteSchema>;
 export type NewSiteParams = z.infer<typeof insertSiteParams>;
 export type UpdateSiteParams = z.infer<typeof updateSiteParams>;
 export type SiteId = z.infer<typeof siteIdSchema>["id"];
+export type SiteCreateClient = z.infer<typeof siteCreateClientSchema>;
 
 // this type infers the return from getSites() - meaning it will include any joins
 export type CompleteSite = Awaited<
