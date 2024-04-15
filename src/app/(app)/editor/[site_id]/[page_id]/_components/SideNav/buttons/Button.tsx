@@ -1,15 +1,16 @@
 import "@/resources/styling/components/SideNav/SideNavButton.scss";
 import useSideNav from "@/components/hooks/useSideNav";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 type ButtonProps = {
     Icon: React.ReactNode;
     text: string;
     type: string;
+    id: string;
 };
 
-export default function Button({ Icon, text, type }: ButtonProps) {
-    const { currentNavName, setCurrentNavName, setNavType } = useSideNav();
-
+export default function Button({ Icon, text, type, id }: ButtonProps) {
     // function to change the nav
     const changeNav = () => {
         const nextNavName = currentNavName.concat(text);
@@ -17,6 +18,14 @@ export default function Button({ Icon, text, type }: ButtonProps) {
         setCurrentNavName(nextNavName);
         setNavType(type);
     };
+
+    const { currentNavName, setCurrentNavName, setNavType, site, page } =
+        useSideNav();
+
+    const router = usePathname();
+    const page_id = router.split("/")[3];
+
+    const changeNavPage = () => {};
 
     // function to open the footer selector
     const openFooterSelector = () => {
@@ -38,35 +47,49 @@ export default function Button({ Icon, text, type }: ButtonProps) {
     switch (type) {
         case "page-select":
             return (
-                <button className="sidenavbutton" onClick={changeNav}>
-                    <span>{text}</span>
-                    <span>{Icon}</span>
-                </button>
+                <Link href={`/editor/${site[0].id}/${id}/`} shallow={true}>
+                    <button
+                        className="sidenavbutton"
+                        onClick={changeNavPage}
+                        id={id}
+                    >
+                        <span>{text}</span>
+                        <span>{Icon}</span>
+                    </button>
+                </Link>
             );
         case "page-component":
             return (
-                <button className="sidenavbutton" onClick={changeNav}>
+                <button className="sidenavbutton" onClick={changeNav} id={id}>
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
             );
         case "new-page":
             return (
-                <button className="sidenavbutton" onClick={newPage}>
+                <button className="sidenavbutton" onClick={newPage} id={id}>
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
             );
         case "footer":
             return (
-                <button className="sidenavbutton" onClick={openFooterSelector}>
+                <button
+                    className="sidenavbutton"
+                    onClick={openFooterSelector}
+                    id={id}
+                >
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
             );
         case "nav":
             return (
-                <button className="sidenavbutton" onClick={openNavSelector}>
+                <button
+                    className="sidenavbutton"
+                    onClick={openNavSelector}
+                    id={id}
+                >
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
