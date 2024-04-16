@@ -23,8 +23,8 @@ export default function BaseDropComponent({
   return (
     <div
       ref={setNodeRef}
-      style={{ border: isOver ? "2px solid red" : "2px solid" }}
-      className={isOver && !active?.data.current?.isComponentInEditor ? "bg-gray-200 h-16" : "bg-white"}
+      style={{ border: isOver ? "2px solid red" : "" }}
+      className={isOver && !active?.data.current?.isComponentInEditor ? "h-16" : "bg-white"}
     >
       {children}
     </div>
