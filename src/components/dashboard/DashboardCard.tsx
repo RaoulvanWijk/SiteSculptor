@@ -11,7 +11,7 @@ type dashboardCardProps = {
   projectName?: string,
   projectDesc?: string,
   children?: React.ReactNode,
-  clickEvent?: React.MouseEventHandler<HTMLDivElement>,
+  url?: string,
 }
 
 const variants = {
@@ -19,38 +19,38 @@ const variants = {
   "withButton": "withButtonCard",
 }
 
-function DashboardCard({ imgSrc, type, projectDesc, projectName, children, clickEvent }: dashboardCardProps) {
+function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url }: dashboardCardProps) {
   let cardLayout;
 
   switch (type) {
     case "standard":
       cardLayout = (
-        <div className={variants[type ?? "default"]} onClick={clickEvent || undefined}>
+        <Link className={variants[type ?? "default"]} href={url ?? ''}>
           <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
           <div className="cardTxt">
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>
-            
+
           </div>
-        </div>
+        </Link>
       )
       break;
 
     case "withButton":
       cardLayout = (
-        <div className={variants[type ?? "default"]} onClick={clickEvent || undefined}>
+        <Link className={variants[type ?? "default"]} href={url ?? ''}>
           <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
           <div className="cardTxt">
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>
             {children}
           </div>
-        </div>
+        </Link>
       )
       break;
-    }
+  }
 
-    return cardLayout;
+  return cardLayout;
 }
 
 export default DashboardCard;

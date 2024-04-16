@@ -14,6 +14,8 @@ import {
     useSensors,
 } from "@dnd-kit/core";
 import { usePathname, useRouter } from "next/navigation";
+import { SideNav } from "@/components/layouts/Editor";
+import { SideNavContextProvider } from "@/components/context/SideNavContext";
 
 const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
     // console.log(args.active.data.current, droppableContainers);

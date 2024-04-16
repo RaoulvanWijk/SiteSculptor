@@ -1,57 +1,93 @@
-import { useState } from 'react';
+import { useState } from "react";
+import {
+    siteCreateClientSchema,
+    SiteCreateClient,
+} from "@/lib/db/schema/sites";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { SubmitHandler, useForm } from "react-hook-form";
 import {
     Dialog,
-    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import DefaultButton from "../interactives/Button"
-import { onSubmit } from "@/components/dashboard/createNewProject"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import DefaultButton from "../interactives/Button";
+import { onSubmit } from "@/components/dashboard/createNewProject";
+import { useRouter } from "next/navigation";
 
 type dialogBoxProps = {
-    children: string,
-    title?: string,
-    description?: string,
-}
+    children: React.ReactNode;
+    title?: string;
+    description?: string;
+};
 
-export default function DialogBox({ children, title, description }: dialogBoxProps) {
+export default function DialogBox({
+    children,
+    title,
+    description,
+}: dialogBoxProps) {
     const [inputValue, setInputValue] = useState("");
+    const router = useRouter();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        reset,
+        setError,
+    } = useForm<SiteCreateClient>({
+        resolver: zodResolver(siteCreateClientSchema),
+    });
+
+    const onSubmitCallback: SubmitHandler<SiteCreateClient> = async (
+        data,
+        event
+    ) => {
+        event?.preventDefault();
+
+        await onSubmit(data, setError, () => window.location.reload());
+        console.log("Refreshing");
+    };
+
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <DefaultButton type="toggle">{children}</DefaultButton>
+                <DefaultButton buttonType="button" type="toggle">
+                    {children}
+                </DefaultButton>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
-                <DialogHeader>
-                    <DialogTitle>{title}</DialogTitle>
-                    <DialogDescription>
-                        {description}
-                    </DialogDescription>
-                </DialogHeader>
-                <div className="flex items-center space-x-2">
-                    <div className="grid flex-1 gap-2">
-                        <Label htmlFor="link" className="sr-only">
-                            {description}
-                        </Label>
-                        <Input
-                            id="link"
-                            defaultValue="Type here"
-                            onChange={(e) => setInputValue(e.target.value)}
-                        />
+                <form onSubmit={handleSubmit(onSubmitCallback)}>
+                    <DialogHeader>
+                        <DialogTitle>{title}</DialogTitle>
+                        <DialogDescription>{description}</DialogDescription>
+                    </DialogHeader>
+                    <div className="flex items-center space-x-2 mt-2">
+                        <div className="grid flex-1 gap-2">
+                            <Label htmlFor="link" className="sr-only">
+                                {description}
+                            </Label>
+                            <Input
+                                id="link"
+                                placeholder="Type here"
+                                {...register("name")}
+                            />
+                            {errors.name && (
+                                <p className="text-red-500">{`${errors.name.message}`}</p>
+                            )}
+                        </div>
                     </div>
-                </div>
-                <DialogFooter className="sm:justify-start">
-                    <DialogClose asChild>
-                        <DefaultButton onClick={() => onSubmit(inputValue)} type="toggle">{children}</DefaultButton>
-                    </DialogClose>
-                </DialogFooter>
+                    <DialogFooter className="sm:justify-start mt-4">
+                        <DefaultButton buttonType="submit" type="toggle">
+                            {children}
+                        </DefaultButton>
+                    </DialogFooter>
+                </form>
             </DialogContent>
         </Dialog>
-    )
+    );
 }

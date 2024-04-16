@@ -4,10 +4,12 @@ import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
+import { nanoid } from "nanoid";
 
 export async function POST(request: NextRequest) {
     try {
         const { name } = await request.json();
+        const id = nanoid();
         const owner = await getUserAuth();
         if (!owner) {
             return new NextResponse(
@@ -20,10 +22,11 @@ export async function POST(request: NextRequest) {
 
         const ownerId = owner.session?.user.id as string;
 
-        console.log(ownerId);
-        console.log(name);
-
-        const { error }: any = insertSiteSchema.safeParse({ name, ownerId });
+        const { error }: any = insertSiteSchema.safeParse({
+            name,
+            ownerId,
+            id,
+        });
         if (error) {
             return new NextResponse(
                 JSON.stringify({ message: error.message }),
@@ -35,9 +38,9 @@ export async function POST(request: NextRequest) {
 
         const response = await db
             .insert(sites)
-            .values({ ownerId, name })
+            .values({ id: id, ownerId, name })
             .execute();
-        const id = response[0].insertId;
+        // get the id of the inserted site
 
         return new NextResponse(JSON.stringify({ message: "ok", id: id }), {
             status: 200,
@@ -48,6 +51,4 @@ export async function POST(request: NextRequest) {
             status: 400,
         });
     }
-
-    // validate the request body
 }
