@@ -27,7 +27,6 @@ type EditorContextType = {
 
 export const EditorContext = createContext<EditorContextType | null>(null);
 
-
 export default function EditorContextProvider({ children }: { children: ReactNode }) {
   const [componentsInEditor, setComponents] = useState<UsedComponent[]>([]);
   const [availableComponents, setAvailableComponents] = useState<Component[]>([]);
@@ -50,13 +49,12 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     //   return;
     // }
 
-    let newComponents = [...componentsInEditor, newComponent];
+    // add the new component to the list of components with the new index and replace the old list indexes with the new ones
+    let newComponents = [...componentsInEditor];
+    newComponents.splice(index, 0, newComponent);
+    newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
 
-    // sort components by index
-    newComponents = newComponents.sort((a, b) => a.index - b.index);
     setComponents(newComponents);
-
-    // setComponents((prev) => [...prev, newComponent]);
   };
 
   const removeComponent = (component: UsedComponent) => {
