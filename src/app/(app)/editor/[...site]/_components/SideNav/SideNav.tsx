@@ -106,8 +106,10 @@ export default function SideNav() {
     const currentPage = page.find((page) => page.id === page_id);
 
     useEffect(() => {
-        if (page_id !== "0") {
+        if (page_id) {
             setNavType("page-select");
+        } else {
+            setNavType("main");
         }
         // check if a matching page exists
         if (currentPage) {
@@ -136,7 +138,10 @@ export default function SideNav() {
                         <TestDragComponent
                             key={availableComponents[i].id}
                             id={availableComponents[i].id}
-                            data={{ isComponentInEditor: false, isFromSideNav: true}}
+                            data={{
+                                isComponentInEditor: false,
+                                isFromSideNav: true,
+                            }}
                         >
                             {availableComponents[i].name}
                         </TestDragComponent>

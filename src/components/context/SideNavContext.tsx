@@ -18,6 +18,8 @@ type SideNavContextType = {
     setNavType: Dispatch<SetStateAction<String>>;
     site: Array<any>;
     page: Array<any>;
+    site_id: string;
+    page_id: string;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -64,6 +66,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setNavType,
                 site,
                 page,
+                site_id,
+                page_id,
             }}
         >
             {children}
