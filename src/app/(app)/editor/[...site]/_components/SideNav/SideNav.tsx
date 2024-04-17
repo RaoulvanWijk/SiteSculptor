@@ -136,7 +136,10 @@ export default function SideNav() {
                         <TestDragComponent
                             key={availableComponents[i].id}
                             id={availableComponents[i].id}
-                            data={{ isComponentInEditor: false }}
+                            data={{
+                                isComponentInEditor: false,
+                                isFromSideNav: true,
+                            }}
                         >
                             {availableComponents[i].name}
                         </TestDragComponent>
@@ -149,7 +152,7 @@ export default function SideNav() {
                     text={button.text}
                     type={button.type}
                     Icon={button.icon}
-                    // id={button.key ?? button.text}
+                    id={button.key ?? button.text}
                     key={button.key}
                 />
             ));
