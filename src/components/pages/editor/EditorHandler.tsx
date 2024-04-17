@@ -28,7 +28,7 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
-import SideNav from "@/app/(app)/editor/[site_id]/[page_id]/_components/SideNav/SideNav";
+import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
 
 //#endregion
 
