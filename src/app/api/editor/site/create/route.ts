@@ -4,10 +4,12 @@ import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
+import { nanoid } from "nanoid";
 
 export async function POST(request: NextRequest) {
     try {
         const { name } = await request.json();
+        const id = nanoid();
         const owner = await getUserAuth();
         if (!owner) {
             return new NextResponse(
@@ -20,9 +22,11 @@ export async function POST(request: NextRequest) {
 
         const ownerId = owner.session?.user.id as string;
 
-        console.log(ownerId);
-
-        const { error }: any = insertSiteSchema.safeParse({ name, ownerId });
+        const { error }: any = insertSiteSchema.safeParse({
+            name,
+            ownerId,
+            id,
+        });
         if (error) {
             return new NextResponse(
                 JSON.stringify({ message: error.message }),
@@ -32,16 +36,19 @@ export async function POST(request: NextRequest) {
             );
         }
 
-            await db.insert(sites).values({ ownerId, name }).execute();
+        const response = await db
+            .insert(sites)
+            .values({ id: id, ownerId, name })
+            .execute();
+        // get the id of the inserted site
 
-            return new NextResponse(JSON.stringify({ message: "ok" }), {
-                status: 200,
-            });
-        } catch (error) {
-            return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
-                status: 400,
-            });
-        }
-
-        // validate the request body
+        return new NextResponse(JSON.stringify({ message: "ok", id: id }), {
+            status: 200,
+        });
+    } catch (error) {
+        console.log(error);
+        return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
+            status: 400,
+        });
     }
+}

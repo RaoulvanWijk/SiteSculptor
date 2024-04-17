@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = (nextConfig) => {
     return {
-        ...nextConfig,
+        output: "standalone",
         images: {
             remotePatterns: [
                 {
@@ -11,6 +11,12 @@ const nextConfig = (nextConfig) => {
                     pathname: "/**",
                 },
                 {
+                  protocol: "https",
+                  hostname: "lh3.googleusercontent.com",
+                  port: "",
+                  pathname: "/**",
+                },
+                {
                     protocol: "https",
                     hostname: "placehold.co",
                     port: "",
@@ -18,14 +24,15 @@ const nextConfig = (nextConfig) => {
                 }
             ],
         },
-        webpack(webpackConfig) {
-            return {
-                ...webpackConfig,
-                optimization: {
-                    minimize: false,
-                },
-            };
-        },
+        // webpack(webpackConfig) {
+        //     return {
+        //         ...webpackConfig,
+        //         optimization: {
+        //             minimize: false,
+        //         },
+        //     };
+        // },
     };
 };
+
 export default nextConfig;
