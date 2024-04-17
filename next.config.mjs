@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = (nextConfig) => {
     return {
+        output: "standalone",
         images: {
             remotePatterns: [
                 {
