@@ -14,12 +14,6 @@ type ButtonProps = {
 
 export default function Button({ Icon, text, type, id }: ButtonProps) {
     // function to change the nav
-    const changeNav = () => {
-        const nextNavName = currentNavName.concat(text);
-
-        setCurrentNavName(nextNavName);
-        setNavType(type);
-    };
 
     const { currentNavName, setCurrentNavName, setNavType, site, page } =
         useSideNav();
@@ -34,6 +28,13 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
         const navName = currentNavName.concat("Footer");
         setCurrentNavName(navName);
         setNavType("footer");
+    };
+
+    const changeNav = () => {
+        const nextNavName = currentNavName.concat(text);
+
+        setCurrentNavName(nextNavName);
+        setNavType(type);
     };
 
     // function to open the nav selector
@@ -102,6 +103,15 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
                     <span>{text}</span>
                     <span>{Icon}</span>
                 </button>
+            );
+        case "dashboard":
+            return (
+                <Link href={`/app/dashboard`} shallow={true}>
+                    <button className="sidenavbutton" id={id}>
+                        <span>{text}</span>
+                        <span>{Icon}</span>
+                    </button>
+                </Link>
             );
     }
 }

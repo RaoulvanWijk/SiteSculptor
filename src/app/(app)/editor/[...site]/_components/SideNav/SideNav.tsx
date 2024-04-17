@@ -10,6 +10,7 @@ import {
     Plus,
     Image,
     MousePointerClick,
+    LayoutDashboard,
 } from "lucide-react";
 import BreadCrumbs from "./BreadCrumbs";
 import "@/resources/styling/components/SideNav/sidenav.scss";
@@ -18,11 +19,18 @@ import TestDragComponent from "@/components/editor-drag-components/TestDragCompo
 import useEditor from "@/components/hooks/useEditor";
 import { usePathname } from "next/navigation";
 import { set } from "zod";
+import LoadingButton from "./buttons/LoadingButton";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
-    const { setCurrentNavName, setNavType, navType, currentNavName, page } =
-        useSideNav();
+    const {
+        setCurrentNavName,
+        setNavType,
+        navType,
+        currentNavName,
+        page,
+        loading,
+    } = useSideNav();
 
     const { availableComponents, setAvailableComponents } = useEditor();
 
@@ -144,43 +152,49 @@ export default function SideNav() {
     function content() {
         if (currentNav && currentNav.type === "page-component") {
             const currentNavText = currentNavName[currentNavName.length - 1];
-            for (let i = 0; i < availableComponents.length; i++) {
-                if (
-                    availableComponents[i].type ===
-                    currentNavText.toLocaleLowerCase()
-                ) {
-                    return (
-                        <TestDragComponent
-                            key={availableComponents[i].id}
-                            id={availableComponents[i].id}
-                            data={{
-                                isComponentInEditor: false,
-                                isFromSideNav: true,
-                            }}
-                        >
-                            {availableComponents[i].name}
-                        </TestDragComponent>
-                    );
-                }
-            }
+            const components = availableComponents.find(
+                (component) =>
+                    component.type === currentNavText.toLocaleLowerCase()
+            );
+            return (
+                <TestDragComponent
+                    id={components?.id ?? ""}
+                    data={{ isComponentInEditor: false, isFromSideNav: true }}
+                    key={components?.id}
+                >
+                    {components?.name}
+                </TestDragComponent>
+            );
         } else {
-            return currentNav?.content.map((button) => (
-                <Button
-                    text={button.text}
-                    type={button.type}
-                    Icon={button.icon}
-                    id={button.key ?? button.text}
-                    key={button.key}
-                />
-            ));
+            if (loading) {
+                return <LoadingButton />;
+            } else {
+                return currentNav?.content.map((button) => (
+                    <Button
+                        text={button.text}
+                        type={button.type}
+                        Icon={button.icon}
+                        id={button.key ?? button.text}
+                        key={button.key}
+                    />
+                ));
+            }
         }
     }
 
     return (
         <div className="sidenav">
-            <h1 className="sidenav-title">Navigator</h1>
-            <BreadCrumbs />
-            <div className="buttons">{content()}</div>
+            <div className="sidenav-content">
+                <h1 className="sidenav-title">Navigator</h1>
+                <BreadCrumbs />
+                <div className="buttons">{content()}</div>
+            </div>
+            <Button
+                text="Dashboard"
+                type="dashboard"
+                Icon={<LayoutDashboard />}
+                id="dashboard"
+            />
         </div>
     );
 }

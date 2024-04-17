@@ -28,3 +28,38 @@
 .subtitle-top {
     margin-top: 0;
 }
+
+// loading
+.loading-button {
+    animation-duration: 2s;
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    background-color: #00000010;
+    border: 0.1rem;
+    height: 3rem;
+    
+}
+
+.loading-text {
+    animation-duration: 2s;
+animation-name: loading;
+animation-iteration-count: infinite;
+animation-timing-function: ease-in-out;
+background-color: #00000010;
+border: 0.1rem;
+    height: 0rem;
+}
+
+
+@keyframes loading {
+    0% {
+        background-color: #00000010;
+    }
+    50% {
+        background-color: #00000020;
+    }
+    100% {
+        background-color: #00000010;
+    }
+}

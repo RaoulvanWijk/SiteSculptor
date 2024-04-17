@@ -20,6 +20,8 @@ type SideNavContextType = {
     page: Array<any>;
     site_id: string;
     page_id: string;
+    loading: boolean;
+    isLoading: Dispatch<SetStateAction<boolean>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -39,6 +41,7 @@ async function getPageData(site_id: string) {
 export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
+    const [loading, isLoading] = useState<boolean>(true);
 
     const [site, setSite] = useState([]);
     const [page, setPage] = useState([]);
@@ -53,7 +56,10 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         getPageData(site_id).then((data) => {
             setPage(data);
         });
+        isLoading(false);
     }, []);
+
+    console.log(loading);
 
     // get the page name from page_id
 
@@ -68,6 +74,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 page,
                 site_id,
                 page_id,
+                loading,
+                isLoading,
             }}
         >
             {children}
