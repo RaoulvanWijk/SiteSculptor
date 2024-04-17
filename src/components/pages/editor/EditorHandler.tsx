@@ -44,83 +44,14 @@ export default function EditorHandler() {
     updateComponent,
     selectedComponent,
     setSelectedComponent,
+    renderComponents,
+    handleDragEnd,
   } = useEditor();
   const [sComp, setSComp] = useState<any>(null);
   useEffect(() => {
     setComponents(testUsedComponents);
     setAvailableComponents(testComponents);
   }, [setComponents, setAvailableComponents]);
-
-  const renderComponents = (components: UsedComponent[]) => {
-    const len = components.length;
-    let lastIndex = 0;
-    return (
-      <>
-        {components.map((component, index) => {
-          lastIndex = component.index;
-          return (
-            <div key={component.id}>
-              <BaseDropComponent
-                id={"droppable-" + component.id}
-                data={{
-                  isEditorDroppable: true,
-                  index: component.index,
-                }}
-                accepts={["draggable-outside-editor"]}
-              ></BaseDropComponent>
-              <BaseDragComponent
-                id={component.id}
-                data={{
-                  isComponentInEditor: true,
-                  type: component.component.type,
-                }}
-              >
-                <div
-                  className={cn(
-                    "w-full border-2",
-                    component.component.type === "container" ? "h-48" : " h-16"
-                  )}
-                >
-                  <p>
-                    {component.id} - {component.component.name} -{" "}
-                    {component.component.type}, index: {component.index}
-                  </p>
-                  {component.component.type === "container" && (
-                    <div className="flex gap-4">
-                      <SortableContext items={component.children}
-                        strategy={horizontalListSortingStrategy}>
-                        {component.children.map((child, index) => {
-                          return (
-                            <BaseDragComponent
-                              key={child.id}
-                              id={component.id}
-                              data={{
-                                isComponentInEditor: true,
-                                type: component.component.type,
-                              }}
-                            >
-                              <div className="w-1/2 border-2">
-                                <p>
-                                  {child.id} - {child.component.name} -{" "}
-                                  {child.component.type}
-                                </p>
-                              </div>
-                            </BaseDragComponent>
-                          );
-                        })}
-                      </SortableContext>
-                    </div>
-                  )}
-                </div>
-              </BaseDragComponent>
-            </div>
-          );
-        }
-        )}
-      </>
-    );
-  }
-
 
   useDndMonitor({
     onDragStart: (event) => {
@@ -131,53 +62,8 @@ export default function EditorHandler() {
     },
     onDragEnd: (event: DragEndEvent) => {
       // console.log("drag end");
-      if (
-        !event.over ||
-        !event.active ||
-        (!event.over.data.current?.isComponentInEditor &&
-          !event.over.data.current?.isEditorDroppable)
-      )
-        return;
-
-      // if the component is being dragged from inside the editor
-      if (event.active.data?.current?.isComponentInEditor) {
-        // get the old and new indexes of the components
-        const oldIdx = componentsInEditor.findIndex(
-          (component) => component.id === event.active.id
-        );
-        const newIdx = componentsInEditor.findIndex(
-          (component) => component.id === event.over?.id
-        );
-
-        // TODO: Add support for dragging components into other components
-        // set the new components array with the new indexes
-        setComponents((prev) => {
-          let newArr = arrayMove(prev, oldIdx, newIdx);
-          // update all the indexes of the components in the editor
-          newArr = newArr.map((component, index) => {
-            component.index = index;
-            return component;
-          });
-
-          return [...newArr];
-        });
-        return;
-      }
-
-      // if the component is being dragged from the sidebar
-      // get the component from the availableComponents array
-      const component = availableComponents.find(
-        (c) => c.id === event.active.id
-      );
-
-      // if the component is not found, return
-      if (!component) return;
-
-      // get the index of the component that the dragged component is being dropped into
-      const index = event.over.data.current?.index;
-
-      // add the component to the components array
-      addComponent(component, index);
+      handleDragEnd(event);
+      return
     },
   });
 
@@ -185,6 +71,7 @@ export default function EditorHandler() {
     id: "nav-droppable",
     data: {
       isSideNavDropArea: true,
+      dropArea: "sideNav"
     },
   });
 
@@ -204,7 +91,7 @@ export default function EditorHandler() {
           strategy={verticalListSortingStrategy}
           items={componentsInEditor}
         >
-          {renderComponents(componentsInEditor)}
+          {renderComponents()}
         </SortableContext>
         <DragOverlayWrapper />
       </div>
