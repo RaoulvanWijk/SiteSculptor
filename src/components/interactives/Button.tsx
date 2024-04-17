@@ -16,11 +16,12 @@ type ButtonTypes =
     | undefined;
 
 type defaultButtonProps = {
-    children: React.ReactNode;
-    type: ButtonTypes;
-    onClick?: () => void;
-    linkTo?: string;
-    className?: string;
+    children: React.ReactNode,
+    type: ButtonTypes,
+    buttonType?: "button" | "submit" | "reset",
+    onClick?: () => void,
+    linkTo?: string,
+    className?: string,
 };
 
 const variants = {
@@ -36,6 +37,7 @@ const variants = {
 export default function DefaultButton({
     children,
     type,
+    buttonType,
     onClick,
     linkTo,
     className,
@@ -51,12 +53,13 @@ export default function DefaultButton({
         case "linkPrimary":
             buttonLayout = (
                 <button
+                    type={buttonType}
                     className={
                         "defaultButton " + variants[type ?? "default"] + " "
                     }
                     onClick={onClick}
                 >
-                    <Link href={`${linkTo}`}>{children}</Link>
+                    <Link href={linkTo?? "#"}>{children}</Link>
                 </button>
             )
             break;
@@ -64,6 +67,7 @@ export default function DefaultButton({
         case "toggleDef":
             buttonLayout = (
                 <button
+                    type={buttonType}
                     className={
                         "defaultButton " + variants[type ?? "default"] + " "
                     }

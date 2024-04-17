@@ -26,19 +26,19 @@ export default function Navbar() {
                 </DefaultButton>
             </div>
             <div className="rightside">
-                <DialogBox title="Create a new Project" description="Give your Project a name">New Project</DialogBox>
-                <a>
-                    <Image
-                        src={
-                            session
-                                ? session.user.image || "/logo.svg"
-                                : "/logo.svg"
-                        }
-                        alt="logo"
-                        className="w-10 h-10 rounded-full border-2 border-purple-500"
-                        width={100} height={100}
-                    />
-                </a>
+                <DialogBox title="Create a new Project" description="Give your Project a name" >New Project</DialogBox>
+
+                <Image
+                    src={
+                        session
+                            ? session.user.image || "/logo.svg"
+                            : "/logo.svg"
+                    }
+                    alt="logo"
+                    className="w-10 h-10 rounded-full border-2 border-purple-500"
+                    width={100} height={100}
+                />
+
             </div>
         </nav>
     );
