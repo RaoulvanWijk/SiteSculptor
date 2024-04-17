@@ -149,7 +149,7 @@ export default function SideNav() {
                     text={button.text}
                     type={button.type}
                     Icon={button.icon}
-                    id={button.key ?? button.text}
+                    // id={button.key ?? button.text}
                     key={button.key}
                 />
             ));
