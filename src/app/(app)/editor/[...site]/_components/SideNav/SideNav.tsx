@@ -1,25 +1,21 @@
 import React, { useEffect } from "react";
 import Button from "./buttons/Button";
-import {
-    CaseSensitive,
-    DollarSign,
-    Home,
-    PanelBottom,
-    PanelTop,
-    Phone,
-    Plus,
-    Image,
-    MousePointerClick,
-    LayoutDashboard,
-} from "lucide-react";
 import BreadCrumbs from "./BreadCrumbs";
 import "@/resources/styling/components/SideNav/sidenav.scss";
 import useSideNav from "@/components/hooks/useSideNav";
 import TestDragComponent from "@/components/editor-drag-components/TestDragComponent";
 import useEditor from "@/components/hooks/useEditor";
-import { usePathname } from "next/navigation";
-import { set } from "zod";
 import LoadingButton from "./buttons/LoadingButton";
+import {
+    CaseSensitive,
+    Home,
+    Image,
+    MousePointerClick,
+    PanelBottom,
+    PanelTop,
+    Plus,
+    LayoutDashboard,
+} from "lucide-react";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -30,18 +26,18 @@ export default function SideNav() {
         currentNavName,
         page,
         loading,
+        page_id,
     } = useSideNav();
 
     const { availableComponents, setAvailableComponents } = useEditor();
 
-    // template for the navs
-
+    //#region Navs
     const navs = [
         {
             type: "main",
             content: [
                 {
-                    text: "Add new page",
+                    text: "",
                     type: "break",
                     key: "break1",
                 },
@@ -52,7 +48,7 @@ export default function SideNav() {
                     key: "new-page",
                 },
                 {
-                    text: "Footer & navbar",
+                    text: "page settings",
                     type: "break",
                     key: "break2",
                 },
@@ -119,13 +115,10 @@ export default function SideNav() {
             content: [],
         },
     ];
+    //#endregion
 
     // find the current nav
     const currentNav = navs.find((nav) => nav.type === navType);
-
-    const path = usePathname();
-    const page_id = path.split("/")[3];
-
     const currentPage = page.find((page) => page.id === page_id);
 
     useEffect(() => {

@@ -55,8 +55,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         });
         getPageData(site_id).then((data) => {
             setPage(data);
+            isLoading(false);
         });
-        isLoading(false);
     }, []);
 
     console.log(loading);
