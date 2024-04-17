@@ -47,7 +47,7 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
     switch (type) {
         case "page-select":
             return (
-                <Link href={`/editor/${site[0].id}/${id}/`} shallow={true}>
+                <Link href={`/editor/${site[0]?.id}/${id}/`} shallow={true}>
                     <button
                         className="sidenavbutton"
                         onClick={changeNavPage}
