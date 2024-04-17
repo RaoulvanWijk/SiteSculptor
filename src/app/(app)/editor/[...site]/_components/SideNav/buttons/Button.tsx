@@ -1,4 +1,6 @@
 import "@/resources/styling/components/SideNav/SideNavButton.scss";
+import "@/resources/styling/components/SideNav/breadcrumbs.scss";
+
 import useSideNav from "@/components/hooks/useSideNav";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -45,6 +47,10 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
     const newPage = () => {};
 
     switch (type) {
+        case "break":
+            return <div className="subtitle">{text}</div>;
+        case "break-top":
+            return <div className="subtitle subtitle-top">{text}</div>;
         case "page-select":
             return (
                 <Link href={`/editor/${site[0]?.id}/${id}/`} shallow={true}>
@@ -67,8 +73,11 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
             );
         case "new-page":
             return (
-                <button className="sidenavbutton" onClick={newPage} id={id}>
-                    <span>{text}</span>
+                <button
+                    className="sidenavbutton new-page"
+                    onClick={newPage}
+                    id={id}
+                >
                     <span>{Icon}</span>
                 </button>
             );

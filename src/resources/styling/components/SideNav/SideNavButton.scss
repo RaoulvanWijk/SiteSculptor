@@ -6,4 +6,25 @@
     padding: 0.5rem 1rem;
     border: 0.1rem solid #00000010;
     font-weight: 500;
+    
+}
+
+.new-page {
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: var(--prm);
+    transition: 0.2s ease-in-out;
+    &:hover {
+        background-color: var(--acc);
+    }
+}
+
+.subtitle {
+    margin-top: 1rem;
+    color: gray;
+}
+
+.subtitle-top {
+    margin-top: 0;
 }

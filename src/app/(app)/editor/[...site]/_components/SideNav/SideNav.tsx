@@ -34,9 +34,19 @@ export default function SideNav() {
             content: [
                 {
                     text: "Add new page",
+                    type: "break",
+                    key: "break1",
+                },
+                {
+                    text: "Add new page",
                     type: "new-page",
-                    icons: <Plus />,
+                    icon: <Plus />,
                     key: "new-page",
+                },
+                {
+                    text: "Footer & navbar",
+                    type: "break",
+                    key: "break2",
                 },
                 {
                     text: "Footer",
@@ -50,6 +60,11 @@ export default function SideNav() {
         {
             type: "page-select",
             content: [
+                {
+                    text: "Select your component type",
+                    type: "break-top",
+                    key: "break1",
+                },
                 {
                     text: "Text",
                     type: "page-component",
