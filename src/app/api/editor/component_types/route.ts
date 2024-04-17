@@ -5,7 +5,7 @@ import {
     componentTypes,
 } from "@/lib/db/schema/componentTypes";
 
-export async function getComponentTypes(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
         const allComponentTypes = await db
             .select()

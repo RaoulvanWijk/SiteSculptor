@@ -1,7 +1,7 @@
+import { PageComponentId } from './../../db/schema/pageComponents';
 import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
 import { 
-  PageComponentId, 
   NewPageComponentParams,
   UpdatePageComponentParams, 
   updatePageComponentSchema,
@@ -23,7 +23,8 @@ export const createPageComponent = async (pageComponent: NewPageComponentParams)
 };
 
 export const updatePageComponent = async (id: PageComponentId, pageComponent: UpdatePageComponentParams) => {
-  const { id: pageComponentId } = pageComponentIdSchema.parse({ id });
+  const { id: pageComponentId} = pageComponentIdSchema.parse({ id }) as any;
+  
   const newPageComponent = updatePageComponentSchema.parse(pageComponent);
   try {
     await db
@@ -39,7 +40,7 @@ export const updatePageComponent = async (id: PageComponentId, pageComponent: Up
 };
 
 export const deletePageComponent = async (id: PageComponentId) => {
-  const { id: pageComponentId } = pageComponentIdSchema.parse({ id });
+  const { id: pageComponentId } = pageComponentIdSchema.parse({ id }) as any;
   try {
     await db.delete(pageComponents).where(eq(pageComponents.id, pageComponentId!))
     return {success: true}

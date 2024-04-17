@@ -6,11 +6,11 @@ import { eq } from "drizzle-orm";
 export async function GET(request: NextRequest, { params }: any) {
     try {
         const id: any = params.siteId;
-
+        //get the pages for the siteId
         const idPages = await db
             .select()
             .from(pages)
-            .where(eq(pages.id, id))
+            .where(eq(pages.siteId, id))
             .execute();
         return new NextResponse(JSON.stringify(idPages), {
             status: 200,

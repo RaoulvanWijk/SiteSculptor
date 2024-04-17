@@ -1,50 +1,60 @@
-.pageHeader{
+.pageHeader {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 16px;
+    @media screen and (max-width: 950px) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}
+.left {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1rem;
+    width: 50%;
+    @media screen and (max-width: 950px) {
+        width: 100%;
+    }
 
     >h1{
-        font-size: 80px;
+        font-size: 72px;
+        font-weight: 700;
         font-weight: medium;
-        line-height: 90px;
-        letter-spacing: 0%;
-        width: 980px;
+        line-height: 1.05;
     }
 
     >p{
-        font-size: 1.5rem;
+        font-size: 17px;
         font-weight: medium;
-        line-height: 34px;
-        width: 980px;
 
     }
-    .getstarted-button {
-        width: 100%;
-        max-width: 300px;
-    }
     @media screen and (max-width: 950px) {
+        width: 100%;
         >h1{
             font-size: 60px;
-            line-height: 70px;
-            width: 100%;
         }
         >p{
             font-size: 1.25rem;
-            line-height: 30px;
-            width: 100%;
         }
     }
     @media screen and (max-width: 450px) {
         >h1{
             font-size: 40px;
-            line-height: 50px;
-            width: 100%;
         }
         >p{
             font-size: 1rem;
-            line-height: 24px;
-            width: 100%;
         }
         
+    }
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @media screen and (max-width: 950px) {
+        width: 100%;
     }
 }

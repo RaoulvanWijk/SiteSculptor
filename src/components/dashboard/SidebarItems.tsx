@@ -7,7 +7,8 @@ import { Button } from "../ui/button";
 const SidebarItems = () => {
     return (
         <div className="sidebaritems">
-            <Link href="/app/account">jup</Link>
+            <Link href="">My Projects</Link>
+            <Link href="">Extensions</Link>
         </div>
     );
 };

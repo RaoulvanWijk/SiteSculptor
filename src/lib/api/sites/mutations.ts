@@ -32,7 +32,7 @@ export const updateSite = async (id: SiteId, site: UpdateSiteParams) => {
     await db
      .update(sites)
      .set({...newSite, updatedAt: new Date() })
-     .where(and(eq(sites.id, siteId!), eq(sites.userId, session?.user.id!)))
+     .where(and(eq(sites.id, siteId!), eq(sites.ownerId, session?.user.id!)))
     return {success: true}
   } catch (err) {
     const message = (err as Error).message ?? "Error, please try again";
@@ -45,7 +45,7 @@ export const deleteSite = async (id: SiteId) => {
   const { session } = await getUserAuth();
   const { id: siteId } = siteIdSchema.parse({ id });
   try {
-    await db.delete(sites).where(and(eq(sites.id, siteId!), eq(sites.userId, session?.user.id!)))
+    await db.delete(sites).where(and(eq(sites.id, siteId!), eq(sites.ownerId, session?.user.id!)))
     return {success: true}
   } catch (err) {
     const message = (err as Error).message ?? "Error, please try again";
