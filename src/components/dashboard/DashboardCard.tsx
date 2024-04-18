@@ -42,9 +42,9 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>
             <div className="hoverOptions">
-              <DefaultButton type="link"><FolderPen /></DefaultButton>
-              <DefaultButton type="link"><Wrench /></DefaultButton>
-              <DefaultButton type="link" onClick={handleDeleteProject}><Trash2 /></DefaultButton>
+              <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
+              <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
+              <DefaultButton type="toggleLink" onClick={handleDeleteProject}><Trash2 /></DefaultButton>
             </div>
           </div>
         </Link>
