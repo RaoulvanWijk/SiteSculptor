@@ -35,7 +35,7 @@ export default function Home() {
     const filteredProjects = useMemo(() => {
         return (projects ?? []).filter(project =>
             project.name.toLowerCase().includes(executeSearch.toLowerCase())
-        );
+        ).sort((a, b) => a.name.localeCompare(b.name));
     }, [projects, executeSearch]);
 
     return (
