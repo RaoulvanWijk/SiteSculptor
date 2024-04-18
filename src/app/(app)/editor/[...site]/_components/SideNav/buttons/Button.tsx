@@ -15,8 +15,14 @@ type ButtonProps = {
 export default function Button({ Icon, text, type, id }: ButtonProps) {
     // function to change the nav
 
-    const { currentNavName, setCurrentNavName, setNavType, site, page } =
-        useSideNav();
+    const {
+        currentNavName,
+        setCurrentNavName,
+        setNavType,
+        site,
+        modal,
+        setModal,
+    } = useSideNav();
 
     const router = usePathname();
     const page_id = router.split("/")[3];
@@ -45,7 +51,9 @@ export default function Button({ Icon, text, type, id }: ButtonProps) {
     };
 
     // function to create a new page
-    const newPage = () => {};
+    const newPage = () => {
+        setModal(true);
+    };
 
     switch (type) {
         case "break":

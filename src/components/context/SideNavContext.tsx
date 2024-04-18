@@ -22,6 +22,8 @@ type SideNavContextType = {
     page_id: string;
     loading: boolean;
     isLoading: Dispatch<SetStateAction<boolean>>;
+    modal: boolean;
+    setModal: Dispatch<SetStateAction<boolean>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -42,6 +44,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
     const [loading, isLoading] = useState<boolean>(true);
+
+    const [modal, setModal] = useState<boolean>(false);
 
     const [site, setSite] = useState([]);
     const [page, setPage] = useState([]);
@@ -76,6 +80,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 page_id,
                 loading,
                 isLoading,
+                modal,
+                setModal,
             }}
         >
             {children}

@@ -9,8 +9,6 @@ export async function POST(request: NextRequest) {
         const { error }: any = insertPageSchema.safeParse({
             title,
             slug,
-            navbarId,
-            footerId,
             siteId,
         });
         if (error) {
@@ -21,10 +19,7 @@ export async function POST(request: NextRequest) {
                 }
             );
         }
-        await db
-            .insert(pages)
-            .values({ title, slug, navbarId, footerId, siteId })
-            .execute();
+        await db.insert(pages).values({ title, slug, siteId }).execute();
         return new NextResponse(JSON.stringify({ message: "ok" }), {
             status: 200,
         });

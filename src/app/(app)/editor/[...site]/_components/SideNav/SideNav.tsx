@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "./buttons/Button";
 import BreadCrumbs from "./BreadCrumbs";
 import "@/resources/styling/components/SideNav/sidenav.scss";
@@ -16,6 +16,7 @@ import {
     Plus,
     LayoutDashboard,
 } from "lucide-react";
+import AddPage from "./modal/AddPage";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -188,6 +189,7 @@ export default function SideNav() {
                 Icon={<LayoutDashboard />}
                 id="dashboard"
             />
+            <AddPage />
         </div>
     );
 }
