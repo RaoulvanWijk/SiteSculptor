@@ -17,6 +17,7 @@ type dashboardCardProps = {
   children?: React.ReactNode,
   url?: string,
   projectID?: string,
+  onDelete?: (projectId: string) => void;
 }
 
 const variants = {
@@ -24,7 +25,7 @@ const variants = {
   "withButton": "withButtonCard",
 }
 
-function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID }: dashboardCardProps) {
+function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID, onDelete }: dashboardCardProps) {
   let cardLayout;
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -36,10 +37,14 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
     setModalOpen(false);
   };
 
-  const handleDeleteProject = () => {
+  const handleDeleteProject = async () => {
     if (projectID) {
-      deleteProject(projectID);
-      location.reload();
+      try {
+        await deleteProject(projectID);
+        onDelete?.(projectID);
+      } catch (error) {
+        console.error("Failed to delete the project:", error);
+      }
     }
   };
 

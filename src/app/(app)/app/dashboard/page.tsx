@@ -32,6 +32,15 @@ export default function Home() {
         });
     }, []);
 
+    const handleDeleteProject = (projectId: string) => {
+        setProjects(currentProjects => {
+            if (currentProjects === null) {
+                return null;
+            }
+            return currentProjects.filter(project => project.id !== projectId);
+        });
+    };
+
     const filteredProjects = useMemo(() => {
         const baseProjects = projects ?? [];
 
@@ -64,6 +73,7 @@ export default function Home() {
                                 projectDesc={project.description ?? ""}
                                 projectID={project.id}
                                 // url={`/editor/${project.id}/0`}
+                                onDelete={handleDeleteProject}
                             />
                         ))}
                     </div>
