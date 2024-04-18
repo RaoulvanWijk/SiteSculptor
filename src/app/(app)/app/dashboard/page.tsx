@@ -1,13 +1,13 @@
 "use client"
 
-import SignIn from "@/components/auth/SignIn";
 import DashboardCard from "@/components/dashboard/DashboardCard";
 import DialogBox from "@/components/dashboard/DialogBox";
 import SkeletonBox from "@/components/dashboard/SkeletonBox";
 import { getUserProjects } from "@/components/dashboard/getUserProjects";
 import Button from "@/components/interactives/Button";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
+import { useSearch } from "@/components/context/SearchContext";
 
 interface Project {
     id: string,
@@ -19,28 +19,37 @@ export default function Home() {
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState<Project[] | null>(null);
+    const { searchTerm } = useSearch();
 
     useEffect(() => {
-        (async () => {
+        const fetchProjects = async () => {
             try {
-                setProjects(await getUserProjects());
+                const fetchedProjects = await getUserProjects();
+                setProjects(fetchedProjects);
             } catch (error) {
                 console.error('Error fetching projects:', error);
             } finally {
                 setLoading(false);
             }
-        })();
+        };
+
+        fetchProjects();
     }, [loading]);
 
-    return <main className="space-y-4">
-        <h1>Welcome back, {session?.user.name}</h1>
-        {projects && projects.length > 0 ? (
-            <>
-                <h3>Continue where you left off...</h3>
-                <div className="project-row">
-                    {projects.map((project) => (
-                        <React.Fragment key={project.id}>
+    const filteredProjects = useMemo(() => {
+        return projects?.filter(project => project.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())) || [];
+    }, [projects, searchTerm]);
+
+    return (
+        <main className="space-y-4">
+            <h1>Welcome back, {session?.user?.name}</h1>
+            {loading ? <SkeletonBox /> : filteredProjects.length > 0 ? (
+                <>
+                    <h3>Continue where you left off...</h3>
+                    <div className="project-row">
+                        {filteredProjects.map((project) => (
                             <DashboardCard
+                                key={project.id}
                                 type="standard"
                                 imgSrc="/placeholders/pc.jpg"
                                 projectName={project.name}
@@ -48,24 +57,21 @@ export default function Home() {
                                 projectID={project.id}
                                 url={`/editor/${project.id}/0`}
                             />
-                        </React.Fragment>
-                    ))}
-                </div>
-            </>
-        ) : (
-            <>
-                <h3>No projects created yet...</h3>
-                <DialogBox title="Create a new Project" description="Give your Project a name" >New Project</DialogBox>
-
-            </>
-        )}
-
-        <h3>Latest News</h3>
-        <div className="project-row">
-            {/* Logic to import element dynamically */}
-            <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
-                <Button type="primary">Check out the Extension!</Button>
-            </DashboardCard>
-        </div>
-    </main>
+                        ))}
+                    </div>
+                </>
+            ) : (
+                <>
+                    <h3>No projects found..</h3>
+                    <DialogBox title="Create a new Project" description="Give your Project a name">New Project</DialogBox>
+                </>
+            )}
+            <h3>Latest News</h3>
+            <div className="project-row">
+                <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
+                    <Button type="primary">Check out the Extension!</Button>
+                </DashboardCard>
+            </div>
+        </main>
+    );
 }

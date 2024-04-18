@@ -6,9 +6,11 @@ import "@/resources/styling/components/dashboard/navbar.scss";
 import DefaultButton from "../interactives/Button";
 import { useSession } from "next-auth/react";
 import DialogBox from "./DialogBox";
+import { useSearch } from "../context/SearchContext";
 
 export default function Navbar() {
     const { data: session, status } = useSession();
+    const { searchTerm, setSearchTerm } = useSearch();
 
     return (
         <nav className="barstyling navbar">
@@ -18,8 +20,10 @@ export default function Navbar() {
             <div className="search">
                 <input
                     type="text"
-                    placeholder="Project..."
+                    placeholder="Search for a project..."
                     className="searchbar"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <DefaultButton type="primary">
                     Search
