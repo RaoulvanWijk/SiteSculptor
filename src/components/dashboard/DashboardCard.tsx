@@ -29,6 +29,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
   let cardLayout;
 
   const [isModalOpen, setModalOpen] = useState(false);
+
   const handleOpenModal = () => {
     setModalOpen(true);
   };
@@ -51,18 +52,20 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
   switch (type) {
     case "standard":
       cardLayout = (
-        <Link className={variants[type ?? "default"]} href={url ?? ''}>
-          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
-          <div className="cardTxt">
-            <h2>{projectName}</h2>
-            <p>{projectDesc}</p>
-            <div className="hoverOptions">
-              <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
-              <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
-              <DefaultButton type="toggleLink" onClick={handleOpenModal}><Trash2 /></DefaultButton>
+        <div className={variants[type ?? "default"]}>
+          <Link href={url ?? ''}>
+            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
+            <div className="cardTxt">
+              <h2>{projectName}</h2>
+              <p>{projectDesc}</p>
             </div>
+          </Link>
+          <div className="hoverOptions">
+            <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
+            <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
+            <DefaultButton type="toggleLink" onClick={handleOpenModal}><Trash2 /></DefaultButton>
           </div>
-        </Link>
+        </div>
       )
       break;
 
