@@ -33,9 +33,19 @@ export default function Home() {
     }, []);
 
     const filteredProjects = useMemo(() => {
-        return (projects ?? []).filter(project =>
+        const baseProjects = projects ?? [];
+
+        // Filter projects based on the search term
+        const filtered = baseProjects.filter(project =>
             project.name.toLowerCase().includes(executeSearch.toLowerCase())
-        ).sort((a, b) => a.name.localeCompare(b.name));
+        );
+
+        // Sort alphabetically only if there is a search term
+        if (executeSearch.trim() !== "") {
+            return filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        return filtered;
     }, [projects, executeSearch]);
 
     return (
