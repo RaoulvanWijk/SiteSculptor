@@ -19,26 +19,24 @@ export default function Home() {
     const { data: session, status } = useSession();
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState<Project[] | null>(null);
-    const { searchTerm } = useSearch();
+    const { executeSearch } = useSearch();
 
     useEffect(() => {
-        const fetchProjects = async () => {
-            try {
-                const fetchedProjects = await getUserProjects();
-                setProjects(fetchedProjects);
-            } catch (error) {
-                console.error('Error fetching projects:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchProjects();
-    }, [loading]);
+        setLoading(true);
+        getUserProjects().then(projects => {
+            setProjects(projects);
+            setLoading(false);
+        }).catch(error => {
+            console.error('Error fetching projects:', error);
+            setLoading(false);
+        });
+    }, []);
 
     const filteredProjects = useMemo(() => {
-        return projects?.filter(project => project.name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())) || [];
-    }, [projects, searchTerm]);
+        return (projects ?? []).filter(project =>
+            project.name.toLowerCase().includes(executeSearch.toLowerCase())
+        );
+    }, [projects, executeSearch]);
 
     return (
         <main className="space-y-4">

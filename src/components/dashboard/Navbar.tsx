@@ -10,7 +10,7 @@ import { useSearch } from "../context/SearchContext";
 
 export default function Navbar() {
     const { data: session, status } = useSession();
-    const { searchTerm, setSearchTerm } = useSearch();
+    const { searchTerm, setSearchTerm, triggerSearch } = useSearch();
 
     return (
         <nav className="barstyling navbar">
@@ -25,7 +25,7 @@ export default function Navbar() {
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <DefaultButton type="primary">
+                <DefaultButton type="primary" onClick={triggerSearch}>
                     Search
                 </DefaultButton>
             </div>
