@@ -7,6 +7,7 @@ import DefaultButton from "../interactives/Button";
 import { useSession } from "next-auth/react";
 import DialogBox from "./DialogBox";
 import { useSearch } from "../context/SearchContext";
+import { Search } from 'lucide-react';
 
 export default function Navbar() {
     const { data: session, status } = useSession();
@@ -26,7 +27,7 @@ export default function Navbar() {
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <DefaultButton type="primary" onClick={triggerSearch}>
-                    Search
+                    <Search />
                 </DefaultButton>
             </div>
             <div className="rightside">
