@@ -43,6 +43,7 @@ export default function Home() {
                             imgSrc="/placeholders/pc.jpg"
                             projectName={project.name}
                             projectDesc={project.description ?? ""}
+                            url={`/editor/${project.id}/0`}
                         />
                     </React.Fragment>
                 ))
