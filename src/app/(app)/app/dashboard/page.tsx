@@ -63,7 +63,7 @@ export default function Home() {
                                 projectName={project.name}
                                 projectDesc={project.description ?? ""}
                                 projectID={project.id}
-                                url={`/editor/${project.id}/0`}
+                                // url={`/editor/${project.id}/0`}
                             />
                         ))}
                     </div>

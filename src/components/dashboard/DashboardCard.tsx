@@ -1,10 +1,11 @@
 import "@/resources/styling/components/dashboard/card.scss";
-import React from 'react'
+import React, { useState } from 'react'
 import Link from "next/link";
 import Image from "next/image";
 import DefaultButton from "../interactives/Button";
 import { FolderPen, Wrench, Trash2 } from 'lucide-react';
 import { deleteProject } from "./deleteProject";
+import ConfirmationModal from "../interactives/ConfirmationModal";
 
 type DashboardCardTypes = "standard" | "withButton";
 
@@ -26,6 +27,15 @@ const variants = {
 function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID }: dashboardCardProps) {
   let cardLayout;
 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const handleDeleteProject = () => {
     if (projectID) {
       deleteProject(projectID);
@@ -44,7 +54,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
             <div className="hoverOptions">
               <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
               <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
-              <DefaultButton type="toggleLink" onClick={handleDeleteProject}><Trash2 /></DefaultButton>
+              <DefaultButton type="toggleLink" onClick={handleOpenModal}><Trash2 /></DefaultButton>
             </div>
           </div>
         </Link>
@@ -65,7 +75,19 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
       break;
   }
 
-  return cardLayout;
+  return (
+    <>
+      {cardLayout}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleDeleteProject}
+        message="Are you sure you want to delete this project?"
+        option1="Yes, delete this project."
+        option2="No, keep my project."
+      />
+    </>
+  );
 }
 
 export default DashboardCard;
