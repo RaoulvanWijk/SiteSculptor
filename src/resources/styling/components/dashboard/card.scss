@@ -59,16 +59,22 @@
             font-size: 0.9rem;
         }
     }
+}
 
-    .withButtonCard {
-        .cardTxt {
-            position: relative;
+.withButtonCard {
+    &:hover {
+        cursor: default;
+        box-shadow: 0px 0px 2px #AEAEAE;
+    }
 
-            button {
-                position: absolute;
-                padding: 5px;
-                bottom: 10px;
-            }
+    .cardTxt {
+        position: relative;
+
+        button {
+            position: absolute;
+            padding: 3px 6px;
+            font-size: 1rem;
+            bottom: 10px;
         }
     }
 }

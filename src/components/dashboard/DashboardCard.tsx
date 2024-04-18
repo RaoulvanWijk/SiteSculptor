@@ -53,14 +53,14 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
 
     case "withButton":
       cardLayout = (
-        <Link className={variants[type ?? "default"]} href={url ?? ''}>
+        <div className={variants[type ?? "default"]}>
           <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
           <div className="cardTxt">
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>
             {children}
           </div>
-        </Link>
+        </div>
       )
       break;
   }

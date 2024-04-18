@@ -14,10 +14,14 @@
     flex-direction: column;
     margin-top: .5rem;
     gap: .5rem;
-
+    
     a {
         border: 1.5px solid var(--soft);
         border-radius: 5px;
         padding: 3px 6px;
+
+        &:hover {
+            box-shadow: 0 0 1px var(--b-fade);
+        }
     }
 }
