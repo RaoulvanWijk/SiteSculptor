@@ -6,362 +6,378 @@ Find here what you need to get to interact with the api!
 
 ## editor
 
+All the endpoints for the editor
+
 ### site
 
 <details>
- <summary><code>GET</code> <code><b>/</b></code> <code>Get all the sites</code></summary>
+<summary><code>GET</code> <code><b>/</b></code> <code>Get all the sites</code> </summary>
 
-##### Parameters
+#### example response
 
-> None
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->     {
->         "id": "gurrxthut2q4b1rp2asdas",
->         "ownerId": "b4122b98-2d17-4015-9b22-de72b02b12421",
->         "name": "WebsiteName",
->         "createdAt": "2024-03-27T11:54:03.000Z",
->         "updatedAt": "2024-03-27T11:54:03.000Z",
->     },
-> ];
-> ```
+```json
+[
+    {
+        "id": "gurrxthut2q4b1rp2asdas",
+        "ownerId": "b4122b98-2d17-4015-9b22-de72b02b12421",
+        "name": "WebsiteName",
+        "createdAt": "2024-03-27T11:54:03.000Z",
+        "updatedAt": "2024-03-27T11:54:03.000Z"
+    }
+]
+```
 
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/[userId]</b></code> <code>Get the sites from a user</code></summary>
+<summary><code>GET</code> <code><b>/[id]</b></code> <code>Get a site by id</code></summary>
 
-##### Parameters
+#### example response
 
-> | userId  |
-> | ------- |
-> | varchar |
+```json
+{
+    "id": "gurrxthut2q4b1rp2asdas",
+    "ownerId": "b4122b98-2d17-4015-9b22-de72b02b12421",
+    "name": "WebsiteName",
+    "createdAt": "2024-03-27T11:54:03.000Z",
+    "updatedAt": "2024-03-27T11:54:03.000Z"
+}
+```
 
-##### Responses
+</details>
 
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
+<br/>
 
-##### Example response
+<details>
+<summary><code>POST</code> <code><b>/create</b></code> <code>Create a new site</code></summary>
 
-> ```json
-> [{}];
-> ```
+#### body
+
+```json
+{
+    "name": "WebsiteName"
+}
+```
+
+#### example response
+
+```json
+{
+    "status": 200,
+    "id": "gurrxthut2q4b1rp2asdas"
+}
+```
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>PUT</code> <code><b>/update/[id]</b></code> <code>Update a site by id</code></summary>
+
+#### body
+
+```json
+{
+    "name": "WebsiteName"
+}
+```
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DELETE</code> <code><b>/delete/[id]</b></code> <code>Delete a site by id</code></summary>
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
+
+</details>
+
+### pages
+
+<details>
+<summary><code>GET</code> <code><b>/</b></code> <code>Get all the pages from a site</code></summary>
+
+#### example response
+
+```json
+[
+    {
+        "id": "gurrxthut2q4b1rp2asdas",
+        "title": "Title",
+        "slug": "Slug",
+        "navbar_id": 123,
+        "footer_id": 123,
+        "site_id": "gurrxthut2q4b1rp2asdas",
+        "createdAt": "2024-03-27T11:54:03.000Z",
+        "updatedAt": "2024-03-27T11:54:03.000Z"
+    }
+]
+```
 
 </details>
 
 <details>
- <summary><code>POST</code> <code><b>/create</b></code> <code>create a site</code></summary>
+<summary><code>GET</code> <code><b>/[id]</b></code> <code>Get a page by id</code></summary>
 
-##### Parameters
+#### example response
 
-> | Name    | ownerId |
-> | ------- | ------- |
-> | varchar | varchar |
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example post request
-
-> ```JSON
-> {
->   "ownerId": "b4122b98-2d17-4015-9b22-de72b02bb4b0",
->   "name": "bip"
-> }
-> ```
-
-</details>
-
-### page
-
-<details>
- <summary><code>GET</code> <code><b>/</b></code> <code>Get all the pages</code></summary>
-
-##### Parameters
-
-> None
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->   {
->       "id": "gurrxthut2q4b1rp2asdas",
->       "site_id":"b4122b98-2d17-4015-9b22-de72b02b12421",
->       "title": "WebsiteName",
->       "slug": "..."
->         "createdAt": "2024-03-27T11:54:03.000Z",
->         "updatedAt": "2024-03-27T11:54:03.000Z",
->   },
-> ];
-> ```
+```json
+{
+    "id": "gurrxthut2q4b1rp2asdas",
+    "title": "Title",
+    "slug": "Slug",
+    "navbar_id": 123,
+    "footer_id": 123,
+    "site_id": "gurrxthut2q4b1rp2asdas",
+    "createdAt": "2024-03-27T11:54:03.000Z",
+    "updatedAt": "2024-03-27T11:54:03.000Z"
+}
+```
 
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/[id]</b></code> <code>Get a page from a page id</code></summary>
 
-##### Parameters
+<summary><code>GET</code> <code><b>/site_id/[id]</b></code> <code>Get pages by site id</code></summary>
 
-> | id      |
-> | ------- |
-> | varchar |
+#### example response
 
-##### Responses
+```json
+[
+    {
+        "id": "gurrxthut2q4b1rp2asdas",
+        "title": "Title",
+        "slug": "Slug",
+        "navbar_id": 123,
+        "footer_id": 123,
+        "site_id": "gurrxthut2q4b1rp2asdas",
+        "createdAt": "2024-03-27T11:54:03.000Z",
+        "updatedAt": "2024-03-27T11:54:03.000Z"
+    }
+]
+```
 
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
+</details>
 
-##### Example response
+<br/>
 
-> ```json
-> [
->   {
->       "id": "gurrxthut2q4b1rp2asdas",
->       "site_id":"b4122b98-2d17-4015-9b22-de72b02b12421",
->       "title": "WebsiteName",
->       "slug": "..."
->         "createdAt": "2024-03-27T11:54:03.000Z",
->         "updatedAt": "2024-03-27T11:54:03.000Z",
->   },
-> ];
-> ```
+<details>
+<summary><code>POST</code> <code><b>/create</b></code> <code>Create a new page</code></summary>
+
+#### body
+
+```json
+{
+    "title": "Title",
+    "slug": "Slug",
+    "navbar_id": 123,
+    "footer_id": 123,
+    "site_id": "gurrxthut2q4b1rp2asdas"
+}
+```
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>PUT</code> <code><b>/update/[id]</b></code> <code>Update a page by id</code></summary>
+
+#### body
+
+```json
+{
+    "title": "Title",
+    "slug": "Slug",
+    "navbar_id": 123,
+    "footer_id": 123,
+    "site_id": "gurrxthut2q4b1rp2asdas"
+}
+```
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
 
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/site_id/[id]</b></code> <code>Get a page from a site id</code></summary>
+<summary><code>DELETE</code> <code><b>/delete/[id]</code> <code>deletea site by id</code></summary>
 
-##### Parameters
+#### example response
 
-> | site_id |
-> | ------- |
-> | varchar |
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->   {
->       "id": "gurrxthut2q4b1rp2asdas",
->       "site_id":"b4122b98-2d17-4015-9b22-de72b02b12421",
->       "title": "WebsiteName",
->       "slug": "..."
->         "createdAt": "2024-03-27T11:54:03.000Z",
->         "updatedAt": "2024-03-27T11:54:03.000Z",
->   },
-> ];
-> ```
-
-</details>
-
-<details>
- <summary><code>POST</code> <code><b>/create</b></code> <code>create a site</code></summary>
-
-##### Parameters
-
-> | title   | slug    | navbarid | footerId | siteId  |
-> | ------- | ------- | -------- | -------- | ------- |
-> | varchar | varchar | int      | int      | varchar |
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example post request
-
-> ```JSON
-> {
->   "title": "blip",
->   "slug": "blip",
->   "navbarId": 123,
->   "footerId": 123,
->   "siteId": "e168zcpvl2q463r7teg03"
-> }
-> ```
+```json
+{
+    "status": 200
+}
+```
 
 </details>
 
 ### page_components
 
 <details>
- <summary><code>GET</code> <code><b>/</b></code> <code>Get all the components of all the pages</code></summary>
+<summary><code>GET</code> <code><b>/</b></code> <code>Get all the page components from a page</code></summary>
 
-##### Parameters
+#### example response
 
-> None
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->     {
->         "id": "3lifg5lmgjbn9w5tfey2b",
->         "index": 1,
->         "props": {
->             "prop1": "prop1",
->         },
->         "styles": {
->             "style1": "style1",
->         },
->         "pageId": "gurrxthut2q4b1rp2aij7",
->         "parentId": null,
->         "createdAt": "2024-04-05T10:48:32.000Z",
->         "updatedAt": "2024-04-05T10:48:32.000Z",
->     },
-> ];
-> ```
+```json
+[
+    {
+        "id": "gurrxthut2q4b1rp2asdas",
+        "page_id": "gurrxthut2q4b1rp2asdas",
+        "component_id": "gurrxthut2q4b1rp2asdas",
+        "parent_id": "gurrxthut2q4b1rp2asdas",
+        "index": 1,
+        "props": { "prop1": "prop1" },
+        "styles": { "styles1": "styles1" },
+        "createdAt": "2024-03-27T11:54:03.000Z",
+        "updatedAt": "2024-03-27T11:54:03.000Z"
+    }
+]
+```
 
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/[id]</b></code> <code>Get a page component by id</code></summary>
+<summary><code>GET</code> <code><b>/[id]</b></code> <code>Get a page component by id</code></summary>
 
-##### Parameters
+#### example response
 
-> | id      |
-> | ------- |
-> | varchar |
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->     {
->         "id": "3lifg5lmgjbn9w5tfey2b",
->         "index": 1,
->         "props": {
->             "prop1": "prop1",
->         },
->         "styles": {
->             "style1": "style1",
->         },
->         "pageId": "gurrxthut2q4b1rp2aij7",
->         "parentId": null,
->         "createdAt": "2024-04-05T10:48:32.000Z",
->         "updatedAt": "2024-04-05T10:48:32.000Z",
->     },
-> ];
-> ```
+```json
+{
+    "id": "gurrxthut2q4b1rp2asdas",
+    "page_id": "gurrxthut2q4b1rp2asdas",
+    "component_id": "gurrxthut2q4b1rp2asdas",
+    "parent_id": "gurrxthut2q4b1rp2asdas",
+    "index": 1,
+    "props": { "prop1": "prop1" },
+    "styles": { "styles1": "styles1" },
+    "createdAt": "2024-03-27T11:54:03.000Z",
+    "updatedAt": "2024-03-27T11:54:03.000Z"
+}
+```
 
 </details>
 
 <details>
- <summary><code>GET</code> <code><b>/page_id/[id]</b></code> <code>Get all the components of all the page you look up</code></summary>
+<summary><code>GET</code> <code><b>/page_id/[id]</b></code> <code>Get page components by page id</code></summary>
 
-##### Parameters
+#### example response
 
-> | pageId  |
-> | ------- |
-> | varchar |
-
-##### Responses
-
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
-
-##### Example response
-
-> ```json
-> [
->     {
->         "id": "3lifg5lmgjbn9w5tfey2b",
->         "index": 1,
->         "props": {
->             "prop1": "prop1",
->         },
->         "styles": {
->             "style1": "style1",
->         },
->         "pageId": "gurrxthut2q4b1rp2aij7",
->         "parentId": null,
->         "createdAt": "2024-04-05T10:48:32.000Z",
->         "updatedAt": "2024-04-05T10:48:32.000Z",
->     },
-> ];
-> ```
+```json
+[
+    {
+        "id": "gurrxthut2q4b1rp2asdas",
+        "page_id": "gurrxthut2q4b1rp2asdas",
+        "component_id": "gurrxthut2q4b1rp2asdas",
+        "parent_id": "gurrxthut2q4b1rp2asdas",
+        "index": 1,
+        "props": { "prop1": "prop1" },
+        "styles": { "styles1": "styles1" },
+        "createdAt": "2024-03-27T11:54:03.000Z",
+        "updatedAt": "2024-03-27T11:54:03.000Z"
+    }
+]
+```
 
 </details>
 
+<br/>
+
 <details>
- <summary><code>POST</code> <code><b>/create</b></code> <code>Add a component to a page</code></summary>
+<summary><code>POST</code> <code><b>/create</b></code> <code>Create a new page component</code></summary>
 
-##### Parameters
+#### body
 
-> | pageId  | component_id | parent_id | index | props | styles |
-> | ------- | ------------ | --------- | ----- | ----- | ------ |
-> | varchar | varchar      | varchar   | int   | JSON  | JSON   |
+```json
+{
+    "page_id": "gurrxthut2q4b1rp2asdas",
+    "component_id": "gurrxthut2q4b1rp2asdas",
+    "parent_id": "gurrxthut2q4b1rp2asdas",
+    "index": 1,
+    "props": { "prop1": "prop1" },
+    "styles": { "styles1": "styles1" }
+}
+```
 
-##### Responses
+#### example response
 
-> | http code | content-type       | response                       |
-> | --------- | ------------------ | ------------------------------ |
-> | `200`     | `application/json` | `OK`                           |
-> | `400`     | `application/json` | `{"code":"400","Invalid JSON"` |
+```json
+{
+    "status": 200
+}
+```
 
-##### Example response
+</details>
 
-> ```javascript
-> {
->   "pageId": "gurrxthut2q4b1rp2aij7",
->   "component_id": "98xth82854bas82g3tekh",
->   "parent_id": "",
->   "index": 1,
->   "props": {"prop1": "prop1"},
->   "styles": {"style1": "style1"}
-> }
-> ```
+<br/>
+
+<details>
+<summary><code>PUT</code> <code><b>/update/[id]</b></code> <code>Update a page component by id</code></summary>
+
+#### body
+
+```json
+{
+    "page_id": "gurrxthut2q4b1rp2asdas",
+    "component_id": "gurrxthut2q4b1rp2asdas",
+    "parent_id": "gurrxthut2q4b1rp2asdas",
+    "index": 1,
+    "props": { "prop1": "prop1" },
+    "styles": { "styles1": "styles1" }
+}
+```
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
+
+</details>
+
+<br/>
+
+<details>
+<summary><code>DELETE</code> <code><b>/delete/[id]</code> <code>deletea site by id</code></summary>
+
+#### example response
+
+```json
+{
+    "status": 200
+}
+```
 
 </details>
