@@ -4,8 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
     try {
-        const { title, slug, navbarId, footerId, siteId } =
-            await request.json();
+        const { title, slug, siteId } = await request.json();
         const { error }: any = insertPageSchema.safeParse({
             title,
             slug,
@@ -20,6 +19,7 @@ export async function POST(request: NextRequest) {
             );
         }
         await db.insert(pages).values({ title, slug, siteId }).execute();
+
         return new NextResponse(JSON.stringify({ message: "ok" }), {
             status: 200,
         });

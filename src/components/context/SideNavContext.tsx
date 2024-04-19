@@ -9,7 +9,6 @@ import {
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { set } from "zod";
 
 type SideNavContextType = {
     currentNavName: Array<string>;
@@ -18,6 +17,7 @@ type SideNavContextType = {
     setNavType: Dispatch<SetStateAction<String>>;
     site: Array<any>;
     page: Array<any>;
+    setPage: Dispatch<SetStateAction<Array<any>>>;
     site_id: string;
     page_id: string;
     loading: boolean;
@@ -47,8 +47,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
 
     const [modal, setModal] = useState<boolean>(false);
 
-    const [site, setSite] = useState([]);
-    const [page, setPage] = useState([]);
+    const [site, setSite] = useState<any[]>([]);
+    const [page, setPage] = useState<any[]>([]);
 
     const site_id = usePathname().split("/")[2];
     const page_id = usePathname().split("/")[3];
@@ -63,8 +63,6 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         });
     }, []);
 
-    console.log(loading);
-
     // get the page name from page_id
 
     return (
@@ -76,6 +74,7 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setNavType,
                 site,
                 page,
+                setPage,
                 site_id,
                 page_id,
                 loading,

@@ -6,6 +6,7 @@ import BackButton from "./buttons/BackButton";
 export default function BreadCrumbs() {
     // get the current nav name from the useSideNav hook
     const { currentNavName } = useSideNav();
+    console.log(currentNavName);
 
     // get the current nav name
     const currentNav = currentNavName;

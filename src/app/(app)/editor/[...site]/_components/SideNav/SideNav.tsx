@@ -125,13 +125,13 @@ export default function SideNav() {
     useEffect(() => {
         if (page_id) {
             setNavType("page-select");
+            if (currentPage) {
+                setCurrentNavName([currentPage.title]);
+            }
         } else {
             setNavType("main");
         }
         // check if a matching page exists
-        if (currentPage) {
-            setCurrentNavName([currentPage.title]);
-        }
     }, [page_id, currentPage]);
 
     for (let i = 0; i < page.length; i++) {
