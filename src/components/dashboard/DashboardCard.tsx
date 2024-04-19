@@ -54,7 +54,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
       cardLayout = (
         <div className={variants[type ?? "default"]}>
           <Link href={url ?? ''}>
-            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
+            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority/>
             <div className="cardTxt">
               <h2>{projectName}</h2>
               <p>{projectDesc}</p>
@@ -72,7 +72,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
     case "withButton":
       cardLayout = (
         <div className={variants[type ?? "default"]}>
-          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
+          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority />
           <div className="cardTxt">
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>

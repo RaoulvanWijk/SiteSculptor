@@ -2,21 +2,26 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from 'react';
 import "@/resources/styling/components/dashboard/navbar.scss";
 import DefaultButton from "../interactives/Button";
 import { useSession } from "next-auth/react";
 import DialogBox from "./DialogBox";
 import { useSearch } from "../context/SearchContext";
 import { Search } from 'lucide-react';
+import { useSidebar } from "../context/SidebarContext";
+import UserMenu from "./UserMenu";
 
 export default function Navbar() {
     const { data: session, status } = useSession();
     const { searchTerm, setSearchTerm, triggerSearch } = useSearch();
+    const { setCurrentSection } = useSidebar();
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
 
     return (
         <nav className="barstyling navbar">
             <div>
-                <Link href="/app/dashboard"><Image src="/branding/logo_temp.png" alt="Logo" className="logo" width={1000} height={1000} /></Link>
+                <Link href="/app/dashboard" onClick={() => setCurrentSection("all")}><Image src="/branding/logo_temp.png" alt="Logo" className="logo" width={1000} height={1000} /></Link>
             </div>
             <div className="search">
                 <input
@@ -32,18 +37,7 @@ export default function Navbar() {
             </div>
             <div className="rightside">
                 <DialogBox title="Create a new Project" description="Give your Project a name" >New Project</DialogBox>
-
-                <Image
-                    src={
-                        session
-                            ? session.user.image || "/logo.svg"
-                            : "/logo.svg"
-                    }
-                    alt="logo"
-                    className="w-10 h-10 rounded-full border-2 border-purple-500"
-                    width={100} height={100}
-                />
-
+                <UserMenu /> {/* Pass Logout Function here */}
             </div>
         </nav>
     );

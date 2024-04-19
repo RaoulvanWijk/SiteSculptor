@@ -8,6 +8,7 @@ import Button from "@/components/interactives/Button";
 import React, { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useSearch } from "@/components/context/SearchContext";
+import { useSidebar } from "@/components/context/SidebarContext";
 
 interface Project {
     id: string,
@@ -20,6 +21,7 @@ export default function Home() {
     const [loading, setLoading] = useState(true);
     const [projects, setProjects] = useState<Project[] | null>(null);
     const { executeSearch } = useSearch();
+    const { currentSection, resetView } = useSidebar();
 
     useEffect(() => {
         setLoading(true);
@@ -43,53 +45,66 @@ export default function Home() {
 
     const filteredProjects = useMemo(() => {
         const baseProjects = projects ?? [];
+        if (currentSection === "all") return baseProjects;
 
-        // Filter projects based on the search term
-        const filtered = baseProjects.filter(project =>
+        return baseProjects.filter(project =>
             project.name.toLowerCase().includes(executeSearch.toLowerCase())
-        );
-
-        // Sort alphabetically only if there is a search term
-        if (executeSearch.trim() !== "") {
-            return filtered.sort((a, b) => a.name.localeCompare(b.name));
-        }
-
-        return filtered;
-    }, [projects, executeSearch]);
+        ).sort((a, b) => a.name.localeCompare(b.name));
+    }, [projects, executeSearch, currentSection]);
 
     return (
         <main className="space-y-4">
             <h1>Welcome back, {session?.user?.name}</h1>
-            {loading ? <SkeletonBox /> : filteredProjects.length > 0 ? (
-                <>
-                    <h3>Continue where you left off...</h3>
-                    <div className="project-row">
-                        {filteredProjects.map((project) => (
-                            <DashboardCard
-                                key={project.id}
-                                type="standard"
-                                imgSrc="/placeholders/pc.jpg"
-                                projectName={project.name}
-                                projectDesc={project.description ?? ""}
-                                projectID={project.id}
-                                url={`/editor/${project.id}/0`}
-                                onDelete={handleDeleteProject}
-                            />
-                        ))}
-                    </div>
-                </>
+            {loading ? (
+                <SkeletonBox />
             ) : (
                 <>
-                    <h3>No projects found..</h3>
-                    <DialogBox title="Create a new Project" description="Give your Project a name">New Project</DialogBox>
+                    {currentSection === "all" || currentSection === "projects" ? (
+                        <>
+                            {filteredProjects.length > 0 && (
+                                <>
+                                    <h3>Continue where you left off...</h3>
+                                    <div className="project-row">
+                                        {filteredProjects.map((project) => (
+                                            <DashboardCard
+                                                key={project.id}
+                                                type="standard"
+                                                imgSrc="/placeholders/pc.jpg"
+                                                projectName={project.name}
+                                                projectDesc={project.description ?? ""}
+                                                projectID={project.id}
+                                                url={`/editor/${project.id}/0`}
+                                                onDelete={handleDeleteProject}
+                                            />
+                                        ))}
+                                    </div>
+                                </>
+                            )}
+                            {filteredProjects.length === 0 && (
+                                <>
+                                    <h3>No projects found.</h3>
+                                    <DialogBox title="Create a new Project" description="Give your Project a name">New Project</DialogBox>
+                                </>
+                            )}
+                        </>
+                    ) : null}
+                    {currentSection === "all" || currentSection === "extensions" ? (
+                        <>
+                            <h3>Latest News</h3>
+                            <div className="project-row">
+                                <DashboardCard
+                                    type="withButton"
+                                    imgSrc="/placeholders/pc.jpg"
+                                    projectName="New Extension Released!"
+                                    projectDesc="Extension description here"
+                                >
+                                    <Button type="primary">Check out the Extension!</Button>
+                                </DashboardCard>
+                            </div>
+                        </>
+                    ) : null}
                 </>
             )}
-            <h3>Latest News</h3>
-            <div className="project-row">
-                <DashboardCard type="withButton" imgSrc="/placeholders/pc.jpg" projectName="New Extension Released!" projectDesc="Extension description here">
-                    <Button type="primary">Check out the Extension!</Button>
-                </DashboardCard>
-            </div>
         </main>
     );
 }
