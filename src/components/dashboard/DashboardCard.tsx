@@ -1,7 +1,11 @@
 import "@/resources/styling/components/dashboard/card.scss";
-import React from 'react'
+import React, { useState } from 'react'
 import Link from "next/link";
 import Image from "next/image";
+import DefaultButton from "../interactives/Button";
+import { FolderPen, Wrench, Trash2 } from 'lucide-react';
+import { deleteProject } from "./deleteProject";
+import ConfirmationModal from "../interactives/ConfirmationModal";
 
 type DashboardCardTypes = "standard" | "withButton";
 
@@ -12,6 +16,8 @@ type dashboardCardProps = {
   projectDesc?: string,
   children?: React.ReactNode,
   url?: string,
+  projectID?: string,
+  onDelete?: (projectId: string) => void;
 }
 
 const variants = {
@@ -19,38 +25,77 @@ const variants = {
   "withButton": "withButtonCard",
 }
 
-function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url }: dashboardCardProps) {
+function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID, onDelete }: dashboardCardProps) {
   let cardLayout;
+
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
+  const handleDeleteProject = async () => {
+    if (projectID) {
+      try {
+        await deleteProject(projectID);
+        onDelete?.(projectID);
+      } catch (error) {
+        console.error("Failed to delete the project:", error);
+      }
+    }
+  };
 
   switch (type) {
     case "standard":
       cardLayout = (
-        <Link className={variants[type ?? "default"]} href={url ?? ''}>
-          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
-          <div className="cardTxt">
-            <h2>{projectName}</h2>
-            <p>{projectDesc}</p>
-
+        <div className={variants[type ?? "default"]}>
+          <Link href={url ?? ''}>
+            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority/>
+            <div className="cardTxt">
+              <h2>{projectName}</h2>
+              <p>{projectDesc}</p>
+            </div>
+          </Link>
+          <div className="hoverOptions">
+            <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
+            <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
+            <DefaultButton type="toggleLink" onClick={handleOpenModal}><Trash2 /></DefaultButton>
           </div>
-        </Link>
+        </div>
       )
       break;
 
     case "withButton":
       cardLayout = (
-        <Link className={variants[type ?? "default"]} href={url ?? ''}>
-          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" />
+        <div className={variants[type ?? "default"]}>
+          <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority />
           <div className="cardTxt">
             <h2>{projectName}</h2>
             <p>{projectDesc}</p>
             {children}
           </div>
-        </Link>
+        </div>
       )
       break;
   }
 
-  return cardLayout;
+  return (
+    <>
+      {cardLayout}
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleDeleteProject}
+        message="Are you sure you want to delete this project?"
+        option1="Yes, delete this project."
+        option2="No, keep my project."
+      />
+    </>
+  );
 }
 
 export default DashboardCard;
