@@ -5,7 +5,9 @@ import Image from "next/image";
 import DefaultButton from "../interactives/Button";
 import { FolderPen, Wrench, Trash2 } from 'lucide-react';
 import { deleteProject } from "./deleteProject";
-import ConfirmationModal from "../interactives/ConfirmationModal";
+import { updateProjectName } from "./updateProject";
+import CustomModal from "../interactives/CustomModal";
+import { SiteCreateClient } from "@/lib/db/schema/sites";
 
 type DashboardCardTypes = "standard" | "withButton";
 
@@ -18,6 +20,7 @@ type dashboardCardProps = {
   url?: string,
   projectID?: string,
   onDelete?: (projectId: string) => void;
+  onRename?: (projectId: string, newName: string) => void;
 }
 
 const variants = {
@@ -25,12 +28,15 @@ const variants = {
   "withButton": "withButtonCard",
 }
 
-function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID, onDelete }: dashboardCardProps) {
+function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, projectID, onDelete, onRename }: dashboardCardProps) {
   let cardLayout;
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<'confirm' | 'input'>('confirm');
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (modalType: 'confirm' | 'input') => {
+    console.log("Opening modal with type:", modalType);
+    setModalType(modalType);
     setModalOpen(true);
   };
 
@@ -49,21 +55,33 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
     }
   };
 
+  const handleConfirmRename = async (newName: string) => {
+    if (projectID && newName) {
+      try {
+        await updateProjectName(projectID, newName);
+        onRename?.(projectID, newName);
+        handleCloseModal(); // Close modal after successful operation
+      } catch (error) {
+        console.error("Failed to update the project name:", error);
+      }
+    }
+  };
+
   switch (type) {
     case "standard":
       cardLayout = (
         <div className={variants[type ?? "default"]}>
           <Link href={url ?? ''}>
-            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority/>
+            <Image src={imgSrc || ""} alt="cardImage" width={1000} height={1000} className="d-cardImage" priority />
             <div className="cardTxt">
               <h2>{projectName}</h2>
               <p>{projectDesc}</p>
             </div>
           </Link>
           <div className="hoverOptions">
-            <DefaultButton type="toggleLink"><FolderPen /></DefaultButton>
+            <DefaultButton type="toggleLink" onClick={() => handleOpenModal('input')}><FolderPen /></DefaultButton>
             <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
-            <DefaultButton type="toggleLink" onClick={handleOpenModal}><Trash2 /></DefaultButton>
+            <DefaultButton type="toggleLink" onClick={() => handleOpenModal('confirm')}><Trash2 /></DefaultButton>
           </div>
         </div>
       )
@@ -86,13 +104,13 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
   return (
     <>
       {cardLayout}
-      <ConfirmationModal
+      <CustomModal
+        type={modalType}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
-        onConfirm={handleDeleteProject}
-        message="Are you sure you want to delete this project?"
-        option1="Yes, delete this project."
-        option2="No, keep my project."
+        onConfirm={modalType === 'confirm' ? handleDeleteProject : handleConfirmRename}
+        message={modalType === 'confirm' ? "Are you sure you want to delete this project?" : "Enter the new project name:"}
+        inputButtonName="Rename"
       />
     </>
   );
