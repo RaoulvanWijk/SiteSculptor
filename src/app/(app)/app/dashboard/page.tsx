@@ -43,6 +43,19 @@ export default function Home() {
         });
     };
 
+    const handleRenameProject = (projectId: string, newName: string) => {
+        setProjects(currentProjects => {
+            if (!currentProjects) return null;
+
+            return currentProjects.map(project => {
+                if (project.id === projectId) {
+                    return { ...project, name: newName };
+                }
+                return project;
+            });
+        });
+    };
+
     const filteredProjects = useMemo(() => {
         const baseProjects = projects ?? [];
         if (currentSection === "all") return baseProjects;
@@ -75,6 +88,7 @@ export default function Home() {
                                                 projectID={project.id}
                                                 url={`/editor/${project.id}/0`}
                                                 onDelete={handleDeleteProject}
+                                                onRename={handleRenameProject}
                                             />
                                         ))}
                                     </div>
