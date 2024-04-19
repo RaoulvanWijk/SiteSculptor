@@ -1,0 +1,24 @@
+.addpagemodal {
+    padding: 1rem;
+    border-radius: 6px;
+    .title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+    .addpage-form {
+        display: flex;
+        flex-direction: column;
+        input {
+            padding: 0.5rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+    }
+}
+
+.addpagemodal::backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+}
