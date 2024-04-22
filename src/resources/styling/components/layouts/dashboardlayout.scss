@@ -6,7 +6,7 @@
 
 $sidenavWidth: 17.5rem;
 $topNavHeight: 4rem;
-$defSpacing: 1%;
+$defSpacing: 1rem;
 
 .dashboard-main {
   display: grid;
@@ -38,7 +38,7 @@ body {
   overflow-x: hidden;
   padding: .5rem 1.5rem;
   overflow-y: auto;
-  padding-bottom: 10%; //Scuffed solution
+  padding-bottom: 6rem;
 
   h1, h3{
     font-weight: bold;

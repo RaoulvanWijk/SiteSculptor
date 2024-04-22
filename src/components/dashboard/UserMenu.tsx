@@ -35,19 +35,17 @@ const UserMenu = ({ onLogout }: UserMenuProps) => {
                 width={100} height={100}
                 onClick={() => setDropdownOpen(!isDropdownOpen)}
             />
-            {isDropdownOpen && (
-                <div className="dropdown-content">
-                    <div className="user-info">
-                        <Image src={session?.user.image || "/logo.svg"} alt="user logo" className='um-logo' width={200} height={200} />
-                        <span className='um-name'>{session?.user.name}</span>
-                        <span className='um-email'>{session?.user.email}</span>
-                    </div>
-                    <div className="um-actions">
-                        <DefaultButton type="toggleLink" onClick={onLogout}>Logout <LogOut size={15} /></DefaultButton>
-                        <DefaultButton type="toggleLink" onClick={() => console.log('Changing settings...')}>Settings <Settings size={15} /></DefaultButton>
-                    </div>
+            <div className="dropdown-content">
+                <div className="user-info">
+                    <Image src={session?.user.image || "/logo.svg"} alt="user logo" className='um-logo' width={200} height={200} />
+                    <span className='um-name'>{session?.user.name}</span>
+                    <span className='um-email'>{session?.user.email}</span>
                 </div>
-            )}
+                <div className="um-actions">
+                    <DefaultButton type="toggleLink" onClick={onLogout}>Logout <LogOut size={15} /></DefaultButton>
+                    <DefaultButton type="toggleLink" onClick={() => console.log('Changing settings...')}>Settings <Settings size={15} /></DefaultButton>
+                </div>
+            </div>
         </div>
     );
 };

@@ -4,7 +4,6 @@
     flex-flow: column nowrap;
     overflow: hidden;
     position: relative;
-
     background-color: var(--wht);
     box-shadow: 0px 0px 2px #AEAEAE;
     border-radius: 0.5rem;
@@ -12,11 +11,9 @@
 
     width: 220px;
     height: fit-content;
-
-    z-index: -1;
+    cursor: pointer;
 
     &:hover {
-        cursor: pointer;
         box-shadow: 0 0 2px black;
 
         >.hoverOptions {
