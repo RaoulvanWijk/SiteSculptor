@@ -57,6 +57,6 @@ body {
 
 .project-row{
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   gap: $defSpacing;
 }
