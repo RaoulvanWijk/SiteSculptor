@@ -48,6 +48,12 @@
         color: white;
         cursor: pointer;
         font-size: 14px;
+
+    }
+
+    .warningButton {
+        background-color: var(--warning);
+        font-weight: bold;
     }
 }
 
