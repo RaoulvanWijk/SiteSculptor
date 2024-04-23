@@ -1,6 +1,6 @@
 # Stage 1: Building the code
 FROM node:20 AS builder
-WORKDIR /app  # Changed from root to a specific app directory
+WORKDIR /
 COPY package*.json ./
 RUN npm install
 COPY . .
@@ -9,14 +9,12 @@ RUN npm run build
 
 # Stage 2: Run the Next.js application
 FROM node:20
-WORKDIR /app  # Consistency in work directory
-# Copy the next config file, you mentioned .mjs so it assumes ES Modules are used
-COPY --from=builder /app/next.config.mjs ./
-# Copy built directories and files
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package*.json ./
+WORKDIR /
+COPY --from=builder /next.config.mjs ./
+COPY --from=builder /public ./public
+COPY --from=builder /.next ./.next
+COPY --from=builder /node_modules ./node_modules
+COPY --from=builder /package*.json ./
 
 EXPOSE 3000
-CMD ["npm", "start"]  # Changed to use start which should be set to `next start` in package.json
+CMD npm run dev
