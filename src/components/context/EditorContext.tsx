@@ -15,6 +15,8 @@ import BaseDropComponent from "../editor-drag-components/BaseDropComponent";
 import BaseDragComponent from "../editor-drag-components/BaseDragComponent";
 import { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
+import DefaultItem from "../editor-drag-components/DefaultItem";
+import DefaultContainerItem from "../editor-drag-components/DefaultContainerItem";
 
 type EditorContextType = {
   componentsInEditor: UsedComponent[];
@@ -76,49 +78,37 @@ export default function EditorContextProvider({ children }: { children: ReactNod
   };
 
   const renderComponent = (component: any) => {
+    if(component.component.type === "container") {
+      return (
+        DefaultContainerItem(component)
+      )
+    }
     return (
-      <div key={component.id}>
-        <BaseDropComponent
-          id={"droppable-" + component.id}
-          data={{
-            isEditorDroppable: true,
-            dropArea: "editor",
-            index: component.index,
-          }}
-          accepts={["draggable-outside-editor"]}
-        ></BaseDropComponent>
-        <BaseDragComponent
-          id={component.id}
-          data={{
-            isComponentInEditor: true,
-            dropArea: "editor",
-            type: component.component.type,
-          }}
-        >
-          <div
-            className={cn(
-              "w-full border-2",
-              component.component.type === "container" ? "h-48" : " h-16"
-            )}
-          >
-            <p>
-              {component.id} - {component.component.name} -{" "}
-              {component.component.type}, index: {component.index}
-            </p>
-          </div>
-        </BaseDragComponent>
-      </div>
+      DefaultItem(component)
     )
   }
 
+  const handleNestedComponents = (component: UsedComponent) => {
+    
+  }
+
   const renderComponents = () => {
-    let lastIndex = 0;
+    let lastIndex = -1;
     return (
       <>
         {componentsInEditor.map((component, index) => {
           lastIndex = component.index;
           return (renderComponent(component))
         })}
+        <BaseDropComponent
+                id={"droppable-" + lastIndex}
+                data={{
+                    isEditorDroppable: true,
+                    dropArea: "editor",
+                    index: lastIndex + 1,
+                }}
+                accepts={["draggable-outside-editor"]}
+            ></BaseDropComponent>
       </>
     )
   }
@@ -148,7 +138,18 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     return event.active.data.current?.sortable?.index;
   }
 
-  const reorderComponents = (oldIdx: number, newIdx: number) => {
+  const findParent = (event: DragEndEvent) => {
+    return componentsInEditor.find((c) => c.children.find((child) => child.id === event.over?.id));
+  }
+
+  const reorderComponents = (oldIdx: number, newIdx: number, arr?: UsedComponent[]) => {
+    if(arr) {
+      let newArr = arrayMove(arr, oldIdx, newIdx);
+      return newArr.map((component, index) => {
+        component.index = index;
+        return component;
+      });
+    }
     let newArr = arrayMove(componentsInEditor, oldIdx, newIdx);
     return newArr.map((component, index) => {
       component.index = index;
@@ -170,9 +171,27 @@ export default function EditorContextProvider({ children }: { children: ReactNod
       removeComponent(activeComponent);
       return;
     }
+
     if(isInEditor(event)) {
       console.log("Component is being dragged within the editor");
+      if(event.over?.data.current?.dropArea === "container-item") { 
+        console.log("Component is being within a container");
+        //  handle nested components
+
+        // Get the parent component of the component being dragged over
+        const parent = findParent(event);
+        if(!parent) return;
+        const co = reorderComponents(getActiveIndex(event), getOverIndex(event), parent?.children);
+        // replace the parent component with the new one
+        const newParent = { ...parent, children: co };
+        const newComponents = componentsInEditor.map((c) => {
+          if(c.id === parent?.id) return newParent;
+          return c;
+        });
+        return setComponents(newComponents);
+      }
       return setComponents(reorderComponents(getActiveIndex(event), getOverIndex(event)));
+      
     }
 
     if(isFromSideNav(event)) {
@@ -208,18 +227,3 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     </EditorContext.Provider>
   );
 }
-
-
-// DONE: Add render function to render the components in the editor
-
-// DONE: Add function that checks if a dragend should be skipped
-
-// DONE: Add function that gets the index of the current component
-
-// DONE: Add function that gets the index of the component that the dragged component is being dropped into
-
-// TODO: Add function that adds a component to the components array with the new index
-
-// TODO: Add function that removes a component from the components array and updates the indexes of the components
-
-// TODO: Add function that updates a component in the components array and updates the indexes of the components

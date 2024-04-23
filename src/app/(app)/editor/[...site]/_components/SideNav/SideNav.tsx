@@ -153,7 +153,7 @@ export default function SideNav() {
             return (
                 <TestDragComponent
                     id={components?.id ?? ""}
-                    data={{ isComponentInEditor: false, isFromSideNav: true }}
+                    data={{ isComponentInEditor: false, isFromSideNav: true, dropArea: "sideNav" }}
                     key={components?.id}
                 >
                     {components?.name}

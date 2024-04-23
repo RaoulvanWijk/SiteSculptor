@@ -17,25 +17,47 @@ import { usePathname, useRouter } from "next/navigation";
 import { SideNav } from "@/components/layouts/Editor";
 import { SideNavContextProvider } from "@/components/context/SideNavContext";
 
+const allowedTypesInEditor = ["container", "carousel", "form"]
+const allowedTypesInContainer = ["card", "image", "text", "button"]
+
 const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
     // console.log(args.active.data.current, droppableContainers);
-    if (args.active.data.current?.isComponentInEditor) {
+    // if (args.active.data.current?.isComponentInEditor) {
+    //     droppableContainers = droppableContainers.filter(
+    //         (container: any) =>
+    //             container.data.current?.isEditorDroppable !== true
+    //     );
+    // } else {
+    //     droppableContainers = droppableContainers.filter(
+    //         (container: any) =>
+    //             container.data.current?.isEditorDroppable === true ||
+    //             container.data.current?.isSideNavDropArea === true
+    //     );
+    // }
+
+    const active = args.active.data.current;
+    // active.type, active.dropArea
+    if(allowedTypesInEditor.includes(active.type)) {
         droppableContainers = droppableContainers.filter(
             (container: any) =>
-                container.data.current?.isEditorDroppable !== true
+                container.data.current?.dropArea === ("editor" || "sideNav")
         );
-    } else {
-        droppableContainers = droppableContainers.filter(
-            (container: any) =>
-                container.data.current?.isEditorDroppable === true ||
-                container.data.current?.isSideNavDropArea === true
-        );
+        console.log(droppableContainers, "droppableContainers");
     }
+    if(allowedTypesInContainer.includes(active.type)) {
+        droppableContainers = droppableContainers.filter(
+            (container: any) =>
+                container.data.current?.dropArea === ("container" || "sideNav")
+        );
+        // console.log(droppableContainers, "droppableContainers");
+    } 
+    // return
+    
 
     // first check if the pointer is over an element
     const pointerCollission = pointerWithin({ ...args, droppableContainers });
     // console.log(pointerCollission);
-    // TODO:
+    
     if (pointerCollission.length > 0) {
         return pointerCollission;
     }
