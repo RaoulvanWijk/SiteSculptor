@@ -6,16 +6,9 @@ import { useState } from "react";
 
 import { DragEndEvent, useDroppable, useDndMonitor } from "@dnd-kit/core";
 import {
-    arrayMove,
-    horizontalListSortingStrategy,
     SortableContext,
     verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-
-import BaseDragComponent from "@/components/editor-drag-components/BaseDragComponent";
-import BaseDropComponent from "@/components/editor-drag-components/BaseDropComponent";
-
-import { UsedComponent } from "editor";
 
 import { testComponents, testUsedComponents } from "./testComponents";
 import DragOverlayWrapper from "./DragOverlayWrapper";

@@ -37,6 +37,11 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
 
     const active = args.active.data.current;
     // active.type, active.dropArea
+    /**
+     * If a component is being dragged from within the editor
+     * only allow it to be dropped in the editor and its allowed containers
+     * or the sideNav to remove it
+     */
     if(allowedTypesInEditor.includes(active.type)) {
         droppableContainers = droppableContainers.filter(
             (container: any) =>
@@ -44,6 +49,8 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
         );
         console.log(droppableContainers, "droppableContainers");
     }
+
+    
     if(allowedTypesInContainer.includes(active.type)) {
         droppableContainers = droppableContainers.filter(
             (container: any) =>

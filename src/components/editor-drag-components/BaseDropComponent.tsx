@@ -25,7 +25,7 @@ export default function BaseDropComponent({
     <div
       ref={setNodeRef}
       style={{ border: isOver ? "2px solid red" : "" }}
-      className={cn("transition-all ease-in-out duration-200",(isOver && !active?.data.current?.isComponentInEditor ? "h-16" : "h-0 bg-white"))}
+      className={cn("transition-all ease-in-out duration-200",(isOver ? "h-16" : "h-0 bg-white"))}
     >
       {children}
     </div>
