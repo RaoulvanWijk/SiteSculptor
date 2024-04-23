@@ -58,7 +58,6 @@ export default function Home() {
 
     const filteredProjects = useMemo(() => {
         const baseProjects = projects ?? [];
-        if (currentSection === "all") return baseProjects;
 
         return baseProjects.filter(project =>
             project.name.toLowerCase().includes(executeSearch.toLowerCase())
