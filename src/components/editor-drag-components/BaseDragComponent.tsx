@@ -47,8 +47,8 @@ export default function BaseDragComponent({
         transform: CSS.Transform.toString(transform as Transform),
         transition: transition,
       }}
-      // className={isOver ? "bg-gray-200" : "bg-white"}
-      className="h-fit"
+      className={isOver ? "bg-gray-200" : "bg-white"}
+      // className="h-fit"
     >
       {children}
     </div>
