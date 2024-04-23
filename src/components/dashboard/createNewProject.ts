@@ -1,8 +1,7 @@
-import { siteCreateClientSchema, SiteCreateClient } from "@/lib/db/schema/sites";
+import { SiteCreateClient, siteCreateClientSchema } from "@/lib/db/schema/sites";
 import { UseFormSetError } from "react-hook-form";
 
-export async function onSubmit(inputValue: SiteCreateClient, setError: UseFormSetError<SiteCreateClient>, onSuccessfulSubmit: () => void) {
-
+export async function onSubmit(inputValue: SiteCreateClient, setError: UseFormSetError<SiteCreateClient>): Promise<string | undefined> {
     console.log("Running API POST");
     try {
         const response = await fetch('/api/editor/site/create', {
@@ -21,16 +20,20 @@ export async function onSubmit(inputValue: SiteCreateClient, setError: UseFormSe
         if (!response.ok) {
             setError("name", {
                 type: "manual",
-                message: "Name can't be empty",
+                message: data.message || "Error creating site",
             });
-            console.log("Name can't be empty");
-            return;
+            console.log(data.message || "Error in response");
+            return undefined;
         } else {
-            onSuccessfulSubmit();
-            console.log("Created Project");
+            console.log("Created Project with ID:", data.id);
+            return data.id;
         }
-
     } catch (error) {
         console.error('Error:', error);
+        setError("name", {
+            type: "manual",
+            message: "Network error, please try again"
+        });
+        return undefined;
     }
 };
