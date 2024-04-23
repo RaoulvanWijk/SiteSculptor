@@ -36,7 +36,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ type, isOpen, onClose, onConf
             return (
                 <>
                     <p>{message}</p>
+                    <label htmlFor='modal-input'></label>
                     <input
+                        id='modal-input'
                         type="text"
                         placeholder="New project name"
                         value={inputValue}
