@@ -10,10 +10,10 @@ RUN npm run build
 # Stage 2: Run the Next.js application
 FROM node:20
 WORKDIR /app
-COPY --from=builder /next.config.mjs ./
-COPY --from=builder /public ./public
-COPY --from=builder /.next ./.next
-COPY --from=builder /node_modules ./node_modules
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /package*.json ./
 
 EXPOSE 3000
