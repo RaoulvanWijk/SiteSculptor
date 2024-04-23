@@ -1,6 +1,6 @@
 # Stage 1: Building the code
 FROM node:20 AS builder
-WORKDIR /
+WORKDIR /src/app
 COPY package*.json ./
 RUN npm install
 COPY . .
@@ -9,7 +9,7 @@ RUN npm run build
 
 # Stage 2: Run the Next.js application
 FROM node:20
-WORKDIR /
+WORKDIR /src/app
 COPY --from=builder /next.config.mjs ./
 COPY --from=builder /public ./public
 COPY --from=builder /.next ./.next
