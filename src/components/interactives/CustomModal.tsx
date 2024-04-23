@@ -28,7 +28,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ type, isOpen, onClose, onConf
             return (
                 <>
                     <p>{message}</p>
-                    <button onClick={() => onConfirm()}>Yes</button>
+                    <button className='warningButton' onClick={() => onConfirm()}>Yes</button>
                     <button onClick={onClose}>No</button>
                 </>
             );

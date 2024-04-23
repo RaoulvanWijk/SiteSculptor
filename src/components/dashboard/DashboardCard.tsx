@@ -109,7 +109,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={modalType === 'confirm' ? handleDeleteProject : handleConfirmRename}
-        message={modalType === 'confirm' ? "Are you sure you want to delete this project?" : "Enter the new project name:"}
+        message={modalType === 'confirm' ? "Are you sure you want to delete this project? (This can't be undone!)" : "Enter the new project name:"}
         inputButtonName="Rename"
       />
     </>
