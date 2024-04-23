@@ -30,7 +30,7 @@ const UserMenu = ({ onLogout }: UserMenuProps) => {
     return (
         <div ref={dropdownRef} className={`dropdown ${isDropdownOpen ? 'visible' : ''}`}>
             <Image
-                src={session ? session.user.image || "/logo.svg" : "/logo.svg"}
+                src={session?.user.image || "/logo.svg"}
                 alt="user logo"
                 width={100} height={100}
                 onClick={() => setDropdownOpen(!isDropdownOpen)}
