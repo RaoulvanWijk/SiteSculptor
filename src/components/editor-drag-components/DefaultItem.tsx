@@ -2,9 +2,10 @@ import React from 'react'
 import BaseDropComponent from './BaseDropComponent'
 import BaseDragComponent from './BaseDragComponent';
 import { cn } from '@/lib/utils';
+import { UsedComponent } from 'editor';
 
 export default function DefaultItem(
-    component: { id: string; index: number; component: { type: string; name: string } }
+    {component}: {component: UsedComponent}
 ) {
     return (
         <div key={component.id}>

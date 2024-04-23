@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { UsedComponent } from 'editor';
 export default function DefaultContainerItem(
-    component: UsedComponent
+    {component}: { component: UsedComponent }
 ) {
     return (
         <div key={component.id}>
