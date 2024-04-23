@@ -4,7 +4,6 @@
     border-radius: 5px;
     color: var(--txt);
     transition: 0.3s ease-in-out;
-    max-width: max-content;
 
     &:hover {
         background-color: var(--sec);
@@ -18,7 +17,6 @@ svg {
 .primaryButton, .toggleButton {
     background-color: var(--prm);
     color: var(--wht);
-
 
     &:hover {
         background-color: var(--acc);
@@ -44,7 +42,7 @@ svg {
         color: var(--wht);
     }
 }
-.linkButton {
+.linkButton, .toggleButtonLink {
     background-color: transparent;
     color: var(--txt);
     padding: 16px;

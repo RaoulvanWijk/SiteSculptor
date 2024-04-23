@@ -49,9 +49,15 @@ export default function DialogBox({
     ) => {
         event?.preventDefault();
 
-        await onSubmit(data, setError, () => window.location.reload());
-        console.log("Refreshing");
-    };
+        // Create Logic
+        const siteId = await onSubmit(data, setError);
+        if (siteId) {
+            router.push(`/editor/${siteId}/0`);
+            console.log("Navigating to new site with ID:", siteId);
+        } else {
+            console.log("Failed to create new site");
+        }
+    }
 
     return (
         <Dialog>

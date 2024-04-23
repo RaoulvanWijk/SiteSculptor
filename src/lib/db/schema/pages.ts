@@ -13,8 +13,6 @@ export const pages = mysqlTable("pages", {
         .$defaultFn(() => nanoid()),
     title: varchar("title", { length: 30 }).notNull(),
     slug: varchar("slug", { length: 30 }).notNull(),
-    navbarId: int("navbar_id").notNull(),
-    footerId: int("footer_id").notNull(),
     siteId: varchar("site_id", { length: 256 })
         .references(() => sites.id, { onDelete: "cascade" })
         .notNull(),
@@ -49,12 +47,19 @@ export const updatePageParams = baseSchema.extend({
 });
 export const pageIdSchema = baseSchema.pick({ id: true });
 
+export const pageCreateClientSchema = baseSchema.pick({
+    title: true,
+    slug: true,
+    siteId: true,
+});
+
 // Types for pages - used to type API request params and within Components
 export type Page = typeof pages.$inferSelect;
 export type NewPage = z.infer<typeof insertPageSchema>;
 export type NewPageParams = z.infer<typeof insertPageParams>;
 export type UpdatePageParams = z.infer<typeof updatePageParams>;
 export type PageId = z.infer<typeof pageIdSchema>["id"];
+export type PageCreateClient = z.infer<typeof insertPageSchema>;
 
 // this type infers the return from getPages() - meaning it will include any joins
 export type CompletePage = Awaited<

@@ -13,6 +13,7 @@ type ButtonTypes =
     | "linkPrimary"
     | "toggle"
     | "toggleDef"
+    | "toggleLink"
     | undefined;
 
 type defaultButtonProps = {
@@ -33,6 +34,7 @@ const variants = {
     "linkPrimary": "linkPrimeButton",
     "toggle": "toggleButton",
     "toggleDef": "toggleButtonDef",
+    "toggleLink": "toggleButtonLink"
 };
 export default function DefaultButton({
     children,
@@ -65,6 +67,7 @@ export default function DefaultButton({
             break;
         case "toggle":
         case "toggleDef":
+        case "toggleLink":
             buttonLayout = (
                 <button
                     type={buttonType}
