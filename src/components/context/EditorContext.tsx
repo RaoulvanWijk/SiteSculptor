@@ -77,14 +77,14 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     });
   };
 
-  const renderComponent = (component: any) => {
+  const renderComponent = (component: UsedComponent) => {
     if(component.component.type === "container") {
       return (
-        DefaultContainerItem(component)
+        <DefaultContainerItem component={component} />
       )
     }
     return (
-      DefaultItem(component)
+      <DefaultItem component={component} />
     )
   }
 
