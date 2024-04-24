@@ -101,6 +101,12 @@ export default function SideNav() {
                     icon: <Home />,
                     key: "table",
                 },
+                {
+                    text: "Container",
+                    type: "page-component",
+                    icon: <Home />,
+                    key: "container",
+                },
             ],
         },
         {
@@ -153,7 +159,11 @@ export default function SideNav() {
             return (
                 <TestDragComponent
                     id={components?.id ?? ""}
-                    data={{ isComponentInEditor: false, isFromSideNav: true, dropArea: "sideNav" }}
+                    data={{
+                        isComponentInEditor: false,
+                        isFromSideNav: true,
+                        dropArea: "sideNav",
+                    }}
                     key={components?.id}
                 >
                     {components?.name}
