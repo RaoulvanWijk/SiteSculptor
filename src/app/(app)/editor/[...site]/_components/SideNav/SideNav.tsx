@@ -17,6 +17,7 @@ import {
     LayoutDashboard,
 } from "lucide-react";
 import AddPage from "./modal/AddPage";
+import { testComponents } from "@/components/pages/editor/testComponents";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -29,8 +30,6 @@ export default function SideNav() {
         loading,
         page_id,
     } = useSideNav();
-
-    const { availableComponents, setAvailableComponents } = useEditor();
 
     //#region Navs
     const navs = [
@@ -79,6 +78,12 @@ export default function SideNav() {
                 { text: "Image", type: "page-component", icon: <Image /> },
                 {
                     text: "Button",
+                    type: "page-component",
+                    icon: <MousePointerClick />,
+                    key: "button",
+                },
+                {
+                    text: "Container",
                     type: "page-component",
                     icon: <MousePointerClick />,
                     key: "button",
@@ -152,9 +157,8 @@ export default function SideNav() {
     function content() {
         if (currentNav && currentNav.type === "page-component") {
             const currentNavText = currentNavName[currentNavName.length - 1];
-            const components = availableComponents.find(
-                (component) =>
-                    component.type === currentNavText.toLocaleLowerCase()
+            const components = testComponents.find(
+                (component) => component.name === currentNavText
             );
             return (
                 <TestDragComponent
