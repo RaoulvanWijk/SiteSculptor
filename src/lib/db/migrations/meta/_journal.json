@@ -43,6 +43,13 @@
       "when": 1714045803586,
       "tag": "0005_light_yellow_claw",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1714046620515,
+      "tag": "0006_luxuriant_star_brand",
+      "breakpoints": true
     }
   ]
 }
