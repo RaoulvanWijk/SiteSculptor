@@ -1,22 +1,18 @@
-import React, { startTransition, useEffect, useRef } from "react";
-import { FormEvent } from "react";
+import React, { useEffect, useRef } from "react";
 import "@/resources/styling/components/SideNav/addpagemodal.scss";
 import useSideNav from "@/components/hooks/useSideNav";
-import Button from "@/components/interactives/Button";
 import DefaultButton from "@/components/interactives/Button";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import {
     PageCreateClient,
     pageCreateClientSchema,
 } from "@/lib/db/schema/pages";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { usePathname, useRouter } from "next/navigation";
 
 export default function AddPage() {
     const ref = useRef<HTMLDialogElement>(null);
     const { site_id } = useSideNav();
-    const { modal, setModal, isLoading, setPage } = useSideNav();
-    const router = useRouter();
+    const { modal, setModal, setPage } = useSideNav();
 
     useEffect(() => {
         if (modal) {
