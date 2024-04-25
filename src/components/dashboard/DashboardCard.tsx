@@ -32,9 +32,9 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
   let cardLayout;
 
   const [isModalOpen, setModalOpen] = useState(false);
-  const [modalType, setModalType] = useState<'confirm' | 'input'>('confirm');
+  const [modalType, setModalType] = useState<'confirm' | 'input' | 'options'>('confirm');
 
-  const handleOpenModal = (modalType: 'confirm' | 'input') => {
+  const handleOpenModal = (modalType: 'confirm' | 'input' | 'options') => {
     console.log("Opening modal with type:", modalType);
     setModalType(modalType);
     setModalOpen(true);
@@ -60,12 +60,16 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
       try {
         await updateProjectName(projectID, newName);
         onRename?.(projectID, newName);
-        handleCloseModal(); // Close modal after successful operation
+        handleCloseModal();
       } catch (error) {
         console.error("Failed to update the project name:", error);
       }
     }
   };
+
+  const handleOptions = async () => {
+
+  }
 
   switch (type) {
     case "standard":
@@ -80,7 +84,7 @@ function DashboardCard({ imgSrc, type, projectDesc, projectName, children, url, 
           </Link>
           <div className="hoverOptions">
             <DefaultButton type="toggleLink" onClick={() => handleOpenModal('input')}><FolderPen /></DefaultButton>
-            <DefaultButton type="toggleLink"><Wrench /></DefaultButton>
+            <DefaultButton type="toggleLink" onClick={() => handleOpenModal('options')}><Wrench /></DefaultButton>
             <DefaultButton type="toggleLink" onClick={() => handleOpenModal('confirm')}><Trash2 /></DefaultButton>
           </div>
         </div>

@@ -29,11 +29,17 @@
         box-sizing: border-box;
     }
 
-    p {
+    p,
+    .modal-options.p {
         margin: 20px 35px;
         font-size: 16px;
         color: #333;
         font-weight: bold;
+    }
+
+    .modal-options {
+        display: flex;
+        flex-direction: column;
     }
 
     button {
@@ -41,16 +47,11 @@
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
-        background-color: var(--prm);
+        // background-color: var(--prm);
         color: white;
         cursor: pointer;
         font-size: 14px;
 
-    }
-
-    .warningButton {
-        background-color: var(--warning);
-        font-weight: bold;
     }
 }
 
