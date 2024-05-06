@@ -4,8 +4,9 @@ import { db } from "@/lib/db/index";
 
 export async function POST(request: NextRequest) {
     try {
-        const { styles, props } = await request.json();
+        const { name, styles, props } = await request.json();
         const { error }: any = insertNavbarSchema.safeParse({
+            name,
             styles,
             props,
         });
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
 
         const response = await db
             .insert(navbars)
-            .values({ styles, props })
+            .values({ name, styles, props })
             .execute();
         return new NextResponse(JSON.stringify(response), {
             status: 200,

@@ -11,6 +11,7 @@ export const navbars = mysqlTable("navbars", {
     id: varchar("id", { length: 191 })
         .primaryKey()
         .$defaultFn(() => nanoid()),
+    name: varchar("name", { length: 120 }).notNull(),
     props: json("props").notNull(),
     styles: json("styles").notNull(),
 
