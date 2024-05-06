@@ -4,6 +4,7 @@ import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 import { sites } from "./sites";
 import { type getSiteNavbars } from "@/lib/api/siteNavbars/queries";
+import { navbars } from "@/lib/db/schema/navbars";
 
 import { nanoid, timestamps } from "@/lib/utils";
 
@@ -11,7 +12,9 @@ export const siteNavbars = mysqlTable("site_navbars", {
     id: varchar("id", { length: 191 })
         .primaryKey()
         .$defaultFn(() => nanoid()),
-    navbarId: varchar("navbar_id", { length: 256 }).notNull(),
+    navbarId: varchar("navbar_id", { length: 256 })
+        .references(() => navbars.id, { onDelete: "cascade" })
+        .notNull(),
     siteId: varchar("site_id", { length: 256 })
         .references(() => sites.id, { onDelete: "cascade" })
         .notNull(),
