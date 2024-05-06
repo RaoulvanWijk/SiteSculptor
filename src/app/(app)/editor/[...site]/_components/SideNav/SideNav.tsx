@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import AddPage from "./modal/AddPage";
 import { testComponents } from "@/components/pages/editor/testComponents";
+import NavBarSelectButton from "./buttons/NavBarSelectButton";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -29,10 +30,11 @@ export default function SideNav() {
         page,
         loading,
         page_id,
+        navbars,
     } = useSideNav();
 
     //#region Navs
-    const navs = [
+    let navs = [
         {
             type: "main",
             content: [
@@ -145,14 +147,23 @@ export default function SideNav() {
         // check if a matching page exists
     }, [page_id, currentPage]);
 
-    for (let i = 0; i < page.length; i++) {
+    page.forEach((page) => {
         navs[0].content.unshift({
-            text: page[i].title,
+            text: page.title,
             type: "page-select",
             icon: <Home />,
-            key: page[i].id,
+            key: page.id,
         });
-    }
+    });
+
+    navbars.forEach((navbar) => {
+        navs[4].content.push({
+            text: navbar.name,
+            type: "navbar",
+            icon: <PanelTop />,
+            key: navbar.id,
+        });
+    });
 
     function content() {
         if (currentNav && currentNav.type === "page-component") {
@@ -173,6 +184,10 @@ export default function SideNav() {
                     {components?.name}
                 </TestDragComponent>
             );
+        } else if (currentNav && currentNav.type === "navbar") {
+            return navbars.map((navbar) => (
+                <NavBarSelectButton name={navbar.name} id={navbar.id} />
+            ));
         } else {
             if (loading) {
                 return <LoadingButton />;
