@@ -9,7 +9,9 @@ type navBarProps = {
 };
 
 export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
-    const changeNav = () => {};
+    const changeNav = () => {
+        fetch("api/editor/site_navbar");
+    };
 
     let currentStyle = {};
     for (const style in styles) {
@@ -21,10 +23,7 @@ export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
 
     return (
         <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <div
-                className="preview-nav"
-                style={{ backgroundColor: "red" }}
-            ></div>
+            <div className="preview-nav" style={currentStyle}></div>
         </button>
     );
 }
