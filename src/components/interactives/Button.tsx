@@ -59,7 +59,7 @@ export default function DefaultButton({
                 <button
                     type={buttonType}
                     className={
-                        "defaultButton " + variants[type ?? "default"] + " "
+                        "defaultButton " + variants[type ?? "default"] + " " + className
                     }
                     onClick={onClick}
                 >
@@ -75,7 +75,7 @@ export default function DefaultButton({
                 <button
                     type={buttonType}
                     className={
-                        "defaultButton " + variants[type ?? "default"] + " "
+                        "defaultButton " + variants[type ?? "default"] + " " + className
                     }
                     onClick={onClick}
                 >
