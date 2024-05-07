@@ -9,12 +9,8 @@ RUN npm run build
 
 # Stage 2: Run the Next.js application
 FROM node:20
-WORKDIR  /
-COPY --from=builder /app/next.config.mjs ./
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /package*.json ./
+WORKDIR  /app 
+COPY --from=builder /app . 
 
 EXPOSE 3000
 CMD npm run start
