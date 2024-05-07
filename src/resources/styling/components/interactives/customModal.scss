@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1050;
+    z-index: 5;
 }
 
 .modal-content {
@@ -22,21 +22,24 @@
 
     input {
         width: 80%;
-        /* Adjust width as necessary */
         padding: 8px 10px;
         margin-top: 10px;
         border: 1px solid #ccc;
-        /* subtle border */
         border-radius: 4px;
         box-sizing: border-box;
-        /* Includes padding in width */
     }
 
-    p {
-        margin: 20px 0;
+    p,
+    .modal-options.p {
+        margin: 20px 35px;
         font-size: 16px;
         color: #333;
         font-weight: bold;
+    }
+
+    .modal-options {
+        display: flex;
+        flex-direction: column;
     }
 
     button {
@@ -44,10 +47,11 @@
         padding: 10px 20px;
         border: none;
         border-radius: 4px;
-        background-color: var(--prm);
+        // background-color: var(--prm);
         color: white;
         cursor: pointer;
         font-size: 14px;
+
     }
 }
 
