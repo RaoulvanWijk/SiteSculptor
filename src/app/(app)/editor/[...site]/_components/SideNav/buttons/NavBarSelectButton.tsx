@@ -5,13 +5,26 @@ import React from "react";
 type navBarProps = {
     name: string;
     id: string;
+    styles: any;
 };
 
-export default function NavBarSelectButton({ name, id }: navBarProps) {
+export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
     const changeNav = () => {};
+
+    let currentStyle = {};
+    for (const style in styles) {
+        // currentStyle += `${style}: ${styles[style]};`;
+        currentStyle = { ...currentStyle, [style]: styles[style] };
+    }
+
+    console.log(currentStyle);
+
     return (
         <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <span>{name}</span>
+            <div
+                className="preview-nav"
+                style={{ backgroundColor: "red" }}
+            ></div>
         </button>
     );
 }

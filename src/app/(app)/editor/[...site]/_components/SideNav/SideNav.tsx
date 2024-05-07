@@ -145,7 +145,7 @@ export default function SideNav() {
             setNavType("main");
         }
         // check if a matching page exists
-    }, [page_id, currentPage]);
+    }, [page_id, currentPage, setCurrentNavName, setNavType]);
 
     page.forEach((page) => {
         navs[0].content.unshift({
@@ -186,7 +186,12 @@ export default function SideNav() {
             );
         } else if (currentNav && currentNav.type === "navbar") {
             return navbars.map((navbar) => (
-                <NavBarSelectButton name={navbar.name} id={navbar.id} />
+                <NavBarSelectButton
+                    name={navbar.name}
+                    id={navbar.id}
+                    styles={navbar.styles}
+                    key={navbar.id}
+                />
             ));
         } else {
             if (loading) {
