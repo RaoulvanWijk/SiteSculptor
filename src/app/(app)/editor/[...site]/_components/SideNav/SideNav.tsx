@@ -163,6 +163,7 @@ export default function SideNav() {
                         isComponentInEditor: false,
                         isFromSideNav: true,
                         dropArea: "sideNav",
+                        type: components?.type,
                     }}
                     key={components?.id}
                 >
