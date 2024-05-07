@@ -13,4 +13,4 @@ services:
       - .:/app
       - /node_modules
       - /var/www/html/SiteSculptor:/some/container/path
-    command: npm run dev
+    command: npm run start
