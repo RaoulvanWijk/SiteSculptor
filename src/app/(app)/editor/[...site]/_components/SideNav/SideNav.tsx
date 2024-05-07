@@ -17,6 +17,7 @@ import {
     LayoutDashboard,
 } from "lucide-react";
 import AddPage from "./modal/AddPage";
+import { testComponents } from "@/components/pages/editor/testComponents";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -29,8 +30,6 @@ export default function SideNav() {
         loading,
         page_id,
     } = useSideNav();
-
-    const { availableComponents, setAvailableComponents } = useEditor();
 
     //#region Navs
     const navs = [
@@ -84,6 +83,12 @@ export default function SideNav() {
                     key: "button",
                 },
                 {
+                    text: "Container",
+                    type: "page-component",
+                    icon: <MousePointerClick />,
+                    key: "button",
+                },
+                {
                     text: "Form",
                     type: "page-component",
                     icon: <Home />,
@@ -100,6 +105,12 @@ export default function SideNav() {
                     type: "page-component",
                     icon: <Home />,
                     key: "table",
+                },
+                {
+                    text: "Container",
+                    type: "page-component",
+                    icon: <Home />,
+                    key: "container",
                 },
             ],
         },
@@ -146,14 +157,17 @@ export default function SideNav() {
     function content() {
         if (currentNav && currentNav.type === "page-component") {
             const currentNavText = currentNavName[currentNavName.length - 1];
-            const components = availableComponents.find(
-                (component) =>
-                    component.type === currentNavText.toLocaleLowerCase()
+            const components = testComponents.find(
+                (component) => component.name === currentNavText
             );
             return (
                 <TestDragComponent
                     id={components?.id ?? ""}
-                    data={{ isComponentInEditor: false, isFromSideNav: true, dropArea: "sideNav" }}
+                    data={{
+                        isComponentInEditor: false,
+                        isFromSideNav: true,
+                        dropArea: "sideNav",
+                    }}
                     key={components?.id}
                 >
                     {components?.name}
