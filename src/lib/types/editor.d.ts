@@ -32,9 +32,12 @@ declare module "editor" {
     styles: {
       [key: string]: string | string[]; // The styles that the component has
     };
-    children: UsedComponent[]; // The children components of the component
+    children: NestedComponent[]; // The children components of the component
   };
 
+  type NestedComponent = UsedComponent & {
+    parent: string; // The parent component of the component
+  };
   type EditorHandlerState = {
     selectedComponent: Component | null; // The component that is currently selected in the editor
     components: UsedComponent[]; // The components that are currently in the editor

@@ -11,6 +11,7 @@ import { useSearch } from "../context/SearchContext";
 import { Search } from 'lucide-react';
 import { useSidebar } from "../context/SidebarContext";
 import UserMenu from "./UserMenu";
+import { signOut } from "next-auth/react"
 
 export default function Navbar() {
     const { data: session, status } = useSession();
@@ -39,7 +40,11 @@ export default function Navbar() {
             </div>
             <div className="rightside">
                 <DialogBox title="Create a new Project" description="Give your Project a name" >New Project</DialogBox>
-                <UserMenu /> {/* Pass Logout Function here */}
+                <UserMenu onLogout={() => {
+                    signOut({
+                        callbackUrl: "/",
+                    });
+                }} /> {/* Pass Logout Function here */}
             </div>
         </nav>
     );
