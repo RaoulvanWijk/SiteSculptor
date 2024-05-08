@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useState, useEffect } from 'react';
 import "@/resources/styling/components/dashboard/navbar.scss";
 import DefaultButton from "../interactives/Button";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import DialogBox from "./DialogBox";
 import { useSearch } from "../context/SearchContext";
 import { Search } from 'lucide-react';
