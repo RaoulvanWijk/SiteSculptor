@@ -1,16 +1,16 @@
-import { db } from "@/lib/db/index";
-import { pages, insertPageSchema } from "@/lib/db/schema/pages";
-import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
+import {
+    siteFooters,
+    insertSiteFooterSchema,
+} from "@/lib/db/schema/siteFooters";
+import { db } from "@/lib/db/index";
 
 export async function POST(request: NextRequest) {
     try {
-        const { title, slug, siteId } = await request.json();
-        const id = nanoid();
-        const { error }: any = insertPageSchema.safeParse({
-            title,
-            slug,
+        const { siteId, footerId } = await request.json();
+        const { error }: any = insertSiteFooterSchema.safeParse({
             siteId,
+            footerId,
         });
         if (error) {
             return new NextResponse(
@@ -20,16 +20,15 @@ export async function POST(request: NextRequest) {
                 }
             );
         }
-
-        await db
-            .insert(pages)
-            .values({ id: id, title, slug, siteId })
+        const response = await db
+            .insert(siteFooters)
+            .values({ siteId, footerId })
             .execute();
-
-        return new NextResponse(JSON.stringify({ id: id, message: "ok" }), {
+        return new NextResponse(JSON.stringify({ message: "ok" }), {
             status: 200,
         });
     } catch (error) {
+        console.log(error);
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
             status: 400,
         });
