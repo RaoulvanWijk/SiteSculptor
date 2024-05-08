@@ -62,6 +62,6 @@ export const checkAuth = async () => {
 
   const curUrl = headers().get("x-url") ? "?callbackUrl=" + headers().get("x-url") : "";
   
-  if (!session) redirect("/sign-in" + curUrl);
+  if (!session) redirect("/login" + curUrl);
 };
 
