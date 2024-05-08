@@ -12,24 +12,16 @@ import { Label } from "@/components/ui/label"
 import { useSearchParams } from 'next/navigation'
 import { redirect } from 'next/navigation'
 
-export function UserAuthForm() {
+export default function Signup() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault()
-    setIsLoading(true)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
-  }
   const searchParams = useSearchParams()
  
   const search = searchParams.get('callbackUrl')
   // if user is logged in, redirect to the callback url
   const { status } = useSession();
   if(status === "authenticated") {
-    redirect(search || "/")
+    redirect(search || "/app/dashboard")
   }
   return (
     <div className={cn("grid gap-6")}>
@@ -58,5 +50,3 @@ export function UserAuthForm() {
     </div>
   )
 }
-
-export default UserAuthForm
