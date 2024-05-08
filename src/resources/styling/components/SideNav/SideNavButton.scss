@@ -7,3 +7,62 @@
     border: 0.1rem solid #00000010;
     font-weight: 500;
 }
+
+.new-page {
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: var(--prm);
+    transition: 0.2s ease-in-out;
+    &:hover {
+        background-color: var(--acc);
+    }
+}
+
+.subtitle {
+    margin-top: 1rem;
+    color: gray;
+}
+
+.subtitle-top {
+    margin-top: 0;
+}
+
+// loading
+.loading-button {
+    animation-duration: 2s;
+    animation-name: loading;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    background-color: #00000010;
+    border: 0.1rem;
+    height: 3rem;
+    
+}
+
+.loading-text {
+    animation-duration: 2s;
+animation-name: loading;
+animation-iteration-count: infinite;
+animation-timing-function: ease-in-out;
+background-color: #00000010;
+border: 0.1rem;
+    height: 0rem;
+}
+
+.preview-nav {
+    width: 100%;
+}
+
+
+@keyframes loading {
+    0% {
+        background-color: #00000010;
+    }
+    50% {
+        background-color: #00000020;
+    }
+    100% {
+        background-color: #00000010;
+    }
+}

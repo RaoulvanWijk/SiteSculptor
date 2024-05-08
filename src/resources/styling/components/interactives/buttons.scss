@@ -1,13 +1,13 @@
-.defaultButton, .toggleButtonDef {
+.defaultButton,
+.toggleButtonDef {
     background-color: var(--wht);
     padding: 8px 16px;
     border-radius: 5px;
     color: var(--txt);
     transition: 0.3s ease-in-out;
-    max-width: max-content;
 
     &:hover {
-        background-color: var(--sec);
+        background-color: var(--acc);
     }
 }
 
@@ -15,10 +15,10 @@ svg {
     display: inline-block;
 }
 
-.primaryButton, .toggleButton {
+.primaryButton,
+.toggleButton {
     background-color: var(--prm);
     color: var(--wht);
-
 
     &:hover {
         background-color: var(--acc);
@@ -34,6 +34,7 @@ svg {
         background-color: var(--prm);
     }
 }
+
 .outlineButton {
     background-color: transparent;
     color: var(--txt);
@@ -44,13 +45,43 @@ svg {
         color: var(--wht);
     }
 }
+
 .linkButton {
     background-color: transparent;
     color: var(--txt);
+
+    &:hover {
+        color: var(--acc);
+    }
+
+}
+.linkButton:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
+.toggleButtonLink,
+.toggleButtonWarning {
+    background-color: var(--prm);
+    color: var(--txt);
     padding: 16px;
 
-    &:hover{
-        color: var(--acc);
-        background-color: transparent;
+    &:hover {
+        color: var(--wht);
+        background-color: var(--acc);
     }
+}
+
+.toggleButtonWarning {
+    background-color: var(--warning);
+    font-weight: bold;
+
+    &:hover {
+        background-color: var(--warning);
+        font-weight: bold;
+    }
+}
+
+
+.toggleButtonLink {
+    background-color: transparent;
 }

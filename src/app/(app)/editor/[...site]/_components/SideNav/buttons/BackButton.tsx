@@ -26,7 +26,8 @@ export default function BackButton() {
             if (navType == "page-component") {
                 return "page-select";
             } else if (navType == "page-select") {
-                route.push(`/editor/${site[0].id}/0/`);
+                route.push(`/editor/${site[0].id}/`);
+
                 return "main";
             } else {
                 return "main";

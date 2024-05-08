@@ -1,8 +1,16 @@
 import React from "react";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
+import { SearchProvider } from "@/components/context/SearchContext";
+import { SidebarProvider } from "@/components/context/SidebarContext";
 
 export default function layout({ children }: { children: React.ReactNode }) {
-    return <DashboardLayout>
-        {children}
-    </DashboardLayout>;
+    return (
+        <SearchProvider>
+            <SidebarProvider>
+                <DashboardLayout>
+                    {children}
+                </DashboardLayout>
+            </SidebarProvider>
+        </SearchProvider>
+    );
 }

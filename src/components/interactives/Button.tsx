@@ -13,6 +13,8 @@ type ButtonTypes =
     | "linkPrimary"
     | "toggle"
     | "toggleDef"
+    | "toggleLink"
+    | "toggleWarning"
     | undefined;
 
 type defaultButtonProps = {
@@ -33,6 +35,8 @@ const variants = {
     "linkPrimary": "linkPrimeButton",
     "toggle": "toggleButton",
     "toggleDef": "toggleButtonDef",
+    "toggleLink": "toggleButtonLink",
+    "toggleWarning": "toggleButtonWarning"
 };
 export default function DefaultButton({
     children,
@@ -55,21 +59,23 @@ export default function DefaultButton({
                 <button
                     type={buttonType}
                     className={
-                        "defaultButton " + variants[type ?? "default"] + " "
+                        "defaultButton " + variants[type ?? "default"] + " " + className
                     }
                     onClick={onClick}
                 >
-                    <Link href={linkTo?? "#"}>{children}</Link>
+                    <Link href={linkTo ?? "#"}>{children}</Link>
                 </button>
             )
             break;
         case "toggle":
         case "toggleDef":
+        case "toggleLink":
+        case "toggleWarning":
             buttonLayout = (
                 <button
                     type={buttonType}
                     className={
-                        "defaultButton " + variants[type ?? "default"] + " "
+                        "defaultButton " + variants[type ?? "default"] + " " + className
                     }
                     onClick={onClick}
                 >

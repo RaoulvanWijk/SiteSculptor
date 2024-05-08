@@ -9,7 +9,7 @@ import {
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { set } from "zod";
+import { get } from "http";
 
 type SideNavContextType = {
     currentNavName: Array<string>;
@@ -18,6 +18,15 @@ type SideNavContextType = {
     setNavType: Dispatch<SetStateAction<String>>;
     site: Array<any>;
     page: Array<any>;
+    setPage: Dispatch<SetStateAction<Array<any>>>;
+    site_id: string;
+    page_id: string;
+    loading: boolean;
+    isLoading: Dispatch<SetStateAction<boolean>>;
+    modal: boolean;
+    setModal: Dispatch<SetStateAction<boolean>>;
+    navbars: Array<any>;
+    setNavbars: Dispatch<SetStateAction<Array<any>>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -34,12 +43,23 @@ async function getPageData(site_id: string) {
     return data;
 }
 
+async function getNavbarData() {
+    const response = await fetch(`/api/editor/navbar`);
+    const data = await response.json();
+    return data;
+}
+
 export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
+    const [loading, isLoading] = useState<boolean>(true);
 
-    const [site, setSite] = useState([]);
-    const [page, setPage] = useState([]);
+    const [navbars, setNavbars] = useState<any[]>([]);
+
+    const [modal, setModal] = useState<boolean>(false);
+
+    const [site, setSite] = useState<any[]>([]);
+    const [page, setPage] = useState<any[]>([]);
 
     const site_id = usePathname().split("/")[2];
     const page_id = usePathname().split("/")[3];
@@ -48,8 +68,12 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         getSiteData(site_id).then((data) => {
             setSite(data);
         });
+        getNavbarData().then((data) => {
+            setNavbars(data);
+        });
         getPageData(site_id).then((data) => {
             setPage(data);
+            isLoading(false);
         });
     }, []);
 
@@ -64,6 +88,15 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setNavType,
                 site,
                 page,
+                setPage,
+                site_id,
+                page_id,
+                loading,
+                isLoading,
+                modal,
+                setModal,
+                navbars,
+                setNavbars,
             }}
         >
             {children}

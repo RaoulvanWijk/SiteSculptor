@@ -1,16 +1,15 @@
 import { db } from "@/lib/db/index";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
+import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
     try {
-        const { title, slug, navbarId, footerId, siteId } =
-            await request.json();
+        const { title, slug, siteId } = await request.json();
+        const id = nanoid();
         const { error }: any = insertPageSchema.safeParse({
             title,
             slug,
-            navbarId,
-            footerId,
             siteId,
         });
         if (error) {
@@ -21,11 +20,13 @@ export async function POST(request: NextRequest) {
                 }
             );
         }
+
         await db
             .insert(pages)
-            .values({ title, slug, navbarId, footerId, siteId })
+            .values({ id: id, title, slug, siteId })
             .execute();
-        return new NextResponse(JSON.stringify({ message: "ok" }), {
+
+        return new NextResponse(JSON.stringify({ id: id, message: "ok" }), {
             status: 200,
         });
     } catch (error) {

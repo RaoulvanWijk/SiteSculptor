@@ -1,14 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import "@/resources/styling/components/dashboard/sidebar.scss";
-import { Button } from "../ui/button";
+import DefaultButton from "../interactives/Button";
+import { useSidebar } from "../context/SidebarContext";
 
 const SidebarItems = () => {
+    const { setCurrentSection } = useSidebar();
     return (
         <div className="sidebaritems">
-            <Link href="">My Projects</Link>
-            <Link href="">Extensions</Link>
+            <DefaultButton type="toggleLink" onClick={() => setCurrentSection("all")}>Home</DefaultButton>
+            <DefaultButton type="toggleLink" onClick={() => setCurrentSection("projects")}>My Projects</DefaultButton>
+            <DefaultButton type="toggleLink" onClick={() => setCurrentSection("extensions")}>Extensions</DefaultButton>
         </div>
     );
 };

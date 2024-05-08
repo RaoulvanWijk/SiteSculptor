@@ -1,0 +1,1 @@
+ALTER TABLE `navbars` RENAME COLUMN `stylese` TO `styles`;

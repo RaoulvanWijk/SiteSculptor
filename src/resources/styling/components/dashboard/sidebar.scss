@@ -1,7 +1,6 @@
 .sidebar {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
 }
 
 .side-title {
@@ -14,10 +13,19 @@
     flex-direction: column;
     margin-top: .5rem;
     gap: .5rem;
-
-    a {
+    
+    button {
+        display: flex;
+        text-align: start;
+        width: 100%;
         border: 1.5px solid var(--soft);
         border-radius: 5px;
-        padding: 3px 6px;
+        padding: 3px 10px;
+        transition: border .4s ease-in-out;
+
+        &:hover {
+            border: 1.5px solid var(--blk);
+            color: inherit;
+        }
     }
 }
