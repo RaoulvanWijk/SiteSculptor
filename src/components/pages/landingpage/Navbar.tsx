@@ -56,12 +56,12 @@ export default function Navbar() {
                     </Button>
                 </li>
                 <li>
-                    <Button type="link" linkTo="/sign-in">
+                    <Button type="link" linkTo="/login">
                         Login
                     </Button>
                 </li>
                 <li>
-                    <Button type="primary" linkTo="/sign-in">
+                    <Button type="primary" linkTo="/login">
                         Get started
                     </Button>
                 </li>

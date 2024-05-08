@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-import { Component, EditorHandlerState, UsedComponent } from "editor";
+import { Component, EditorHandlerState, NestedComponent, UsedComponent } from "editor";
 
 import { cn, nanoid } from "@/lib/utils";
 import BaseDropComponent from "../editor-drag-components/BaseDropComponent";
@@ -77,15 +77,15 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     });
   };
 
-  const renderComponent = (component: UsedComponent) => {
+  const renderComponent = (component: UsedComponent | NestedComponent) => {
     if(component.component.type === "container") {
       return (
         <DefaultContainerItem component={component} />
       )
     }
-    return (
-      <DefaultItem component={component} />
-    )
+    // return (
+    //   <DefaultItem component={component} />
+    // )
   }
 
   const handleNestedComponents = (component: UsedComponent) => {
