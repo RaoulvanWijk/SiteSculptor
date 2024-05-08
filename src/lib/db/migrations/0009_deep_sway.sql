@@ -1,0 +1,1 @@
+ALTER TABLE `site_navbars` ADD CONSTRAINT `site_navbars_navbar_id_navbars_id_fk` FOREIGN KEY (`navbar_id`) REFERENCES `navbars`(`id`) ON DELETE cascade ON UPDATE no action;

@@ -16,6 +16,9 @@ $topNavHeight: 4rem;
     &.sidebar-closed {
       grid-template-columns: 0 1fr;
     }
+    &.navbar-open {
+      grid-template-columns: 20rem 1fr;
+    }
   }
   
   .sidebar {

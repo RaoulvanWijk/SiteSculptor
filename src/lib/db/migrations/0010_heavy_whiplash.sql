@@ -1,0 +1,1 @@
+ALTER TABLE `navbars` ADD `name` varchar(120) NOT NULL;

@@ -29,11 +29,8 @@ export default function AddPage() {
     const onSubmit = async (event: any) => {
         event?.preventDefault();
 
-        const data = {
-            title: event.target.title.value,
-            slug: event.target.slug.value,
-            siteId: site_id,
-        };
+        const title = event.target.title.value;
+        const slug = event.target.slug.value;
 
         try {
             const response = await fetch("/api/editor/page/create", {
@@ -43,16 +40,24 @@ export default function AddPage() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    title: data.title,
-                    slug: data.slug,
-                    siteId: data.siteId,
+                    title: title,
+                    slug: slug,
+                    siteId: site_id,
                 }),
             });
+            console.log(response);
+            const responseData = await response.json();
+            console.log(responseData);
+            const data = {
+                title: title,
+                slug: slug,
+                id: responseData.id,
+            };
+            setPage((prev) => [...prev, data]);
         } catch (error) {
             console.error("Error:", error);
         }
 
-        setPage((prev) => [...prev, data]);
         setModal(false);
     };
 

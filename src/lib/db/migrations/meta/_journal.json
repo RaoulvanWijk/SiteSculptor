@@ -36,6 +36,48 @@
       "when": 1713530270425,
       "tag": "0004_harsh_photon",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1714045803586,
+      "tag": "0005_light_yellow_claw",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1714046620515,
+      "tag": "0006_luxuriant_star_brand",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1715002979843,
+      "tag": "0007_fine_centennial",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1715003100539,
+      "tag": "0008_moaning_alice",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1715003348860,
+      "tag": "0009_deep_sway",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "5",
+      "when": 1715004639794,
+      "tag": "0010_heavy_whiplash",
+      "breakpoints": true
     }
   ]
 }

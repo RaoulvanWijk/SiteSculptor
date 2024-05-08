@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { SideNavContextProvider } from "../context/SideNavContext";
 import DefaultButton from "../interactives/Button";
 import { MonitorSmartphone, Save, Upload } from "lucide-react";
+import useSideNav from "../hooks/useSideNav";
 
 export function Layout({
     children,
@@ -12,10 +13,19 @@ export function Layout({
     children: React.ReactNode;
     className?: string;
 }) {
-    return <div className={cn("editor-container", className)}>{children}</div>;
+    const { currentNavName } = useSideNav();
+    return (
+        <div
+            className={`editor-container ${
+                currentNavName[0] == "Navbar" ? "navbar-open" : ""
+            }`}
+        >
+            {children}
+        </div>
+    );
 }
 export function SideNav({ children }: { children: React.ReactNode }) {
-    return <div className="sidebar"> {children}</div>;
+    return <div className="sidebar">{children}</div>;
 }
 export function TopNav() {
     return (
