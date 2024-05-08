@@ -46,7 +46,19 @@ svg {
     }
 }
 
-.linkButton,
+.linkButton {
+    background-color: transparent;
+    color: var(--txt);
+
+    &:hover {
+        color: var(--acc);
+    }
+
+}
+.linkButton:hover {
+    text-decoration: underline;
+    background-color: transparent;
+}
 .toggleButtonLink,
 .toggleButtonWarning {
     background-color: var(--prm);
