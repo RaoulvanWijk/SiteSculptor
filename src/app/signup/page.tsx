@@ -1,11 +1,6 @@
 // custom nextjs auth login page
 "use client"
-import * as React from "react"
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next"
-import options from "../api/auth/[...nextauth]/route"
+import { useState} from "react"
 
 import { getProviders, signIn } from "next-auth/react"
 import { useSession } from "next-auth/react";
@@ -18,7 +13,7 @@ import { useSearchParams } from 'next/navigation'
 import { redirect } from 'next/navigation'
 
 export function UserAuthForm() {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
