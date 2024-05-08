@@ -11,7 +11,7 @@ export default function DefaultItem(
     
     return (
         <div key={component.id}>
-            <BaseDropComponent
+            {/* <BaseDropComponent
                 id={"droppable-" + component.id}
                 data={{
                     isEditorDroppable: true,
@@ -20,7 +20,7 @@ export default function DefaultItem(
                     parent: component.parent
                 }}
                 accepts={["draggable-outside-editor"]}
-            ></BaseDropComponent>
+            ></BaseDropComponent> */}
             <BaseDragComponent
                 id={component.id}
                 data={{
