@@ -1,24 +1,17 @@
 // custom nextjs auth login page
 "use client"
-import * as React from "react"
-import type {
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next"
-import options from "../api/auth/[...nextauth]/route"
+import { useState } from "react"
 
-import { getProviders, signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import { useSession } from "next-auth/react";
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { useSearchParams } from 'next/navigation'
 import { redirect } from 'next/navigation'
 
-export function UserAuthForm() {
-  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+export default function Login() {
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   async function onSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
@@ -34,14 +27,14 @@ export function UserAuthForm() {
   // if user is logged in, redirect to the callback url
   const { status } = useSession();
   if(status === "authenticated") {
-    redirect(search || "/")
+    redirect(search || "/app/dashboard")
   }
   return (
     <div className={cn("grid gap-6")}>
         <div className="grid gap-2">
           <Button disabled={isLoading} onClick={()=>signIn(
             // get callback url from params
-            'google', { callbackUrl: search || ''}
+            'google', { callbackUrl: search || '/app/dashboard'}
           )}>
             {isLoading && (
               <p></p>
@@ -63,5 +56,3 @@ export function UserAuthForm() {
     </div>
   )
 }
-
-export default UserAuthForm
