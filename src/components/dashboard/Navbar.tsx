@@ -24,7 +24,9 @@ export default function Navbar() {
                 <Link href="/app/dashboard" onClick={() => setCurrentSection("all")}><Image src="/branding/logo_temp.png" alt="Logo" className="logo" width={1000} height={1000} /></Link>
             </div>
             <div className="search">
+                <label htmlFor="search-bar"></label>
                 <input
+                    id="search-bar"
                     type="text"
                     placeholder="Search for a project..."
                     className="searchbar"

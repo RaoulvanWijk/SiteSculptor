@@ -15,7 +15,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import DefaultButton from "../interactives/Button";
 import { onSubmit } from "@/components/dashboard/createNewProject";
 import { useRouter } from "next/navigation";
@@ -74,13 +73,14 @@ export default function DialogBox({
                     </DialogHeader>
                     <div className="flex items-center space-x-2 mt-2">
                         <div className="grid flex-1 gap-2">
-                            <Label htmlFor="link" className="sr-only">
+                            <label htmlFor="link" className="sr-only">
                                 {description}
-                            </Label>
+                            </label>
                             <Input
                                 id="link"
                                 placeholder="Type here"
                                 {...register("name")}
+                                autoComplete="on"
                             />
                             {errors.name && (
                                 <p className="text-red-500">{`${errors.name.message}`}</p>
