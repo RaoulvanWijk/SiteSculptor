@@ -61,6 +61,23 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
             );
             console.log(droppableContainers, "droppableContainers");
         }
+    } else {
+        if (allowedTypesInEditor.includes(active.type)) {
+            droppableContainers = droppableContainers.filter(
+                (container: any) =>
+                    ["editor", "sideNav"].includes(container.data.current?.dropArea)
+            );
+            console.log(droppableContainers, "droppableContainers");
+        }
+
+
+        if (allowedTypesInContainer.includes(active.type)) {
+            droppableContainers = droppableContainers.filter(
+                (container: any) =>
+                    ["container", "sideNav", "container-item"].includes(container.data.current?.dropArea) && container.data.current?.id !== active.parent
+            );
+            console.log(droppableContainers, "droppableContainers");
+        }
     }
     // return
 
