@@ -51,12 +51,12 @@ export default function DialogBox({
         // Create Logic
         const siteId = await onSubmit(data, setError);
         if (siteId) {
-            router.push(`/editor/${siteId}/0`);
+            router.push(`/editor/${siteId}`);
             console.log("Navigating to new site with ID:", siteId);
         } else {
             console.log("Failed to create new site");
         }
-    }
+    };
 
     return (
         <Dialog>
