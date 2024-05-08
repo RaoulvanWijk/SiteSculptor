@@ -5,9 +5,9 @@ COPY package*.json ./
 RUN npm install  
 COPY . ./  
 ENV NODE_OPTIONS=--max-old-space-size=4000
-ENV NODE_ENV development
-RUN npm run build
-
+ENV NODE_ENV production
+RUN npm run build && ls -la /app/.next
+ 
 
 
 FROM node:20
