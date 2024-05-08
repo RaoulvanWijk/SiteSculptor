@@ -7,6 +7,7 @@ import { env } from "@/lib/env.mjs"
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import AppleProvider from "next-auth/providers/apple";
+import { headers } from "next/headers";
 
 declare module "next-auth" {
   interface Session {
@@ -58,6 +59,9 @@ export const getUserAuth = async () => {
 
 export const checkAuth = async () => {
   const { session } = await getUserAuth();
-  if (!session) redirect("/api/auth/signin");
+
+  const curUrl = headers().get("x-url") ? "?callbackUrl=" + headers().get("x-url") : "";
+  
+  if (!session) redirect("/sign-in" + curUrl);
 };
 
