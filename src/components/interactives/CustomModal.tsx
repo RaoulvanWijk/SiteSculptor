@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import '@/resources/styling/components/interactives/customModal.scss'
+import DefaultButton from './Button';
 
 interface CustomModalProps {
-    type: 'confirm' | 'input';
+    type: 'confirm' | 'input' | 'options';
     isOpen: boolean;
     onClose: () => void;
-    onConfirm: (value?: any) => void; 
+    onConfirm: (value?: any) => void;
     message?: string;
     inputButtonName?: string;
 }
@@ -28,24 +29,35 @@ const CustomModal: React.FC<CustomModalProps> = ({ type, isOpen, onClose, onConf
             return (
                 <>
                     <p>{message}</p>
-                    <button onClick={() => onConfirm()}>Yes</button>
-                    <button onClick={onClose}>No</button>
+                    <DefaultButton type='toggleWarning' onClick={() => onConfirm()}>Yes</DefaultButton>
+                    <DefaultButton type='toggle' onClick={onClose}>No</DefaultButton>
                 </>
             );
         } else if (type === 'input') {
             return (
                 <>
                     <p>{message}</p>
+                    <label htmlFor='modal-input'></label>
                     <input
+                        id='modal-input'
                         type="text"
                         placeholder="New project name"
                         value={inputValue}
                         onChange={(e) => setInputValue(e.target.value)}
                     />
-                    <button onClick={handleInputConfirm}>{inputButtonName}</button>
-                    <button onClick={onClose}>Cancel</button>
+                    <DefaultButton type='toggle' onClick={handleInputConfirm}>{inputButtonName}</DefaultButton>
+                    <DefaultButton type='toggle' onClick={onClose}>Cancel</DefaultButton>
                 </>
             );
+        } else if (type === 'options') {
+            return (
+                <div className='modal-options'>
+                    <p>{message}</p>
+                    <DefaultButton type='toggle'>Rename</DefaultButton>
+                    <DefaultButton type='toggleWarning'>Delete</DefaultButton>
+                    <DefaultButton type='toggle' onClick={onClose}>Cancel</DefaultButton>
+                </div>
+            )
         }
     };
 

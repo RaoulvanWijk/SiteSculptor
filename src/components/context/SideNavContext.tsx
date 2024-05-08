@@ -9,6 +9,7 @@ import {
 
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { get } from "http";
 
 type SideNavContextType = {
     currentNavName: Array<string>;
@@ -24,6 +25,8 @@ type SideNavContextType = {
     isLoading: Dispatch<SetStateAction<boolean>>;
     modal: boolean;
     setModal: Dispatch<SetStateAction<boolean>>;
+    navbars: Array<any>;
+    setNavbars: Dispatch<SetStateAction<Array<any>>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -40,10 +43,18 @@ async function getPageData(site_id: string) {
     return data;
 }
 
+async function getNavbarData() {
+    const response = await fetch(`/api/editor/navbar`);
+    const data = await response.json();
+    return data;
+}
+
 export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
     const [loading, isLoading] = useState<boolean>(true);
+
+    const [navbars, setNavbars] = useState<any[]>([]);
 
     const [modal, setModal] = useState<boolean>(false);
 
@@ -56,6 +67,9 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         getSiteData(site_id).then((data) => {
             setSite(data);
+        });
+        getNavbarData().then((data) => {
+            setNavbars(data);
         });
         getPageData(site_id).then((data) => {
             setPage(data);
@@ -81,6 +95,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 isLoading,
                 modal,
                 setModal,
+                navbars,
+                setNavbars,
             }}
         >
             {children}
