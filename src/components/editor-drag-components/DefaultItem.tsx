@@ -2,19 +2,22 @@ import React from 'react'
 import BaseDropComponent from './BaseDropComponent'
 import BaseDragComponent from './BaseDragComponent';
 import { cn } from '@/lib/utils';
-import { UsedComponent } from 'editor';
+import { NestedComponent, UsedComponent } from 'editor';
 
 export default function DefaultItem(
-    {component}: {component: UsedComponent}
+    {component}: {component: NestedComponent}
 ) {
+    console.log(component, "component");
+    
     return (
         <div key={component.id}>
             <BaseDropComponent
                 id={"droppable-" + component.id}
                 data={{
                     isEditorDroppable: true,
-                    dropArea: "editor",
+                    dropArea: "container-item",
                     index: component.index,
+                    parent: component.parent
                 }}
                 accepts={["draggable-outside-editor"]}
             ></BaseDropComponent>
@@ -22,8 +25,9 @@ export default function DefaultItem(
                 id={component.id}
                 data={{
                     isComponentInEditor: true,
-                    dropArea: "editor",
+                    dropArea: "container-item",
                     type: component.component.type,
+                    parent: component.parent
                 }}
             >
                 <div
