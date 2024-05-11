@@ -7,9 +7,10 @@ import { LogOut, Settings } from 'lucide-react';
 
 type UserMenuProps = {
     onLogout?: () => void;
+    onSettings?: () => void;
 }
 
-const UserMenu = ({ onLogout }: UserMenuProps) => {
+const UserMenu = ({ onLogout, onSettings }: UserMenuProps) => {
     const { data: session } = useSession();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
@@ -43,7 +44,7 @@ const UserMenu = ({ onLogout }: UserMenuProps) => {
                 </div>
                 <div className="um-actions">
                     <DefaultButton type="toggleLink" onClick={onLogout}>Logout <LogOut size={15} /></DefaultButton>
-                    <DefaultButton type="toggleLink" onClick={() => console.log('Changing settings...')}>Settings <Settings size={15} /></DefaultButton>
+                    <DefaultButton type="toggleLink" onClick={onSettings}>Settings <Settings size={15} /></DefaultButton>
                 </div>
             </div>
         </div>
