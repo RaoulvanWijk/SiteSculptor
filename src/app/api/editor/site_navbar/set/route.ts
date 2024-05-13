@@ -5,9 +5,10 @@ import {
 } from "@/lib/db/schema/siteNavbars";
 import { db } from "@/lib/db/index";
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
     try {
         const { siteId, navbarId } = await request.json();
+        // check if the site already
         const { error }: any = insertSiteNavbarSchema.safeParse({
             siteId,
             navbarId,

@@ -17,6 +17,7 @@ import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
 import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
+import useSideNav from "@/components/hooks/useSideNav";
 
 //#endregion
 
@@ -35,6 +36,7 @@ export default function EditorHandler() {
         renderComponents,
         handleDragEnd,
     } = useEditor();
+    const { siteNavbar } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
         setComponents(testUsedComponents);
@@ -79,7 +81,7 @@ export default function EditorHandler() {
             </Editor.SideNav>
             <Editor.TopNav />
             <div className={cn("drag-container p-4 flex flex-col")}>
-                <NavBarSelected />
+                <NavBarSelected stijl={siteNavbar[0].styles} />
                 <SortableContext
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}

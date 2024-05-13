@@ -1,6 +1,7 @@
 import { db } from "@/lib/db/index";
 import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
+import { siteNavbars } from "@/lib/db/schema/siteNavbars";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
@@ -9,7 +10,7 @@ import { nanoid } from "nanoid";
 export async function POST(request: NextRequest) {
     try {
         const { name } = await request.json();
-        const id = nanoid();
+        const siteId = nanoid();
         const owner = await getUserAuth();
         if (!owner) {
             return new NextResponse(
@@ -25,7 +26,7 @@ export async function POST(request: NextRequest) {
         const { error }: any = insertSiteSchema.safeParse({
             name,
             ownerId,
-            id,
+            siteId,
         });
         if (error) {
             return new NextResponse(
@@ -38,11 +39,32 @@ export async function POST(request: NextRequest) {
 
         const response = await db
             .insert(sites)
-            .values({ id: id, ownerId, name })
+            .values({ id: siteId, ownerId, name })
             .execute();
-        // get the id of the inserted site
+        // set the first page
+        const pageId = nanoid();
+        const { error: pageError }: any = insertPageSchema.safeParse({
+            title: "Home",
+            slug: "home",
+            siteId,
+        });
+        if (pageError) {
+            return new NextResponse(
+                JSON.stringify({ message: pageError.message }),
+                {
+                    status: 400,
+                }
+            );
+        }
+        await db
+            .insert(pages)
+            .values({ id: pageId, title: "Home", slug: "home", siteId })
+            .execute();
+        // set the default navbar
+        const navbarId = "dml2u4unvra2kd4kc7lv7";
+        await db.insert(siteNavbars).values({ siteId, navbarId }).execute();
 
-        return new NextResponse(JSON.stringify({ message: "ok", id: id }), {
+        return new NextResponse(JSON.stringify({ message: "ok", id: siteId }), {
             status: 200,
         });
     } catch (error) {
