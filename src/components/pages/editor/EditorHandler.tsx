@@ -16,6 +16,7 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
+import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
 
 //#endregion
 
@@ -78,6 +79,7 @@ export default function EditorHandler() {
             </Editor.SideNav>
             <Editor.TopNav />
             <div className={cn("drag-container p-4 flex flex-col")}>
+                <NavBarSelected />
                 <SortableContext
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}
