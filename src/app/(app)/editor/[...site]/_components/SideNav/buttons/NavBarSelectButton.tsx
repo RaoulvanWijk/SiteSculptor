@@ -1,3 +1,4 @@
+import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
 import "@/resources/styling/components/SideNav/SideNavButton.scss";
 import "@/resources/styling/components/SideNav/breadcrumbs.scss";
 import React from "react";
@@ -19,11 +20,9 @@ export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
         currentStyle = { ...currentStyle, [style]: styles[style] };
     }
 
-    console.log(currentStyle);
-
     return (
         <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <div className="preview-nav" style={currentStyle}></div>
+            <NavBarSelected stijl={currentStyle} />
         </button>
     );
 }
