@@ -7,7 +7,7 @@ import { NestedComponent, UsedComponent } from 'editor';
 export default function DefaultItem(
     {component}: {component: NestedComponent}
 ) {
-    console.log(component, "component");
+    // console.log(component, "component");
     
     return (
         <div key={component.id}>
