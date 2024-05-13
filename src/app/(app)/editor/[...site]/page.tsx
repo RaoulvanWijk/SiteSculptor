@@ -41,6 +41,15 @@ const customCollisionDetection = ({
 }) => {
   const active = args.active.data.current;
   if (!active) return undefined;
+
+  const navarea = droppableContainers.filter((container: any) =>
+    ["sideNav"].includes(container.data.current?.dropArea)
+  );
+  const navCollision = pointerWithin({ ...args, droppableContainers: navarea });
+  if (navCollision.length > 0) {
+    return navCollision;
+  }
+
   /**
    * If a component is being dragged from within the editor
    * only allow it to be dropped in the editor and its allowed containers
@@ -104,13 +113,42 @@ const customCollisionDetection = ({
     }
 
     if (allowedTypesInContainer.includes(active.type)) {
-      droppableContainers = droppableContainers.filter(
-        (container: any) =>
-          ["container", "sideNav", "container-item"].includes(
-            container.data.current?.dropArea
-          ) && container.data.current?.id !== active.parent
-      );
-      console.log(droppableContainers, "droppableContainers");
+      if (allowedTypesInContainer.includes(active.type)) {
+        // check if the collision is inside the parent container
+        const containers = droppableContainers.filter((container: any) =>
+          ["container"].includes(container.data.current?.dropArea)
+        );
+  
+        // this should always be one if the collision is within the parent container
+        const containerCollision = pointerWithin({
+          ...args,
+          droppableContainers: containers,
+        });
+  
+        // if there are no collisions with a container return an empty array
+        if (containerCollision.length <= 0) {
+          return [];
+        }
+  
+        // get the children of the container
+        let children = testUsedComponents.find(
+          (component) =>
+            component.id ===
+            containerCollision[0].data?.droppableContainer?.data?.current?.id
+        )?.children;
+  
+        // if the container has no children return the container collision
+        if (!children || children.length <= 0) {
+          return containerCollision;
+        }
+        droppableContainers = droppableContainers.filter(
+          (container: any) =>
+            ["container-item"].includes(container.data.current?.dropArea) &&
+            children.find(
+              (child: NestedComponent) => child.id === container.data.current?.id
+            )
+        );
+      }
     }
   }
 
