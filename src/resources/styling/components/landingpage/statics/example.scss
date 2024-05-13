@@ -5,3 +5,16 @@
     background-color: var(--purp);
     background-image: url('../../../../../../public/editor.png');
 }
+
+@media screen and (max-width: 1330px) {
+    .example {
+        background-size: cover;
+        height: 25rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .example {
+        height: 15rem;
+    }
+};
