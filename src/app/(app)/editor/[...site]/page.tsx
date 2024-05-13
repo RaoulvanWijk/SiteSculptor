@@ -12,15 +12,27 @@ import {
     closestCenter,
     useSensor,
     useSensors,
+    CollisionDetection,
+    DroppableContainer,
+    Active,
+    Collision,
 } from "@dnd-kit/core";
 import { usePathname, useRouter } from "next/navigation";
 import { SideNav } from "@/components/layouts/Editor";
 import { SideNavContextProvider } from "@/components/context/SideNavContext";
+import { RectMap } from "@dnd-kit/core/dist/store";
+import { Coordinates } from "@dnd-kit/utilities";
 
 const allowedTypesInEditor = ["container", "carousel", "form"]
 const allowedTypesInContainer = ["card", "image", "text", "button"]
 
-const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
+const customCollisionDetection = ({ droppableContainers, ...args }: {
+    active: Active;
+    collisionRect: ClientRect;
+    droppableRects: RectMap;
+    droppableContainers: DroppableContainer[];
+    pointerCoordinates: Coordinates | null;
+}) => {
     // console.log(args.active.data.current, droppableContainers);
     // if (args.active.data.current?.isComponentInEditor) {
     //     droppableContainers = droppableContainers.filter(
@@ -36,8 +48,8 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
     // }
 
     const active = args.active.data.current;
-    console.log(active, "active" );
-
+    // console.log(active, "active" );
+    if(!active) return undefined;
     // active.type, active.dropArea
     /**
      * If a component is being dragged from within the editor
@@ -54,12 +66,32 @@ const customCollisionDetection = ({ droppableContainers, ...args }: any) => {
         }
 
 
+        // the component is of a type that is allowed in a container
         if (allowedTypesInContainer.includes(active.type)) {
-            droppableContainers = droppableContainers.filter(
+            // droppableContainers = droppableContainers.filter(
+            //     (container: any) =>
+            //         ["container", "sideNav", "container-item"].includes(container.data.current?.dropArea) && container.data.current?.id !== active.parent
+            // );
+            // console.log(droppableContainers, "droppableContainers");
+
+            // check if the collision is inside the parent container
+            const containers = droppableContainers.filter(
                 (container: any) =>
-                    ["container", "sideNav", "container-item"].includes(container.data.current?.dropArea) && container.data.current?.id !== active.parent
-            );
-            console.log(droppableContainers, "droppableContainers");
+                    ["container"].includes(container.data.current?.dropArea)
+            )
+
+            // this should always be one if the collision is within the parent container
+            const containerCollision  = pointerWithin({ ...args, droppableContainers: containers });
+
+            if(containerCollision.length <= 0) {
+                return []
+            }
+
+            if(containerCollision[0].data?.droppableContainer?.data?.current?.id !== active.parent) {}
+
+           console.log('====================================');
+           console.log(containerCollision[0].data?.droppableContainer?.data?.current?.id, "containerCollision", active.parent);
+           console.log('====================================');
         }
     }
     // return
@@ -113,7 +145,7 @@ export default function EditorPage() {
         //   </ScrollArea>
         // </EditorLayout>
         <DndContext
-            collisionDetection={customCollisionDetection}
+            collisionDetection={customCollisionDetection as CollisionDetection}
             sensors={sensors}
         >
             <EditorContextProvider>
