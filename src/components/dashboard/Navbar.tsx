@@ -11,12 +11,18 @@ import { useSearch } from "../context/SearchContext";
 import { Search } from "lucide-react";
 import { useSidebar } from "../context/SidebarContext";
 import UserMenu from "./UserMenu";
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
     const { data: session, status } = useSession();
     const { searchTerm, setSearchTerm, triggerSearch } = useSearch();
     const { setCurrentSection } = useSidebar();
     const [isDropdownOpen, setDropdownOpen] = useState(false);
+    const router = useRouter();
+
+    function toSettings() {
+        router.push('/app/settings');
+    }
 
     return (
         <nav className="barstyling navbar">
@@ -61,8 +67,10 @@ export default function Navbar() {
                             callbackUrl: "/",
                         });
                     }}
+                    onSettings={() => {
+                        toSettings();
+                    }}
                 />{" "}
-                {/* Pass Logout Function here */}
             </div>
         </nav>
     );

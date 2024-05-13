@@ -36,7 +36,7 @@ declare module "editor" {
   };
 
   type NestedComponent = UsedComponent & {
-    parent: string; // The parent component of the component
+    parent?: string; // The parent component of the component
   };
   type EditorHandlerState = {
     selectedComponent: Component | null; // The component that is currently selected in the editor
