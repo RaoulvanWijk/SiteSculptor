@@ -57,6 +57,8 @@ export default function EditorHandler() {
         },
     });
 
+    console.log(siteNavbar);
+
     const nav_droppable = useDroppable({
         id: "nav-droppable",
         data: {
@@ -81,7 +83,9 @@ export default function EditorHandler() {
             </Editor.SideNav>
             <Editor.TopNav />
             <div className={cn("drag-container p-4 flex flex-col")}>
-                <NavBarSelected stijl={siteNavbar[0].styles} />
+                {siteNavbar[0] && (
+                    <NavBarSelected stijl={siteNavbar[0].styles} />
+                )}
                 <SortableContext
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}
