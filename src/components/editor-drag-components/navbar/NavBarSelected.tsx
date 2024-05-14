@@ -8,7 +8,7 @@ export default function NavBarSelected(stijl: any, pages: any[]) {
     return (
         <nav className="navbarselected" style={stijl.stijl}>
             <div>LOGO</div>
-            <menu>
+            <menu className="navbarselected-items">
                 {page.map((page) => (
                     <li key={page.id}>
                         <a href={page.id}>{page.title}</a>
