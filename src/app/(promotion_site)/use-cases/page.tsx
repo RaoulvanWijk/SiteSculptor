@@ -7,10 +7,9 @@ export default function page() {
         <>
             <div className="page-header-contact">
                 <div className="left">
-                    <h1>Pricing</h1>
+                    <h1>Use cases</h1>
                     <p>
-                        Our offers will be coming soon. Stay tuned for more on
-                        our socials.
+                        The first projects are coming soon. Stay tuned for more!
                     </p>
                 </div>
                 <Image

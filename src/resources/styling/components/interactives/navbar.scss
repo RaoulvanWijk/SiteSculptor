@@ -48,6 +48,12 @@
     }
 }
 
+@media screen and (max-width: 1330px) {
+        .navBar{
+        padding: 1rem 1rem;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .hamburger-top {
         width: 100%;
