@@ -13,6 +13,13 @@
 
 .faq {
     width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    li {
+        width: 100%;
+    }
     h2 {
         font-size: 2rem;
         margin-block: 1rem;
@@ -26,6 +33,10 @@
 @media (max-width: 768px) {
     .faq {
         width: 100%;
+        h2 {
+            font-size: 1.5rem;
+        
+        }
     }
     .page-header-faq {
         width: 100%;
