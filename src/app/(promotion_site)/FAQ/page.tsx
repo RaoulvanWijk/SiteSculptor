@@ -1,7 +1,16 @@
 import React from "react";
 import "@/resources/styling/components/landingpage/statics/pageHeader.scss";
 import DefaultButton from "@/components/interactives/Button";
-import { ArrowRight } from "lucide-react";
+import {
+    ArrowRight,
+    BarChart,
+    Brush,
+    Hammer,
+    Power,
+    ReceiptText,
+    Shield,
+    Star,
+} from "lucide-react";
 import {
     Accordion,
     AccordionContent,
@@ -11,6 +20,7 @@ import {
 import "@/resources/styling/components/landingpage/statics/faq.scss";
 import Link from "next/link";
 import Image from "next/image";
+import { FingerPrintIcon } from "@heroicons/react/20/solid";
 
 export default function page() {
     return (
@@ -37,7 +47,9 @@ export default function page() {
             <div className="faq">
                 <ul>
                     <li>
-                        <h2>Getting started</h2>
+                        <h2>
+                            Getting started <Star />
+                        </h2>
                         <Accordion type="single" collapsible>
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>
@@ -92,7 +104,9 @@ export default function page() {
                         </Accordion>
                     </li>
                     <li>
-                        <h2>Building Your Website</h2>
+                        <h2>
+                            Building Your Website <Hammer />
+                        </h2>
                         <Accordion type="single" collapsible>
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>
@@ -101,12 +115,16 @@ export default function page() {
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     To start building your website with Avklo,
-                                    simply sign up for an account and choose a
-                                    template to get started. You can then drag
-                                    and drop elements onto the page to customize
-                                    your site. Avklo offers a variety of tools
-                                    and features to help you create a
-                                    professional website quickly and easily.
+                                    simply{" "}
+                                    <Link href="/login" className="login-link">
+                                        sign up
+                                    </Link>{" "}
+                                    for an account and choose a template to get
+                                    started. You can then drag and drop elements
+                                    onto the page to customize your site. Avklo
+                                    offers a variety of tools and features to
+                                    help you create a professional website
+                                    quickly and easily.
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-2">
@@ -114,14 +132,15 @@ export default function page() {
                                     What templates are available on Avklo?
                                 </AccordionTrigger>
                                 <AccordionContent>
-                                    At Avklo offer a wide range of templates to
-                                    suit every need. Whether you&apos;re looking
-                                    for a simple blog design, a professional
-                                    business website, or an e-commerce store, we
-                                    have a template that will work for you. Our
-                                    templates are fully customizable, so you can
-                                    make them your own by adding your own
-                                    images, text, and branding.
+                                    At Avklo we offer a wide range of templates
+                                    to suit every need. Whether you&apos;re
+                                    looking for a simple blog design, a
+                                    professional business website, or an
+                                    e-commerce store, we have a template that
+                                    will work for you. Our templates are fully
+                                    customizable, so you can make them your own
+                                    by adding your own images, text, and
+                                    branding.
                                 </AccordionContent>
                             </AccordionItem>
                             <AccordionItem value="item-3">
@@ -139,7 +158,9 @@ export default function page() {
                         </Accordion>
                     </li>
                     <li>
-                        <h2>Design and Customization</h2>
+                        <h2>
+                            Design and Customization <Brush />
+                        </h2>
                         <Accordion type="single" collapsible>
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>
@@ -176,7 +197,7 @@ export default function page() {
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     All components in Avklo are mobile-friendly,
-                                    at avklo we develop components that are
+                                    at Avklo we develop components that are
                                     responsive and mobile-friendly. You can use
                                     the Avklo mobile preview to see how your
                                     site will look on different devices.
@@ -185,7 +206,9 @@ export default function page() {
                         </Accordion>
                     </li>
                     <li>
-                        <h2>SEO and Marketing</h2>
+                        <h2>
+                            SEO and Marketing <BarChart />
+                        </h2>
                         <Accordion type="single" collapsible>
                             <AccordionItem value="item-1">
                                 <AccordionTrigger>
@@ -199,6 +222,200 @@ export default function page() {
                                     elements to improve your site&apos;s SEO
                                     performance. Avklo is also working on making
                                     an seo tool to optimse your website.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    Does Avklo offer marketing tools?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo does not currently offer marketing
+                                    tools. However, we are working on adding
+                                    this feature in the future.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-3">
+                                <AccordionTrigger>
+                                    How can I track my website&apos;s traffic
+                                    and performance?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    On your Avklo dashboard you can see the
+                                    number of visitors, page views, and other
+                                    metrics for your website. You can also
+                                    integrate Google Analytics to get more
+                                    detailed information about your site&apos;s
+                                    traffic and performance.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                    <li>
+                        <h2>
+                            Support and Resources <ReceiptText />
+                        </h2>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    How can I get help with my Avklo website?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    If you need help with your Avklo website,
+                                    you can contact our support team by checking
+                                    the{" "}
+                                    <Link
+                                        href="/contact"
+                                        className="login-link"
+                                    >
+                                        Contact
+                                    </Link>{" "}
+                                    page.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                    <li>
+                        <h2>
+                            Security and Privacy <Shield />
+                        </h2>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    How secure is my Avklo website?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo takes security seriously and uses
+                                    industry-standard encryption to protect your
+                                    website and data. We also offer regular
+                                    security updates to keep your site safe from
+                                    threats.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    What are Avklo&apos;s privacy policies?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo takes your privacy seriously and
+                                    follows strict privacy policies to protect
+                                    your personal information. You can read our
+                                    privacy policy{" "}
+                                    <Link
+                                        href="/privacy-policy"
+                                        className="login-link"
+                                    >
+                                        here
+                                    </Link>
+                                    .
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-3">
+                                <AccordionTrigger>
+                                    How can I backup my Avklo website?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo automatically backs up your website.
+                                    Avklo does not track changes! You cannot
+                                    export your Avklo website to documents or
+                                    other website builders.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-4">
+                                <AccordionTrigger>
+                                    Can I export my Avklo website?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo does not support exporting your
+                                    website. Your website is only available on
+                                    Avklo.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                    <li>
+                        <h2>
+                            Troubleshooting <Power />
+                        </h2>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    How do I report a bug on my Avklo website?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    If you encounter a bug on your Avklo
+                                    website, you can report it to our support
+                                    team by checking the{" "}
+                                    <Link
+                                        href="/contact"
+                                        className="login-link"
+                                    >
+                                        Contact
+                                    </Link>{" "}
+                                    page.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-2">
+                                <AccordionTrigger>
+                                    What should I do if my Avklo website is down
+                                    or experiencing issues?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Check if your website is published and
+                                    saved. If your Avklo website is still down
+                                    or experiencing issues, you can contact our
+                                    support team by checking the{" "}
+                                    <Link
+                                        href="/contact"
+                                        className="login-link"
+                                    >
+                                        Contact
+                                    </Link>{" "}
+                                    page.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-3">
+                                <AccordionTrigger>
+                                    How can I recover a deleted page or content?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo does not support recovering deleted
+                                    pages or content. Once you delete a page or
+                                    content, it cannot be recovered. Avklo will
+                                    always show a warning before deleting a page
+                                    or content.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-4">
+                                <AccordionTrigger>
+                                    How do I clear my Avklo website&apos;s
+                                    cache?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo automatically clears your
+                                    website&apos;s cache. You do not have to
+                                    worry about clearing your website&apos;s
+                                    cache.
+                                </AccordionContent>
+                            </AccordionItem>
+                            <AccordionItem value="item-5">
+                                <AccordionTrigger>
+                                    Where can I find help if I encounter
+                                    technical issues?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    If you encounter technical issues, you can
+                                    contact our support team by checking the{" "}
+                                    <Link
+                                        href="/contact"
+                                        className="login-link"
+                                    >
+                                        Contact
+                                    </Link>{" "}
+                                    page.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>
