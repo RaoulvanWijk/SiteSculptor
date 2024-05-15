@@ -1,0 +1,21 @@
+.page-header-faq {
+    width: 70%;
+}
+
+.faq {
+    width: 70%;
+    h2 {
+        font-size: 2rem;
+        margin-block: 1rem;
+    }
+    .login-link {
+        color: var(--acc);
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq {
+        width: 100%;
+    }
+}

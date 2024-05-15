@@ -26,6 +26,7 @@ export default function OverviewButton({
                 className="loading-line"
                 animate={animate}
                 style={{ width: "0%", height: "5px", borderRadius: "5px" }}
+                initial={false}
             ></motion.div>
         </Link>
     );
