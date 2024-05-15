@@ -22,7 +22,11 @@ export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
 
     return (
         <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <NavBarSelected stijl={currentStyle} />
+            <NavBarSelected
+                className="navbarselected-sidenav"
+                sideNav={true}
+                stijl={currentStyle}
+            />
         </button>
     );
 }
