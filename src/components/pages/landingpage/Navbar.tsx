@@ -39,7 +39,7 @@ export default function Navbar() {
                 }`}
             >
                 <li>
-                    <Button type="link" linkTo="/FAQ">
+                    <Button type="link" linkTo="/faq">
                         FAQ
                     </Button>
                 </li>

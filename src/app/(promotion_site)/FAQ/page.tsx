@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/accordion";
 import "@/resources/styling/components/landingpage/statics/faq.scss";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function page() {
     return (
@@ -25,6 +26,13 @@ export default function page() {
                         troubleshooting.{" "}
                     </p>
                 </div>
+                <Image
+                    src={"/branding/logo_temp.png"}
+                    className="logoImage"
+                    height={75}
+                    width={150}
+                    alt="Logo Image"
+                />
             </div>
             <div className="faq">
                 <ul>
@@ -172,6 +180,25 @@ export default function page() {
                                     responsive and mobile-friendly. You can use
                                     the Avklo mobile preview to see how your
                                     site will look on different devices.
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+                    </li>
+                    <li>
+                        <h2>SEO and Marketing</h2>
+                        <Accordion type="single" collapsible>
+                            <AccordionItem value="item-1">
+                                <AccordionTrigger>
+                                    How do I optimize my Avklo website for
+                                    search engines?
+                                </AccordionTrigger>
+                                <AccordionContent>
+                                    Avklo offers a variety of tools to help you
+                                    optimize your website for search engines.
+                                    You can add meta tags, alt text, and other
+                                    elements to improve your site&apos;s SEO
+                                    performance. Avklo is also working on making
+                                    an seo tool to optimse your website.
                                 </AccordionContent>
                             </AccordionItem>
                         </Accordion>

@@ -1,5 +1,14 @@
 .page-header-faq {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     width: 70%;
+    img {
+        display: block;
+        width: auto;
+        height: 10rem;
+        border-radius: 1rem;
+    }
 }
 
 .faq {
@@ -20,5 +29,8 @@
     }
     .page-header-faq {
         width: 100%;
+        img {
+            display: none;
+        }
     }
 }
