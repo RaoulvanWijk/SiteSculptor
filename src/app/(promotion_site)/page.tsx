@@ -1,7 +1,6 @@
 import PageHeader from "@/app/(promotion_site)/_components/PageHeader";
 import InfoCards from "@/app/(promotion_site)/_components/InfoCards";
 import "@/resources/styling/pages/index.scss";
-import "@/resources/styling/components/layouts/layout.scss";
 import Example from "@/app/(promotion_site)/_components/Example";
 import Overview from "./_components/overview/Overview";
 import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
@@ -12,7 +11,10 @@ export default function Home() {
         <>
             <div className="topcontent">
                 <PageHeader headerName="Describe yourself in one website, in just 2 minutes!">
-                    Join the revolution and create your own website today! With our easy to use editor, you can create a website that truly represents you or your business in just 2 minutes! Get started now!
+                    Join the revolution and create your own website today! With
+                    our easy to use editor, you can create a website that truly
+                    represents you or your business in just 2 minutes! Get
+                    started now!
                 </PageHeader>
             </div>
 
@@ -44,7 +46,7 @@ export default function Home() {
                     Fastest way to build your website
                 </InfoCards>
             </div>
-             <BottomCTO />
+            <BottomCTO />
         </>
     );
 }

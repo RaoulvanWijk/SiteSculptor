@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "@/components/pages/landingpage/Navbar";
 import Footer from "@/components/pages/landingpage/statics/Footer";
 
+import "@/resources/styling/components/layouts/layout.scss";
+
 type layoutProps = {
     children: React.ReactNode;
 };
