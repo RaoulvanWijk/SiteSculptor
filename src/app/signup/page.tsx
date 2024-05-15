@@ -1,16 +1,16 @@
 // custom nextjs auth login page
-"use client"
-import { useState} from "react"
+"use client";
+import { useState } from "react";
 
-import { getProviders, signIn } from "next-auth/react"
+import { getProviders, signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useSearchParams } from 'next/navigation'
-import { redirect } from 'next/navigation'
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function Signup() {
   const [isLoading, setIsLoading] = useState<boolean>(false)
@@ -45,8 +45,5 @@ export default function Signup() {
             Or continue with
           </span>
         </div>
-      </div>
-      
-    </div>
-  )
+    );
 }
