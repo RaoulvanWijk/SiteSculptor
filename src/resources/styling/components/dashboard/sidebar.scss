@@ -1,6 +1,7 @@
 .sidebar {
     display: flex;
     flex-direction: column;
+    padding: 5px;
 }
 
 .side-title {
@@ -21,9 +22,10 @@
         border: 1.5px solid var(--soft);
         border-radius: 5px;
         padding: 3px 10px;
+        transition: border .4s ease-in-out;
 
         &:hover {
-            box-shadow: 0 0 1px var(--blk);
+            border: 1.5px solid var(--blk);
             color: inherit;
         }
     }

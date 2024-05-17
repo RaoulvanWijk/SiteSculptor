@@ -12,6 +12,17 @@
     
 }
 
+@media screen and (max-width: 768px) {
+    .overview {
+        display: none;
+    }
+}
+@media screen and (min-width: 769px) {
+    .overview {
+        display: flex;
+    }
+}
+
 .loading-line {
     background-color: var(--acc);
     // add glow effect

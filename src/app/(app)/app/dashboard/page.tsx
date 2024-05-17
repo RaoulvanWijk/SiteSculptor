@@ -9,6 +9,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import { useSession } from "next-auth/react";
 import { useSearch } from "@/components/context/SearchContext";
 import { useSidebar } from "@/components/context/SidebarContext";
+import DefaultButton from "@/components/interactives/Button";
 
 interface Project {
     id: string,
@@ -56,9 +57,12 @@ export default function Home() {
         });
     };
 
+    const handleOptionProject = (projectId: string) => {
+        
+    }
+
     const filteredProjects = useMemo(() => {
         const baseProjects = projects ?? [];
-        if (currentSection === "all") return baseProjects;
 
         return baseProjects.filter(project =>
             project.name.toLowerCase().includes(executeSearch.toLowerCase())
@@ -112,7 +116,7 @@ export default function Home() {
                                     projectName="New Extension Released!"
                                     projectDesc="Extension description here"
                                 >
-                                    <Button type="primary">Check out the Extension!</Button>
+                                    <DefaultButton type="primary">Check out the Extension!</DefaultButton>
                                 </DashboardCard>
                             </div>
                         </>

@@ -1,0 +1,47 @@
+.page-header-faq {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    img {
+        display: block;
+        width: auto;
+        height: 10rem;
+        border-radius: 1rem;
+    }
+}
+
+.faq {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    li {
+        width: 100%;
+    }
+    h2 {
+        font-size: 2rem;
+        margin-block: 1rem;
+    }
+    .login-link {
+        color: var(--acc);
+        font-weight: bold;
+    }
+}
+
+@media (max-width: 768px) {
+    .faq {
+        width: 100%;
+        h2 {
+            font-size: 1.5rem;
+        
+        }
+    }
+    .page-header-faq {
+        width: 100%;
+        img {
+            display: none;
+        }
+    }
+}

@@ -138,6 +138,7 @@ export const testUsedComponents: UsedComponent[] = [
       {
         id: "test-id-text-2",
         index: 0,
+        parent: "test-id-container-4",
         component: testComponents[1],
         props: { text: "Hello, World!" },
         styles: { fontSize: "24px", color: "black" },
@@ -146,6 +147,7 @@ export const testUsedComponents: UsedComponent[] = [
       {
         id: "test-id-button-2",
         index: 1,
+        parent: "test-id-container-4",
         component: testComponents[2],
         props: { text: "Click me!" },
         styles: { type: "primary", color: "blue" },

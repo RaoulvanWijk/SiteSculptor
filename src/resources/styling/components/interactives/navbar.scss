@@ -1,12 +1,13 @@
 .navBar {
     display: flex;
-    position: sticky;
+    position: fixed;
+    width: 100%;
     justify-content: space-between;
     align-items: center;
-    height: 70px;
-    top: 0;
-    z-index: 1;
     background-color: var(--bg);
+    z-index: 2;
+    top: 0;
+    padding: 1rem 8rem;
 
     .navLinks {
         display: flex;
@@ -16,8 +17,9 @@
     }
 
     .logoImage {
-        width: auto;
+        width: 7rem;
         height: auto;
+        border-radius: 0.6rem;
     }
 
     .navMenu {
@@ -41,8 +43,14 @@
         }
 
         .navMenu {
-            display: none; // Hide the menu links by default
+            display: none;
         }
+    }
+}
+
+@media screen and (max-width: 1330px) {
+        .navBar{
+        padding: 1rem 1rem;
     }
 }
 
@@ -59,13 +67,14 @@
         flex-direction: column;
         width: 100%;
         height: fit-content;
-        z-index: 1;
+        z-index: 2;
         background-color: var(--bg);
         padding: 1rem;
     }
 
     .navBar {
         flex-direction: column;
+        padding-inline: 1rem;
     }
     .navLinks{
         display: flex;

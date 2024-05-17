@@ -4,6 +4,7 @@ import BaseDragComponent from './BaseDragComponent';
 import { cn } from '@/lib/utils';
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable';
 import { UsedComponent } from 'editor';
+import DefaultItem from './DefaultItem';
 export default function DefaultContainerItem(
     {component}: { component: UsedComponent }
 ) {
@@ -22,7 +23,7 @@ export default function DefaultContainerItem(
                 id={component.id}
                 data={{
                     isComponentInEditor: true,
-                    dropArea: "editor",
+                    dropArea: "container",
                     type: component.component.type,
                 }}
             >
@@ -41,14 +42,15 @@ export default function DefaultContainerItem(
                             {
                                 component.children.map((child, index) => {
                                     return (
-                                        <BaseDragComponent key={child.id} id={child.id} data={{ isComponentInEditor: true, dropArea: "container", type: child.component.type }}>
-                                            <div className={cn("border-2 h-16")}>
-                                                <p>
-                                                    {child.id} - {child.component.name} -{" "}
-                                                    {child.component.type}, index: {child.index}
-                                                </p>
-                                            </div>
-                                        </BaseDragComponent>
+                                        <DefaultItem key={child.id} component={child} />
+                                        // <BaseDragComponent key={child.id} id={child.id} data={{ isComponentInEditor: true, dropArea: "container", type: child.component.type }}>
+                                        //     <div className={cn("border-2 h-16")}>
+                                        //         <p>
+                                        //             {child.id} - {child.component.name} -{" "}
+                                        //             {child.component.type}, index: {child.index}
+                                        //         </p>
+                                        //     </div>
+                                        // </BaseDragComponent>
                                     )
                                 })
                             }
