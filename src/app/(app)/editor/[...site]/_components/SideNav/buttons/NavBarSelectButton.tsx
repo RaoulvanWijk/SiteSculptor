@@ -1,3 +1,5 @@
+import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
+import useSideNav from "@/components/hooks/useSideNav";
 import "@/resources/styling/components/SideNav/SideNavButton.scss";
 import "@/resources/styling/components/SideNav/breadcrumbs.scss";
 import React from "react";
@@ -8,9 +10,20 @@ type navBarProps = {
     styles: any;
 };
 
-export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
-    const changeNav = () => {
-        fetch("api/editor/site_navbar");
+export default async function NavBarSelectButton({
+    name,
+    id,
+    styles,
+}: navBarProps) {
+    const { site_id, setSiteNavbar } = useSideNav();
+
+    const changeNav = async () => {
+        const response = await fetch("/api/editor/site_navbar/set", {
+            method: "PUT",
+            body: JSON.stringify({ siteId: site_id, navbarId: id }),
+        });
+        const data = await response.json();
+        setSiteNavbar(data);
     };
 
     let currentStyle = {};
@@ -19,11 +32,13 @@ export default function NavBarSelectButton({ name, id, styles }: navBarProps) {
         currentStyle = { ...currentStyle, [style]: styles[style] };
     }
 
-    console.log(currentStyle);
-
     return (
         <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <div className="preview-nav" style={currentStyle}></div>
+            <NavBarSelected
+                className="navbarselected-sidenav"
+                sideNav={true}
+                stijl={currentStyle}
+            />
         </button>
     );
 }

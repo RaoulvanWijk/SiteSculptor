@@ -1,0 +1,18 @@
+.navbarselected {
+    display: flex;
+    justify-content: space-between;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    width: 100%;
+    .navbarselected-items {
+        display: flex;
+        gap: 1rem;
+    }
+}
+
+.navbarselected-sidenav {
+    font-size: x-small;
+    .navbarselected-items {
+        gap: 0.5rem;
+    }
+}

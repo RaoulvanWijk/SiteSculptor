@@ -27,6 +27,8 @@ type SideNavContextType = {
     setModal: Dispatch<SetStateAction<boolean>>;
     navbars: Array<any>;
     setNavbars: Dispatch<SetStateAction<Array<any>>>;
+    siteNavbar: Array<any>;
+    setSiteNavbar: Dispatch<SetStateAction<Array<any>>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -49,12 +51,19 @@ async function getNavbarData() {
     return data;
 }
 
+async function getSiteNavbar(site_id: string) {
+    const response = await fetch(`/api/editor/site_navbar/styling/${site_id}`);
+    const data = await response.json();
+    return data;
+}
+
 export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
     const [loading, isLoading] = useState<boolean>(true);
 
     const [navbars, setNavbars] = useState<any[]>([]);
+    const [siteNavbar, setSiteNavbar] = useState<any[]>([]);
 
     const [modal, setModal] = useState<boolean>(false);
 
@@ -75,7 +84,10 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
             setPage(data);
             isLoading(false);
         });
-    }, []);
+        getSiteNavbar(site_id).then((data) => {
+            setSiteNavbar(data);
+        });
+    }, [site_id]);
 
     // get the page name from page_id
 
@@ -97,6 +109,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setModal,
                 navbars,
                 setNavbars,
+                siteNavbar,
+                setSiteNavbar,
             }}
         >
             {children}

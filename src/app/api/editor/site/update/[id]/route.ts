@@ -12,8 +12,6 @@ export async function PUT(request: NextRequest, { params }: any) {
         const ownerId = owner.session?.user.id as string;
         // update the site
 
-        console.log({ name, ownerId, id });
-
         const { error }: any = insertSiteSchema.safeParse({ name, ownerId });
 
         if (error) {
