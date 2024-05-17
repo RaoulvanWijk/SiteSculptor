@@ -26,6 +26,7 @@ import { FingerPrintIcon } from "@heroicons/react/20/solid";
 export default function page() {
     return (
         <>
+            {/*  */}
             <Head>
                 <meta
                     name="keywords"
