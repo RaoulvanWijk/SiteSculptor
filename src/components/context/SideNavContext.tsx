@@ -87,9 +87,7 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         getSiteNavbar(site_id).then((data) => {
             setSiteNavbar(data);
         });
-    }, []);
-
-    console.log(siteNavbar);
+    }, [site_id]);
 
     // get the page name from page_id
 
