@@ -6,6 +6,7 @@
     align-items: center;
     background-color: var(--bg);
     z-index: 2;
+    top: 0;
     padding: 1rem 8rem;
 
     .navLinks {
@@ -16,8 +17,9 @@
     }
 
     .logoImage {
-        width: auto;
+        width: 7rem;
         height: auto;
+        border-radius: 0.6rem;
     }
 
     .navMenu {
@@ -43,6 +45,12 @@
         .navMenu {
             display: none;
         }
+    }
+}
+
+@media screen and (max-width: 1330px) {
+        .navBar{
+        padding: 1rem 1rem;
     }
 }
 

@@ -13,17 +13,15 @@ export default function page() {
                 />
                 <meta
                     name="description"
-                    content="Get in touch with us. Do you have probles or questions? Feel free to contact us in the form below. Or check our email and other socials where you can reach us."
+                    content="The first projects are coming soon. Stay tuned for more!"
                     key="desc"
                 />
             </Head>
             <div className="page-header-contact">
                 <div className="left">
-                    <h1>Contact</h1>
+                    <h1>Use cases</h1>
                     <p>
-                        Do you have probles or questions? Feel free to contact
-                        us in the form below. Or check our email and other
-                        socials where you can reach us.
+                        The first projects are coming soon. Stay tuned for more!
                     </p>
                 </div>
                 <Image

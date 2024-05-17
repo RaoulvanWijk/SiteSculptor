@@ -1,0 +1,21 @@
+.page-header-contact {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    img {
+        display: block;
+        width: auto;
+        height: 10rem;
+        border-radius: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .page-header-contact {
+        img {
+            display: none;
+        }
+    }
+    
+}
