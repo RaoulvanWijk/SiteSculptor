@@ -15,6 +15,7 @@ import {
     PanelTop,
     Plus,
     LayoutDashboard,
+    StickyNote,
 } from "lucide-react";
 import AddPage from "./modal/AddPage";
 import { testComponents } from "@/components/pages/editor/testComponents";
@@ -121,11 +122,11 @@ export default function SideNav() {
             content: [],
         },
         {
-            type: "footer",
+            type: "navbar",
             content: [],
         },
         {
-            type: "navbar",
+            type: "footer",
             content: [],
         },
     ];
@@ -151,7 +152,7 @@ export default function SideNav() {
         navs[0].content.unshift({
             text: page.title,
             type: "page-select",
-            icon: <Home />,
+            icon: <StickyNote />,
             key: page.id,
         });
     });

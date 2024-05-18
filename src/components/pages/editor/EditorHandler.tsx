@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
 import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
 import useSideNav from "@/components/hooks/useSideNav";
+import FooterSelected from "@/components/editor-drag-components/footer/FooterSelected";
 
 //#endregion
 
@@ -92,6 +93,7 @@ export default function EditorHandler() {
                 >
                     {renderComponents()}
                 </SortableContext>
+                <FooterSelected />
                 <DragOverlayWrapper />
             </div>
         </Editor.Layout>
