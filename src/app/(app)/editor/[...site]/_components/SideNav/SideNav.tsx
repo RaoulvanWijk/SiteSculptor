@@ -55,13 +55,13 @@ export default function SideNav() {
                     type: "break",
                     key: "break2",
                 },
+                { text: "Navbar", type: "nav", icon: <PanelTop />, key: "nav" },
                 {
                     text: "Footer",
                     type: "footer",
                     icon: <PanelBottom />,
                     key: "footer",
                 },
-                { text: "Navbar", type: "nav", icon: <PanelTop />, key: "nav" },
             ],
         },
         {
