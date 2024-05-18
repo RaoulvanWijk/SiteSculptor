@@ -2,6 +2,7 @@ import { db } from "@/lib/db/index";
 import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { siteNavbars } from "@/lib/db/schema/siteNavbars";
+import { siteFooters } from "@/lib/db/schema/siteFooters";
 import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
@@ -63,6 +64,10 @@ export async function POST(request: NextRequest) {
         // set the default navbar
         const navbarId = "dml2u4unvra2kd4kc7lv7";
         await db.insert(siteNavbars).values({ siteId, navbarId }).execute();
+
+        // set the default footer
+        const footerId = "967tsxvxacrghavquszt0";
+        await db.insert(siteFooters).values({ siteId, footerId }).execute();
 
         return new NextResponse(JSON.stringify({ message: "ok", id: siteId }), {
             status: 200,
