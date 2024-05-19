@@ -23,6 +23,7 @@ export default async function NavBarSelectButton({
             body: JSON.stringify({ siteId: site_id, footerId: id }),
         });
         const data = await response.json();
+        console.log(data);
         setSiteFooter(data);
     };
 

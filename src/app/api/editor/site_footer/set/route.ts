@@ -3,7 +3,7 @@ import {
     siteFooters,
     insertSiteFooterSchema,
 } from "@/lib/db/schema/siteFooters";
-import { navbars } from "@/lib/db/schema/navbars";
+import { footers } from "@/lib/db/schema/footers";
 import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
 
@@ -31,13 +31,13 @@ export async function PUT(request: NextRequest) {
             .execute();
 
         // get the navbar styling
-        const navbarStyling = await db
+        const footerStyling = await db
             .select()
-            .from(navbars)
-            .where(eq(navbars.id, footerId))
+            .from(footers)
+            .where(eq(footers.id, footerId))
             .execute();
 
-        return new NextResponse(JSON.stringify(navbarStyling), {
+        return new NextResponse(JSON.stringify(footerStyling), {
             status: 200,
         });
     } catch (error) {

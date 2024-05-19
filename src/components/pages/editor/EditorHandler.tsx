@@ -37,7 +37,7 @@ export default function EditorHandler() {
         renderComponents,
         handleDragEnd,
     } = useEditor();
-    const { siteNavbar } = useSideNav();
+    const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
         setComponents(testUsedComponents);
@@ -93,7 +93,9 @@ export default function EditorHandler() {
                 >
                     {renderComponents()}
                 </SortableContext>
-                <FooterSelected />
+                {siteFooter[0] && (
+                    <FooterSelected stijl={siteFooter[0].styles} />
+                )}
                 <DragOverlayWrapper />
             </div>
         </Editor.Layout>
