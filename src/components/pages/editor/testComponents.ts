@@ -126,7 +126,24 @@ export const testUsedComponents: UsedComponent[] = [
     component: testComponents[3],
     props: {},
     styles: {},
-    children: [],
+    children: [{
+      id: nanoid(10),
+      index: 0,
+      parent: "test-id-container-3",
+      component: testComponents[1],
+      props: { text: "Hello, World!" },
+      styles: { fontSize: "24px", color: "black" },
+      children: [],
+    },
+    {
+      id: nanoid(10),
+      index: 1,
+      parent: "test-id-container-3",
+      component: testComponents[2],
+      props: { text: "Click me!" },
+      styles: { type: "primary", color: "blue" },
+      children: [],
+    },],
   },
   {
     id: "test-id-container-4",
@@ -136,7 +153,7 @@ export const testUsedComponents: UsedComponent[] = [
     styles: {},
     children: [
       {
-        id: "test-id-text-2",
+        id: nanoid(10),
         index: 0,
         parent: "test-id-container-4",
         component: testComponents[1],
@@ -145,7 +162,7 @@ export const testUsedComponents: UsedComponent[] = [
         children: [],
       },
       {
-        id: "test-id-button-2",
+        id: nanoid(10),
         index: 1,
         parent: "test-id-container-4",
         component: testComponents[2],
