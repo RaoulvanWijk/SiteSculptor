@@ -6,12 +6,15 @@ import { sites } from "./sites";
 import { type getSiteFooters } from "@/lib/api/siteFooters/queries";
 
 import { nanoid, timestamps } from "@/lib/utils";
+import { footers } from "./footers";
 
 export const siteFooters = mysqlTable("site_footers", {
     id: varchar("id", { length: 191 })
         .primaryKey()
         .$defaultFn(() => nanoid()),
-    footerId: varchar("footer_id", { length: 256 }).notNull(),
+    footerId: varchar("footer_id", { length: 256 })
+        .references(() => footers.id, { onDelete: "cascade" })
+        .notNull(),
     siteId: varchar("site_id", { length: 256 })
         .references(() => sites.id, { onDelete: "cascade" })
         .notNull(),

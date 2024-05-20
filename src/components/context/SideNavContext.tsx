@@ -29,6 +29,9 @@ type SideNavContextType = {
     setNavbars: Dispatch<SetStateAction<Array<any>>>;
     siteNavbar: Array<any>;
     setSiteNavbar: Dispatch<SetStateAction<Array<any>>>;
+    footer: Array<any>;
+    siteFooter: Array<any>;
+    setSiteFooter: Dispatch<SetStateAction<Array<any>>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -57,6 +60,18 @@ async function getSiteNavbar(site_id: string) {
     return data;
 }
 
+async function getFooterData() {
+    const response = await fetch(`/api/editor/footer`);
+    const data = await response.json();
+    return data;
+}
+
+async function getSiteFooter(site_id: string) {
+    const response = await fetch(`/api/editor/site_footer/styling/${site_id}`);
+    const data = await response.json();
+    return data;
+}
+
 export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [currentNavName, setCurrentNavName] = useState<string[]>([]);
     const [navType, setNavType] = useState<String>("main");
@@ -64,6 +79,9 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
 
     const [navbars, setNavbars] = useState<any[]>([]);
     const [siteNavbar, setSiteNavbar] = useState<any[]>([]);
+
+    const [footer, setFooter] = useState<any[]>([]);
+    const [siteFooter, setSiteFooter] = useState<any[]>([]);
 
     const [modal, setModal] = useState<boolean>(false);
 
@@ -86,6 +104,12 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         });
         getSiteNavbar(site_id).then((data) => {
             setSiteNavbar(data);
+        });
+        getFooterData().then((data) => {
+            setFooter(data);
+        });
+        getSiteFooter(site_id).then((data) => {
+            setSiteFooter(data);
         });
     }, [site_id]);
 
@@ -111,6 +135,9 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setNavbars,
                 siteNavbar,
                 setSiteNavbar,
+                footer,
+                siteFooter,
+                setSiteFooter,
             }}
         >
             {children}
