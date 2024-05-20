@@ -3,6 +3,7 @@ import {
     Dispatch,
     ReactNode,
     SetStateAction,
+    cache,
     createContext,
     useState,
 } from "react";
@@ -49,7 +50,9 @@ async function getPageData(site_id: string) {
 }
 
 async function getNavbarData() {
-    const response = await fetch(`/api/editor/navbar`);
+    const response = await fetch(`/api/editor/navbar`, {
+        cache: "no-cache",
+    });
     const data = await response.json();
     return data;
 }
@@ -61,7 +64,9 @@ async function getSiteNavbar(site_id: string) {
 }
 
 async function getFooterData() {
-    const response = await fetch(`/api/editor/footer`);
+    const response = await fetch(`/api/editor/footer`, {
+        cache: "no-cache",
+    });
     const data = await response.json();
     return data;
 }
