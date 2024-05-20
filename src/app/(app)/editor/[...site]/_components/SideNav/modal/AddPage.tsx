@@ -8,6 +8,7 @@ import {
     pageCreateClientSchema,
 } from "@/lib/db/schema/pages";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { X } from "lucide-react";
 
 export default function AddPage() {
     const ref = useRef<HTMLDialogElement>(null);
@@ -61,9 +62,33 @@ export default function AddPage() {
         setModal(false);
     };
 
+    // set modal to false when the user clicks outside the modal
+    useEffect(() => {
+        function handleClickOutside(event: any) {
+            if (ref.current && !ref.current.contains(event.target)) {
+                setModal(false);
+            }
+        }
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [ref, setModal]);
+
     return (
         <dialog ref={ref} className="addpagemodal">
-            <h1 className="title">Add a new page</h1>
+            <div className="addpagemodal-top">
+                <h1 className="title">Add a new page</h1>
+                <button
+                    className="close"
+                    onClick={() => {
+                        setModal(false);
+                    }}
+                >
+                    <X />
+                </button>
+            </div>
             <form onSubmit={onSubmit} className="addpage-form" method="POST">
                 <label htmlFor="pageName">Page Name</label>
                 <input type="text" id="title" />
