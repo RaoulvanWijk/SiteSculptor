@@ -9,7 +9,7 @@ import LoadingButton from "./buttons/LoadingButton";
 import {
     CaseSensitive,
     Home,
-    Image,
+    Image as ImageIcon,
     MousePointerClick,
     PanelBottom,
     PanelTop,
@@ -81,7 +81,11 @@ export default function SideNav() {
                     icon: <CaseSensitive />,
                     key: "text",
                 },
-                { text: "Image", type: "page-component", icon: <Image /> },
+                {
+                    text: "Image",
+                    type: "page-component",
+                    icon: <ImageIcon />,
+                },
                 {
                     text: "Button",
                     type: "page-component",

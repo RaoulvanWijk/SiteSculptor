@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
             .values({ id: pageId, title: "Home", slug: "home", siteId })
             .execute();
         // set the default navbar
-        const navbarId = "dml2u4unvra2kd4kc7lv7";
+        const navbarId = "1zldb18jz27ls6x72hok2";
         await db.insert(siteNavbars).values({ siteId, navbarId }).execute();
 
         // set the default footer
