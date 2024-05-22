@@ -4,7 +4,7 @@ import { getValidSubdomain } from "@/utils/subdomain";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
-export function middleware(request: Request) {
+export function middleware(request: Request, response: Response) {
     if (process.env.CODE_ENV === "test") {
         console.log("API routes are disabled for this environment");
         const host = process.env.NEXTAUTH_URL;
@@ -30,7 +30,16 @@ export function middleware(request: Request) {
     const host = request.headers.get("host");
     const subdomain = getValidSubdomain(host);
     if (subdomain) {
-        console.log("Subdomain:", subdomain);
+        // Store subdomain in a custom header, which you can read later
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set("x-subdomain", subdomain);
+
+        return NextResponse.next({
+            request: {
+                // Apply new request headers
+                headers: requestHeaders,
+            },
+        });
     }
     // Store current request url in a custom header, which you can read later
     const requestHeaders = new Headers(request.headers);
