@@ -8,7 +8,7 @@ import NextAuthProvider from "@/lib/auth/Provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "SiteSculptor",
+    title: "Avklo",
     description: "An application to build websites",
 };
 
