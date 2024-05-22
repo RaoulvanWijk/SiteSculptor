@@ -20,6 +20,12 @@ export default function Navbar() {
     const [isDropdownOpen, setDropdownOpen] = useState(false);
     const router = useRouter();
 
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            triggerSearch();
+        }
+    };
+
     function toSettings() {
         router.push('/app/settings');
     }
@@ -49,6 +55,7 @@ export default function Navbar() {
                     className="searchbar"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyDown={handleKeyDown}
                 />
                 <DefaultButton type="primary" onClick={triggerSearch}>
                     <Search />
