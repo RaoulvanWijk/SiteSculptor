@@ -22,6 +22,39 @@
     background-color: var(--purp);
 }
 
+@media screen and (max-width: 1330px) {
+    .darkCard {
+        display: none;
+    }
+    .lightCard {
+        width: 100%;
+    }
+    .defaultCard {
+        height: 25rem;
+        p {
+            font-size: 2.5rem;
+            line-height: 3.5rem;
+        }
+    
+    }
+}
+@media screen and (min-width: 1331px) {
+    .darkCard {
+        display: block;
+    }
+    .lightCard {
+        width: 40%;
+    }
+    .defaultCard {
+        height: 37.5rem;
+        p {
+            font-size: 3.5rem;
+            line-height: 5rem;
+        }
+    
+    }
+}
+
 .icon {
     background-color: var(--blk);
     width: 5rem;

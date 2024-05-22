@@ -4,10 +4,10 @@ export function middleware(request: Request) {
   
   if (process.env.CODE_ENV === 'test') {
     console.log('API routes are disabled for this environment');
-    
+    const host = process.env.NEXTAUTH_URL;
     // return NextResponse.error(new Error('API routes are disabled for this environment'));
-    if (request.url.includes('/api')) {
-      return NextResponse.json({ error: 'API routes are disabled for this environment' }, { status: 403 });
+    if (request.url.startsWith(host + '/api') || request.url.startsWith(host + '/app') || request.url.startsWith(host + '/editor')) {
+      return NextResponse.json({ error: 'routes are disabled for this environment' }, { status: 403 });
     }
   }
 

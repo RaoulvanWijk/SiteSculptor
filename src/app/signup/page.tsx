@@ -1,52 +1,55 @@
 // custom nextjs auth login page
-"use client"
-import { useState} from "react"
+"use client";
+import { useState } from "react";
 
-import { getProviders, signIn } from "next-auth/react"
+import { getProviders, signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { useSearchParams } from 'next/navigation'
-import { redirect } from 'next/navigation'
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useSearchParams } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default function Signup() {
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const searchParams = useSearchParams()
- 
-  const search = searchParams.get('callbackUrl')
-  // if user is logged in, redirect to the callback url
-  const { status } = useSession();
-  if(status === "authenticated") {
-    redirect(search || "/app/dashboard")
-  }
-  return (
-    <div className={cn("grid gap-6")}>
-        <div className="grid gap-2">
-          <Button disabled={isLoading} onClick={()=>signIn(
-            // get callback url from params
-            'google', { callbackUrl: search || ''}
-          )}>
-            {isLoading && (
-              <p></p>
-            )}
-            Sign in with Google
-          </Button>
+    const searchParams = useSearchParams();
+
+    const search = searchParams.get("callbackUrl");
+    // if user is logged in, redirect to the callback url
+    const { status } = useSession();
+    if (status === "authenticated") {
+        redirect(search || "/app/dashboard");
+    }
+    return (
+        <div className={cn("grid gap-6")}>
+            <div className="grid gap-2">
+                <Button
+                    disabled={isLoading}
+                    onClick={() =>
+                        signIn(
+                            // get callback url from params
+                            "google",
+                            { callbackUrl: search || "" }
+                        )
+                    }
+                >
+                    {isLoading && <p></p>}
+                    Sign in with Google
+                </Button>
+            </div>
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="bg-background px-2 text-muted-foreground">
+                        Or continue with
+                    </span>
+                </div>
+            </div>
         </div>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      
-    </div>
-  )
+    );
 }

@@ -2,16 +2,20 @@ import React from "react";
 import Navbar from "@/components/pages/landingpage/Navbar";
 import Footer from "@/components/pages/landingpage/statics/Footer";
 
+import "@/resources/styling/components/layouts/layout.scss";
+
 type layoutProps = {
     children: React.ReactNode;
 };
 
 export default function layout({ children }: layoutProps) {
     return (
-        <div className="layout">
+        <div>
             <Navbar />
-            <main>{children}</main>
-            {/* <Footer /> */}
+            <div className="layout">
+                <main>{children}</main>
+                {/* <Footer /> */}
+            </div>
         </div>
     );
 }
