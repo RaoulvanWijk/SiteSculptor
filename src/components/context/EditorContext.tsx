@@ -29,7 +29,7 @@ type EditorContextType = {
 
   selectedComponent: UsedComponent | null;
   setSelectedComponent: Dispatch<SetStateAction<UsedComponent | null>>;
-  renderComponents: () => ReactNode;
+  RenderComponents: () => ReactNode;
   handleDragEnd: (event: DragEndEvent) => void;
 };
 
@@ -43,6 +43,7 @@ export default function EditorContextProvider({ children }: { children: ReactNod
 
   const addComponent = (component: Component, index: number, parent?: UsedComponent) => {
     if(parent) {
+      if(index == -1) index = parent.children.length;
       const newComponent: UsedComponent = {
         id: nanoid(10),
         index,
@@ -51,8 +52,9 @@ export default function EditorContextProvider({ children }: { children: ReactNod
         styles: {},
         children: [],
       };
-      parent.children.push(newComponent);
-      setComponents((prev) => [...prev]);
+      parent.children.splice(index, 0, newComponent);
+      console.log(parent.children, "parent.children", index);
+      
       return;
     }
 
@@ -65,16 +67,12 @@ export default function EditorContextProvider({ children }: { children: ReactNod
       children: [],
     };
 
-    // if (parent) {
-    //   parent.children.push(newComponent);
-    //   setComponents((prev) => [...prev]);
-    //   return;
-    // }
-
     // add the new component to the list of components with the new index and replace the old list indexes with the new ones
     let newComponents = [...componentsInEditor];
     newComponents.splice(index, 0, newComponent);
+    
     newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
+    
 
     setComponents(newComponents);
   };
@@ -91,7 +89,7 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     });
   };
 
-  const renderComponent = (component: UsedComponent | NestedComponent) => {
+  const RenderComponent = ({component}: {component: UsedComponent | NestedComponent}) => {
     if(component.component.type === "container") {
       return (
         <DefaultContainerItem component={component} />
@@ -106,13 +104,13 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     
   }
 
-  const renderComponents = () => {
+  const RenderComponents = () => {
     let lastIndex = -1;
     return (
       <>
         {componentsInEditor.map((component, index) => {
           lastIndex = component.index;
-          return (renderComponent(component))
+          return (<RenderComponent key={component.id + component.index} component={component}/>)
         })}
         <BaseDropComponent
                 id={"droppable-" + lastIndex}
@@ -212,9 +210,18 @@ export default function EditorContextProvider({ children }: { children: ReactNod
       console.log("Component is being dragged from the side nav", event, availableComponents);
       const newComponent = availableComponents.find((c) => c.id === event.active.id);
       if(!newComponent) return;
-      const parent = componentsInEditor.find((c) => c.id === event.over?.id);   
+      let parent = componentsInEditor.find((c) => c.id === event.over?.id);   
+      if(!parent) {
+        // check if the component is being dragged over a container by checking if the component is a child of a container
+        parent = findParent(event);
+      }
+
+      console.log(parent, event);
+
+      const idx = parent ? parent.children.length == 0 ? 0 : getOverIndex(event) : getOverIndex(event);
       
-      return addComponent(newComponent, getOverIndex(event), parent);
+      addComponent(newComponent, idx, parent);
+      return
     }
 
     // if()
@@ -234,7 +241,7 @@ export default function EditorContextProvider({ children }: { children: ReactNod
         updateComponent,
         selectedComponent,
         setSelectedComponent,
-        renderComponents,
+        RenderComponents,
         handleDragEnd
       }}
     >
