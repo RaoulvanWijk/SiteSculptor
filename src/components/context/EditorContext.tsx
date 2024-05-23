@@ -97,7 +97,17 @@ export default function EditorContextProvider({
   };
 
   const removeComponent = (component: UsedComponent) => {
-    setComponents((prev) => prev.filter((c) => c.id !== component.id));
+    // find the component in the editor it can be a parent or a child
+    setComponents((prev) => {
+      const parent = prev.find((c) =>
+        c.children.find((child) => child.id === component.id)
+      );
+      if (parent) {
+        parent.children = parent.children.filter((child) => child.id !== component.id);
+        return [...prev];
+      }
+      return prev.filter((c) => c.id !== component.id);
+    });
   };
 
   const updateComponent = (component: UsedComponent) => {
@@ -209,7 +219,7 @@ export default function EditorContextProvider({
       console.log("Invalid drop area");
       return;
     }
-    const activeComponent = componentsInEditor.find(
+    let activeComponent = componentsInEditor.find(
       (c) => c.id === event.active.id
     );
 
@@ -219,7 +229,17 @@ export default function EditorContextProvider({
         "Component is being dragged to the side nav",
         componentsInEditor.find((c) => c.id === event.active.id)
       );
-      if (!activeComponent) return;
+      if (!activeComponent) {
+        // try to find the component in the nested components
+        componentsInEditor.forEach((c) => {
+          const nested = c.children.find((child) => child.id === event.active.id);
+          if (nested) {
+            activeComponent = nested;
+          }
+        });
+
+        if (!activeComponent) return;
+      };
       removeComponent(activeComponent);
       return;
     }
