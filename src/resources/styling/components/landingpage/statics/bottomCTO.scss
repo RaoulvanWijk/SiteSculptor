@@ -16,3 +16,18 @@
         font-size: 1.5rem;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .bottomcto {
+        padding-block: 3rem;
+        >h1 {
+            font-size: 3rem;
+            width: 100%;
+            line-height: 50px;
+        }
+        >p {
+            width: 100%;
+            font-size: 1rem;
+        }
+    }
+}

@@ -3,6 +3,7 @@ import {
     Dispatch,
     ReactNode,
     SetStateAction,
+    cache,
     createContext,
     useState,
 } from "react";
@@ -27,6 +28,11 @@ type SideNavContextType = {
     setModal: Dispatch<SetStateAction<boolean>>;
     navbars: Array<any>;
     setNavbars: Dispatch<SetStateAction<Array<any>>>;
+    siteNavbar: Array<any>;
+    setSiteNavbar: Dispatch<SetStateAction<Array<any>>>;
+    footer: Array<any>;
+    siteFooter: Array<any>;
+    setSiteFooter: Dispatch<SetStateAction<Array<any>>>;
 };
 
 export const SideNavContext = createContext<SideNavContextType | null>(null);
@@ -44,7 +50,29 @@ async function getPageData(site_id: string) {
 }
 
 async function getNavbarData() {
-    const response = await fetch(`/api/editor/navbar`);
+    const response = await fetch(`/api/editor/navbar`, {
+        cache: "no-cache",
+    });
+    const data = await response.json();
+    return data;
+}
+
+async function getSiteNavbar(site_id: string) {
+    const response = await fetch(`/api/editor/site_navbar/styling/${site_id}`);
+    const data = await response.json();
+    return data;
+}
+
+async function getFooterData() {
+    const response = await fetch(`/api/editor/footer`, {
+        cache: "no-cache",
+    });
+    const data = await response.json();
+    return data;
+}
+
+async function getSiteFooter(site_id: string) {
+    const response = await fetch(`/api/editor/site_footer/styling/${site_id}`);
     const data = await response.json();
     return data;
 }
@@ -55,6 +83,10 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [loading, isLoading] = useState<boolean>(true);
 
     const [navbars, setNavbars] = useState<any[]>([]);
+    const [siteNavbar, setSiteNavbar] = useState<any[]>([]);
+
+    const [footer, setFooter] = useState<any[]>([]);
+    const [siteFooter, setSiteFooter] = useState<any[]>([]);
 
     const [modal, setModal] = useState<boolean>(false);
 
@@ -75,7 +107,16 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
             setPage(data);
             isLoading(false);
         });
-    }, []);
+        getSiteNavbar(site_id).then((data) => {
+            setSiteNavbar(data);
+        });
+        getFooterData().then((data) => {
+            setFooter(data);
+        });
+        getSiteFooter(site_id).then((data) => {
+            setSiteFooter(data);
+        });
+    }, [site_id]);
 
     // get the page name from page_id
 
@@ -97,6 +138,11 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 setModal,
                 navbars,
                 setNavbars,
+                siteNavbar,
+                setSiteNavbar,
+                footer,
+                siteFooter,
+                setSiteFooter,
             }}
         >
             {children}

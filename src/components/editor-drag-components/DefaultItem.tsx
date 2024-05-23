@@ -27,7 +27,8 @@ export default function DefaultItem(
                     isComponentInEditor: true,
                     dropArea: "container-item",
                     type: component.component.type,
-                    parent: component.parent
+                    parent: component.parent,
+                    index: component.index
                 }}
             >
                 <div

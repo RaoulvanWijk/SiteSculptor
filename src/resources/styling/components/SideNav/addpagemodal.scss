@@ -1,10 +1,20 @@
 .addpagemodal {
     padding: 1rem;
     border-radius: 6px;
+    .addpagemodal-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        .close {
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: white
+        }
+    }
     .title {
         font-size: 1.5rem;
         font-weight: 600;
-        margin-bottom: 1rem;
     }
     .addpage-form {
         display: flex;
@@ -21,4 +31,5 @@
 
 .addpagemodal::backdrop {
     background-color: rgba(0, 0, 0, 0.2);
+
 }

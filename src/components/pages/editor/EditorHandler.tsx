@@ -16,6 +16,9 @@ import DragOverlayWrapper from "./DragOverlayWrapper";
 import useEditor from "@/components/hooks/useEditor";
 import { cn } from "@/lib/utils";
 import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
+import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
+import useSideNav from "@/components/hooks/useSideNav";
+import FooterSelected from "@/components/editor-drag-components/footer/FooterSelected";
 
 //#endregion
 
@@ -31,9 +34,10 @@ export default function EditorHandler() {
         updateComponent,
         selectedComponent,
         setSelectedComponent,
-        renderComponents,
+        RenderComponents,
         handleDragEnd,
     } = useEditor();
+    const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
         setComponents(testUsedComponents);
@@ -77,13 +81,19 @@ export default function EditorHandler() {
                 </div>
             </Editor.SideNav>
             <Editor.TopNav />
-            <div className={cn("drag-container p-4 flex flex-col")}>
+            <div className={cn("drag-container p-4 flex flex-col gap-4")}>
+                {siteNavbar[0] && (
+                    <NavBarSelected stijl={siteNavbar[0].styles} />
+                )}
                 <SortableContext
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}
                 >
-                    {renderComponents()}
+                    {<RenderComponents />}
                 </SortableContext>
+                {siteFooter[0] && (
+                    <FooterSelected stijl={siteFooter[0].styles} />
+                )}
                 <DragOverlayWrapper />
             </div>
         </Editor.Layout>
