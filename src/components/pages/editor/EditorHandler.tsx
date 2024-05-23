@@ -34,7 +34,7 @@ export default function EditorHandler() {
         updateComponent,
         selectedComponent,
         setSelectedComponent,
-        renderComponents,
+        RenderComponents,
         handleDragEnd,
     } = useEditor();
     const { siteNavbar, siteFooter } = useSideNav();
@@ -89,7 +89,7 @@ export default function EditorHandler() {
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}
                 >
-                    {renderComponents()}
+                    {<RenderComponents />}
                 </SortableContext>
                 {siteFooter[0] && (
                     <FooterSelected stijl={siteFooter[0].styles} />
