@@ -30,9 +30,20 @@ export function middleware(request: Request, response: Response) {
     const host = request.headers.get("host");
     const subdomain = getValidSubdomain(host);
     if (subdomain) {
+        const home = new URL(`http://${subdomain}.localhost:3000/home`);
         // Store subdomain in a custom header, which you can read later
         const requestHeaders = new Headers(request.headers);
         requestHeaders.set("x-subdomain", subdomain);
+
+        if (
+            url.pathname.includes("/app") ||
+            url.pathname.includes("/editor") ||
+            url.pathname.includes("/sign-in") ||
+            url.pathname.includes("/login")
+        ) {
+            // redirect to the home page
+            return NextResponse.redirect(home, { status: 301 });
+        }
 
         return NextResponse.next({
             request: {
@@ -44,6 +55,8 @@ export function middleware(request: Request, response: Response) {
     // Store current request url in a custom header, which you can read later
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-url", request.url);
+
+    // make sure the default app files cannot be accessed
 
     return NextResponse.next({
         request: {
