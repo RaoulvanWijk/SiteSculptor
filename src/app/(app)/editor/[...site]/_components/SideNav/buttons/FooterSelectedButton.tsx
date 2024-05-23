@@ -1,4 +1,4 @@
-import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
+import FooterSelected from "@/components/editor-drag-components/footer/FooterSelected";
 import useSideNav from "@/components/hooks/useSideNav";
 import "@/resources/styling/components/SideNav/SideNavButton.scss";
 import "@/resources/styling/components/SideNav/breadcrumbs.scss";
@@ -15,15 +15,16 @@ export default async function NavBarSelectButton({
     id,
     styles,
 }: navBarProps) {
-    const { site_id, setSiteNavbar } = useSideNav();
+    const { site_id, setSiteFooter } = useSideNav();
 
-    const changeNav = async () => {
-        const response = await fetch("/api/editor/site_navbar/set", {
+    const changeFooter = async () => {
+        const response = await fetch("/api/editor/site_footer/set", {
             method: "PUT",
-            body: JSON.stringify({ siteId: site_id, navbarId: id }),
+            body: JSON.stringify({ siteId: site_id, footerId: id }),
         });
         const data = await response.json();
-        setSiteNavbar(data);
+        console.log(data);
+        setSiteFooter(data);
     };
 
     let currentStyle = {};
@@ -33,8 +34,8 @@ export default async function NavBarSelectButton({
     }
 
     return (
-        <button className="sidenavbutton" onClick={changeNav} id={id}>
-            <NavBarSelected
+        <button className="sidenavbutton" onClick={changeFooter} id={id}>
+            <FooterSelected
                 className="navbarselected-sidenav"
                 sideNav={true}
                 stijl={currentStyle}

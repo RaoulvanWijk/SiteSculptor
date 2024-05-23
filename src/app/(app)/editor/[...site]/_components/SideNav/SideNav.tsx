@@ -15,10 +15,13 @@ import {
     PanelTop,
     Plus,
     LayoutDashboard,
+    StickyNote,
 } from "lucide-react";
 import AddPage from "./modal/AddPage";
 import { testComponents } from "@/components/pages/editor/testComponents";
+
 import NavBarSelectButton from "./buttons/NavBarSelectButton";
+import FooterSelectedButton from "./buttons/FooterSelectedButton";
 
 export default function SideNav() {
     // get the nav type from the useSideNav hook
@@ -31,6 +34,7 @@ export default function SideNav() {
         loading,
         page_id,
         navbars,
+        footer,
     } = useSideNav();
 
     //#region Navs
@@ -54,13 +58,13 @@ export default function SideNav() {
                     type: "break",
                     key: "break2",
                 },
+                { text: "Navbar", type: "nav", icon: <PanelTop />, key: "nav" },
                 {
                     text: "Footer",
                     type: "footer",
                     icon: <PanelBottom />,
                     key: "footer",
                 },
-                { text: "Navbar", type: "nav", icon: <PanelTop />, key: "nav" },
             ],
         },
         {
@@ -121,11 +125,11 @@ export default function SideNav() {
             content: [],
         },
         {
-            type: "footer",
+            type: "navbar",
             content: [],
         },
         {
-            type: "navbar",
+            type: "footer",
             content: [],
         },
     ];
@@ -151,17 +155,26 @@ export default function SideNav() {
         navs[0].content.unshift({
             text: page.title,
             type: "page-select",
-            icon: <Home />,
+            icon: <StickyNote />,
             key: page.id,
         });
     });
 
     navbars.forEach((navbar) => {
-        navs[4].content.push({
+        navs[3].content.push({
             text: navbar.name,
             type: "navbar",
             icon: <PanelTop />,
             key: navbar.id,
+        });
+    });
+
+    footer.forEach((footer) => {
+        navs[4].content.push({
+            text: footer.name,
+            type: "footer",
+            icon: <PanelBottom />,
+            key: footer.id,
         });
     });
 
@@ -192,6 +205,15 @@ export default function SideNav() {
                     id={navbar.id}
                     styles={navbar.styles}
                     key={navbar.id}
+                />
+            ));
+        } else if (currentNav && currentNav.type === "footer") {
+            return footer.map((footer) => (
+                <FooterSelectedButton
+                    name={footer.name}
+                    id={footer.id}
+                    styles={footer.styles}
+                    key={footer.id}
                 />
             ));
         } else {

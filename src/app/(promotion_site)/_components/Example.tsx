@@ -11,7 +11,6 @@ export default function Example() {
     });
     const scaleProgress = useTransform(scrollYProgress, [0, 1], [0.9, 1]);
 
-    console.log(scrollYProgress);
     return (
         <motion.div
             ref={ref}

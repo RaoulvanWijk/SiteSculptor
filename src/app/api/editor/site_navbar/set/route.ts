@@ -3,11 +3,15 @@ import {
     siteNavbars,
     insertSiteNavbarSchema,
 } from "@/lib/db/schema/siteNavbars";
+import { navbars } from "@/lib/db/schema/navbars";
 import { db } from "@/lib/db/index";
+import { eq } from "drizzle-orm";
 
-export async function POST(request: NextRequest) {
+export async function PUT(request: NextRequest) {
     try {
         const { siteId, navbarId } = await request.json();
+        // check if the site already
+
         const { error }: any = insertSiteNavbarSchema.safeParse({
             siteId,
             navbarId,
@@ -21,10 +25,19 @@ export async function POST(request: NextRequest) {
             );
         }
         const response = await db
-            .insert(siteNavbars)
-            .values({ siteId, navbarId })
+            .update(siteNavbars)
+            .set({ navbarId })
+            .where(eq(siteNavbars.siteId, siteId))
             .execute();
-        return new NextResponse(JSON.stringify({ message: "ok" }), {
+
+        // get the navbar styling
+        const navbarStyling = await db
+            .select()
+            .from(navbars)
+            .where(eq(navbars.id, navbarId))
+            .execute();
+
+        return new NextResponse(JSON.stringify(navbarStyling), {
             status: 200,
         });
     } catch (error) {

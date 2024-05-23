@@ -38,7 +38,7 @@ export default function DefaultContainerItem(
                             {component.id} - {component.component.name} -{" "}
                             {component.component.type}, index: {component.index}
                         </p> */}
-                        <div className='flex flex-row w-full'>
+                        <div className='flex flex-row w-full h-full items-center justify-around'>
                             {
                                 component.children.map((child, index) => {
                                     return (

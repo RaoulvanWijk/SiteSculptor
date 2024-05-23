@@ -42,6 +42,20 @@ export default function EditorContextProvider({ children }: { children: ReactNod
   const [selectedComponent, setSelectedComponent] = useState<UsedComponent | null>(null);
 
   const addComponent = (component: Component, index: number, parent?: UsedComponent) => {
+    if(parent) {
+      const newComponent: UsedComponent = {
+        id: nanoid(10),
+        index,
+        component,
+        props: {},
+        styles: {},
+        children: [],
+      };
+      parent.children.push(newComponent);
+      setComponents((prev) => [...prev]);
+      return;
+    }
+
     const newComponent: UsedComponent = {
       id: nanoid(10),
       index,
@@ -195,11 +209,12 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     }
 
     if(isFromSideNav(event)) {
-      console.log("Component is being dragged from the side nav");
+      console.log("Component is being dragged from the side nav", event, availableComponents);
       const newComponent = availableComponents.find((c) => c.id === event.active.id);
       if(!newComponent) return;
+      const parent = componentsInEditor.find((c) => c.id === event.over?.id);   
       
-      return addComponent(newComponent, getOverIndex(event));
+      return addComponent(newComponent, getOverIndex(event), parent);
     }
 
     // if()
@@ -211,7 +226,7 @@ export default function EditorContextProvider({ children }: { children: ReactNod
     <EditorContext.Provider
       value={{
         componentsInEditor,
-        availableComponents,
+        availableComponents, 
         setComponents,
         setAvailableComponents,
         addComponent,

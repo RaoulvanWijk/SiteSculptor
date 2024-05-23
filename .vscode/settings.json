@@ -1,4 +1,5 @@
 {
+  "editor.tabSize": 4,
   "workbench.editor.customLabels.patterns": {
     "**/src/app/**/page.tsx": "${dirname} - Page",
     "**/src/app/**/index.tsx": "${dirname} - Index",
