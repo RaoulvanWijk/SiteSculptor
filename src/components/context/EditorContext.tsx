@@ -60,10 +60,25 @@ export default function EditorContextProvider({
   const addComponent = (
     component: Component,
     index: number,
-    parent?: UsedComponent
+    parent?: UsedComponent,
+    usingComponent?: UsedComponent
   ) => {
     if (parent) {
       if (index == -1) index = parent.children.length;
+      if (usingComponent) {
+        parent.children.splice(index, 0, usingComponent);
+        let newComponents = [...componentsInEditor];
+        newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
+        newComponents = newComponents.map((c) => {
+          if (c.id === parent.id) {
+            return { ...c, children: reorderComponents(index, index + 1, parent.children) };
+          }
+          return c;
+        });
+        
+        setComponents(newComponents);
+        return;
+      }
       const newComponent: UsedComponent = {
         id: nanoid(10),
         index,
@@ -103,7 +118,9 @@ export default function EditorContextProvider({
         c.children.find((child) => child.id === component.id)
       );
       if (parent) {
-        parent.children = parent.children.filter((child) => child.id !== component.id);
+        parent.children = parent.children.filter(
+          (child) => child.id !== component.id
+        );
         return [...prev];
       }
       return prev.filter((c) => c.id !== component.id);
@@ -189,9 +206,11 @@ export default function EditorContextProvider({
     return event.active.data.current?.sortable?.index;
   };
 
-  const findParent = (event: DragEndEvent) => {
+  const findParent = (event: DragEndEvent, current?: boolean) => {
     return componentsInEditor.find((c) =>
-      c.children.find((child) => child.id === event.over?.id)
+      c.children.find(
+        (child) => child.id === (current ? event.active.id : event.over?.id)
+      )
     );
   };
 
@@ -222,6 +241,15 @@ export default function EditorContextProvider({
     let activeComponent = componentsInEditor.find(
       (c) => c.id === event.active.id
     );
+    if (!activeComponent) {
+      // try to find the component in the nested components
+      componentsInEditor.forEach((c) => {
+        const nested = c.children.find((child) => child.id === event.active.id);
+        if (nested) {
+          activeComponent = nested;
+        }
+      });
+    }
 
     console.log(event.over?.data.current?.dropArea);
     if (event.over?.data.current?.dropArea === "sideNav") {
@@ -229,17 +257,7 @@ export default function EditorContextProvider({
         "Component is being dragged to the side nav",
         componentsInEditor.find((c) => c.id === event.active.id)
       );
-      if (!activeComponent) {
-        // try to find the component in the nested components
-        componentsInEditor.forEach((c) => {
-          const nested = c.children.find((child) => child.id === event.active.id);
-          if (nested) {
-            activeComponent = nested;
-          }
-        });
-
-        if (!activeComponent) return;
-      };
+      if (!activeComponent) return;
       removeComponent(activeComponent);
       return;
     }
@@ -252,7 +270,23 @@ export default function EditorContextProvider({
 
         // Get the parent component of the component being dragged over
         const parent = findParent(event);
+        console.log("====================================");
+        console.log(parent);
+        console.log(findParent(event, true));
+        console.log("====================================");
         if (!parent) return;
+
+        // check if the component is being dragged into another container than the one it was in
+        // TODO: handle nested components properly
+        if (parent.id !== findParent(event, true)?.id) {
+          if (!activeComponent) return;
+          removeComponent(activeComponent);
+          // addComponent(activeComponent.component, 0, parent);
+          const idx = getOverIndex(event);
+          addComponent(activeComponent.component, idx, parent, activeComponent);
+          return;
+        }
+
         const co = reorderComponents(
           getActiveIndex(event),
           getOverIndex(event),
