@@ -5,7 +5,7 @@ import Example from "@/app/(promotion_site)/_components/Example";
 import Overview from "./_components/overview/Overview";
 import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
 import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
-
+import { headers } from "next/headers";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,14 +17,6 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-    const header = headers().get("x-subdomain");
-    if (header == "minecraft") {
-        return (
-            <div>
-                <h1>minecraft</h1>
-            </div>
-        );
-    }
     return (
         <>
             <div className="topcontent">

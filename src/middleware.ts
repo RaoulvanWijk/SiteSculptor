@@ -4,6 +4,15 @@ import { getValidSubdomain } from "@/utils/subdomain";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
+// get sites from the database
+export async function getSite(subdomain: string) {
+    // fetch site from the database
+    return {
+        name: "My Site",
+        subdomain,
+    };
+}
+
 export function middleware(request: Request, response: Response) {
     if (process.env.CODE_ENV === "test") {
         console.log("API routes are disabled for this environment");
