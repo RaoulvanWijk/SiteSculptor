@@ -114,7 +114,7 @@ export const testUsedComponents: UsedComponent[] = [
   // },
   {
     id: "test-id-container-2",
-    index: 3,
+    index: 0,
     component: testComponents[3],
     props: {},
     styles: {},
@@ -122,7 +122,7 @@ export const testUsedComponents: UsedComponent[] = [
   },
   {
     id: "test-id-container-3",
-    index: 4,
+    index: 1,
     component: testComponents[3],
     props: {},
     styles: {},
@@ -147,7 +147,7 @@ export const testUsedComponents: UsedComponent[] = [
   },
   {
     id: "test-id-container-4",
-    index: 5,
+    index: 2,
     component: testComponents[3],
     props: {},
     styles: {},
