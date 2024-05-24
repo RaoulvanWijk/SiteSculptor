@@ -358,16 +358,6 @@ export default function EditorContextProvider({
         : getOverIndex(event);
 
       addComponent(newComponent, idx, parent);
-
-      
-      // reorderComponents(
-      //   parent ? (parent.children.length == 0 ? 0 : idx) : idx,
-      //   parent
-      //     ? parent.children.length == 0
-      //       ? 0
-      //       : getOverIndex(event)
-      //     : getOverIndex(event)
-      // );
       return;
     }
 
