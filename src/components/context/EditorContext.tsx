@@ -264,7 +264,7 @@ export default function EditorContextProvider({
       componentsInEditor.forEach((c) => {
         const nested = c.children.find((child) => child.id === event.active.id);
         if (nested) {
-          activeComponent = nested;
+          activeComponent = nested as NestedComponent;
         }
       });
     }
@@ -272,6 +272,14 @@ export default function EditorContextProvider({
       console.log("Component is being dragged to the side nav");
       if (!activeComponent) return;
       removeComponent(activeComponent);
+      // resort the parent components so that the index is correct
+      let newComponents = [...componentsInEditor];
+      newComponents = newComponents.map((c, i) => {
+        if (c.id === activeComponent?.parent) {
+          return updateIndexesOfContainer(c);
+        }
+        return c;
+      });
       return;
     }
 
@@ -318,6 +326,7 @@ export default function EditorContextProvider({
         if (!parent || !activeComponent) return;
 
         removeComponent(activeComponent);
+        activeComponent.index = 0
         parent.children.push(activeComponent);
         let newComponents = [...componentsInEditor];
         newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
