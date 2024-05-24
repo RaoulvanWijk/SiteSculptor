@@ -354,7 +354,7 @@ export default function EditorContextProvider({
       const idx = parent
         ? parent.children.length == 0
           ? 0
-          : getOverIndex(event)
+          : getOverIndex(event) + 1
         : getOverIndex(event);
 
       addComponent(newComponent, idx, parent);
