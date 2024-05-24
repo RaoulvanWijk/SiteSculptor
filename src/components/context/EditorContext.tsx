@@ -101,6 +101,8 @@ export default function EditorContextProvider({
         children: [],
       };
       parent.children.splice(index, 0, newComponent);
+      let newComponents = [...componentsInEditor];
+      setComponents(newComponents);
       return;
     }
 
@@ -353,7 +355,9 @@ export default function EditorContextProvider({
           ? 0
           : getOverIndex(event) + 1
         : getOverIndex(event);
-
+      console.log('====================================');
+      console.log('Parent:', idx, parent);
+      console.log('====================================');
       addComponent(newComponent, idx, parent);
       return;
     }
