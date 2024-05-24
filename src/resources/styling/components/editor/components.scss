@@ -1,0 +1,29 @@
+.base-container {
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 12rem;
+    padding: .5rem;
+
+    // add shadow around the container
+    outline: 1px solid  rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+}
+
+.base-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // make it so the it prefers 24rem as width: but can go down to 12rem
+    min-width: 12rem;
+    max-width: 96rem;
+    height: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    outline: 1px solid  rgba(0, 0, 0, 0.1);
+
+    font-weight: 500;
+}
