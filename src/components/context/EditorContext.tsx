@@ -61,14 +61,27 @@ export default function EditorContextProvider({
     component: Component,
     index: number,
     parent?: UsedComponent,
-    usingComponent?: UsedComponent
+    usingComponent?: NestedComponent
   ) => {
     if (parent) {
       if (index == -1) index = parent.children.length;
       if (usingComponent) {
+        const oldParent = usingComponent.parent;
+        usingComponent.parent = parent.id;
         parent.children.splice(index, 0, usingComponent);
         let newComponents = [...componentsInEditor];
         newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
+        newComponents = newComponents.map((c) => {
+          if (c.id === oldParent) {
+            // resort the old parent components so that the index is correct
+            return {
+              ...c,
+              children: c.children.map((child, i) => ({ ...child, index: i })),
+            };
+          }
+          return c;
+        });
+        
         newComponents = newComponents.map((c) => {
           if (c.id === parent.id) {
             return { ...c, children: reorderComponents(index, index + 1, parent.children) };
