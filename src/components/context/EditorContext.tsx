@@ -101,8 +101,6 @@ export default function EditorContextProvider({
         children: [],
       };
       parent.children.splice(index, 0, newComponent);
-      // console.log(parent.children, "parent.children", index);
-
       return;
     }
 
@@ -271,13 +269,8 @@ export default function EditorContextProvider({
         }
       });
     }
-
-    console.log(event.over?.data.current?.dropArea);
     if (event.over?.data.current?.dropArea === "sideNav") {
-      console.log(
-        "Component is being dragged to the side nav",
-        componentsInEditor.find((c) => c.id === event.active.id)
-      );
+      console.log("Component is being dragged to the side nav");
       if (!activeComponent) return;
       removeComponent(activeComponent);
       return;
@@ -291,18 +284,12 @@ export default function EditorContextProvider({
 
         // Get the parent component of the component being dragged over
         const parent = findParent(event);
-        console.log("====================================");
-        console.log(parent);
-        console.log(findParent(event, true));
-        console.log("====================================");
         if (!parent) return;
 
         // check if the component is being dragged into another container than the one it was in
-        // TODO: handle nested components properly
         if (parent.id !== findParent(event, true)?.id) {
           if (!activeComponent) return;
           removeComponent(activeComponent);
-          // addComponent(activeComponent.component, 0, parent);
           const idx = getOverIndex(event);
           addComponent(activeComponent.component, idx, parent, activeComponent);
           return;
@@ -328,7 +315,6 @@ export default function EditorContextProvider({
       ) {
         const parent = componentsInEditor.find((c) => c.id === event.over?.id);
         const oldParent = findParent(event, true);
-        console.log(parent, activeComponent);
 
         if (!parent || !activeComponent) return;
 
@@ -354,7 +340,7 @@ export default function EditorContextProvider({
     }
 
     if (isFromSideNav(event)) {
-      // console.log("Component is being dragged from the side nav", event, availableComponents);
+      console.log("Component is being dragged from the side nav");
       const newComponent = availableComponents.find(
         (c) => c.id === event.active.id
       );
@@ -368,18 +354,20 @@ export default function EditorContextProvider({
       const idx = parent
         ? parent.children.length == 0
           ? 0
-          : getOverIndex(event) + 1
-        : getOverIndex(event) + 1;
+          : getOverIndex(event)
+        : getOverIndex(event);
 
       addComponent(newComponent, idx, parent);
-      reorderComponents(
-        parent ? (parent.children.length == 0 ? 0 : idx) : idx,
-        parent
-          ? parent.children.length == 0
-            ? 0
-            : getOverIndex(event)
-          : getOverIndex(event)
-      );
+
+      
+      // reorderComponents(
+      //   parent ? (parent.children.length == 0 ? 0 : idx) : idx,
+      //   parent
+      //     ? parent.children.length == 0
+      //       ? 0
+      //       : getOverIndex(event)
+      //     : getOverIndex(event)
+      // );
       return;
     }
 
