@@ -32,7 +32,7 @@ export default function DefaultContainerItem(
                         "w-full border-2",
                         "h-48"
                     )}
-                >
+                >{component.id} - {component.component.name} - {component.component.type}, index: {component.index}
                     <SortableContext items={component.children} strategy={horizontalListSortingStrategy}>
                         {/* <p>
                             {component.id} - {component.component.name} -{" "}
