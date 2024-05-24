@@ -155,9 +155,6 @@ export default function EditorContextProvider({
       return <DefaultContainerItem component={component} />;
     }
     return <></>;
-    // return (
-    //   <DefaultItem component={component} />
-    // )
   };
 
   const handleNestedComponents = (component: UsedComponent) => {};
@@ -360,8 +357,6 @@ export default function EditorContextProvider({
       addComponent(newComponent, idx, parent);
       return;
     }
-
-    // if()
   };
 
   return (
