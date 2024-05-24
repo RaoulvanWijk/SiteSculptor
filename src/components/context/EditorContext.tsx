@@ -74,21 +74,21 @@ export default function EditorContextProvider({
         newComponents = newComponents.map((c) => {
           if (c.id === oldParent) {
             // resort the old parent components so that the index is correct
+            return updateIndexesOfContainer(c);
+          }
+          return c;
+        });
+
+        newComponents = newComponents.map((c) => {
+          if (c.id === parent.id) {
             return {
               ...c,
-              children: c.children.map((child, i) => ({ ...child, index: i })),
+              children: reorderComponents(index, index + 1, parent.children),
             };
           }
           return c;
         });
-        
-        newComponents = newComponents.map((c) => {
-          if (c.id === parent.id) {
-            return { ...c, children: reorderComponents(index, index + 1, parent.children) };
-          }
-          return c;
-        });
-        
+
         setComponents(newComponents);
         return;
       }
@@ -163,6 +163,14 @@ export default function EditorContextProvider({
   };
 
   const handleNestedComponents = (component: UsedComponent) => {};
+
+  const updateIndexesOfContainer = (component: UsedComponent) => {
+    component.children = component.children.map((child, index) => ({
+      ...child,
+      index,
+    }));
+    return component;
+  };
 
   const RenderComponents = () => {
     let lastIndex = -1;
@@ -309,6 +317,33 @@ export default function EditorContextProvider({
         const newParent = { ...parent, children: co };
         const newComponents = componentsInEditor.map((c) => {
           if (c.id === parent?.id) return newParent;
+          return c;
+        });
+        return setComponents(newComponents);
+      }
+
+      if (
+        event.over?.data.current?.dropArea === "container" &&
+        event.active?.data.current?.dropArea !== "container"
+      ) {
+        const parent = componentsInEditor.find((c) => c.id === event.over?.id);
+        const oldParent = findParent(event, true);
+        console.log(parent, activeComponent);
+
+        if (!parent || !activeComponent) return;
+
+        removeComponent(activeComponent);
+        parent.children.push(activeComponent);
+        let newComponents = [...componentsInEditor];
+        newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
+        newComponents = newComponents.map((c) => {
+          if (c.id === oldParent?.id) {
+            // resort the old parent components so that the index is correct
+            return updateIndexesOfContainer(c);
+          }
+          if (c.id === parent.id) {
+            return { ...c, children: parent.children };
+          }
           return c;
         });
         return setComponents(newComponents);
