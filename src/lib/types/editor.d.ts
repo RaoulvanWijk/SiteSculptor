@@ -32,6 +32,8 @@ declare module "editor" {
       [key: string]: string | string[]; // The styles that the component has
     };
     children: NestedComponent[]; // The children components of the component
+    parent?: string; // The parent component of the component
+
   };
   
   type NestedComponent = UsedComponent & {
