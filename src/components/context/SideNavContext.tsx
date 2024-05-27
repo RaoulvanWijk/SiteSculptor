@@ -11,6 +11,7 @@ import {
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { get } from "http";
+import { TypesWithComponentsType} from "editor"
 
 type SideNavContextType = {
     currentNavName: Array<string>;
@@ -33,9 +34,20 @@ type SideNavContextType = {
     footer: Array<any>;
     siteFooter: Array<any>;
     setSiteFooter: Dispatch<SetStateAction<Array<any>>>;
+    setTypesWithComponents: Dispatch<SetStateAction<TypesWithComponentsType>>;
+    typesWithComponents: TypesWithComponentsType;
 };
 
+
+
 export const SideNavContext = createContext<SideNavContextType | null>(null);
+
+async function getTypesWithComponents() {
+    const response = await fetch(`/api/editor/component_types/with_components`);
+    if(!response.ok) throw new Error("Failed to fetch types with components");
+    const data = await response.json();
+    return data as TypesWithComponentsType;
+}
 
 async function getSiteData(site_id: string) {
     const response = await fetch(`/api/editor/site/${site_id}`);
@@ -96,6 +108,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const site_id = usePathname().split("/")[2];
     const page_id = usePathname().split("/")[3];
 
+    const [typesWithComponents, setTypesWithComponents] = useState<TypesWithComponentsType>([]);
+
     useEffect(() => {
         getSiteData(site_id).then((data) => {
             setSite(data);
@@ -116,7 +130,17 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         getSiteFooter(site_id).then((data) => {
             setSiteFooter(data);
         });
-    }, [site_id]);
+        getTypesWithComponents().then((data) => {
+            setTypesWithComponents(data);
+        });
+    }, [site_id])
+
+    // useEffect(() => {
+
+    //     console.log('====================================');
+    //     console.log("Page updated");
+    //     console.log('====================================');
+    // }, [site_id]);
 
     // get the page name from page_id
 
@@ -143,6 +167,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 footer,
                 siteFooter,
                 setSiteFooter,
+                typesWithComponents,
+                setTypesWithComponents
             }}
         >
             {children}
