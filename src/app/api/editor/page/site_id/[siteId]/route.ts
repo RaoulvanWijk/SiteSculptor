@@ -6,25 +6,54 @@ import { pageComponents } from "@/lib/db/schema/pageComponents";
 import { components } from "@/lib/db/schema/components";
 
 export async function GET(request: NextRequest, { params }: any) {
-    try {
-        const id: any = params.siteId;
-        //get the pages for the siteId
-        const idPages = await db
-            .query.pages.findMany({
-                with: {
-                    pageComponents: {
-                        with: {
-                            component: true,
-                        }
-                    },
-                }
-            });
-        return new NextResponse(JSON.stringify(idPages), {
-            status: 200,
-        });
-    } catch (error) {
-        return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
-            status: 400,
-        });
+  try {
+    const id: any = params.siteId;
+    //get the pages for the siteId
+    const idPages = await db.query.pages.findMany({
+      with: {
+        pageComponents: {
+          //   where: (pageComponents, { eq }) => eq(pageComponents.parentId, null),
+          with: {
+            children: {
+              with: {
+                component: {
+                  with: {
+                    type: true,
+                  },
+                },
+              },
+            },
+            component: {
+              with: {
+                type: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (idPages.length === 0) {
+      return new NextResponse(JSON.stringify({ message: "No pages found" }), {
+        status: 404,
+      });
     }
+    idPages[0].pageComponents.map((pageComponent: any) => {
+      pageComponent.component.type = pageComponent.component.type.name;
+      if (pageComponent.children.length > 0) {
+        pageComponent.children.map((child: any) => {
+          child.component.type = child.component.type.name;
+        });
+      } else {
+        pageComponent.children = [];
+      }
+    });
+    return new NextResponse(JSON.stringify(idPages), {
+      status: 200,
+    });
+  } catch (error) {
+    return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
+      status: 400,
+    });
+  }
 }
