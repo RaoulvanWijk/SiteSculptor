@@ -281,7 +281,6 @@ export default function EditorContextProvider({
       newComponents = newComponents.map((c, i) => {
         return updateIndexesOfContainer(c);
       });
-      console.log("New components", newComponents);
       
       setComponents(newComponents);
       return;
@@ -368,9 +367,6 @@ export default function EditorContextProvider({
           ? 0
           : getOverIndex(event) + 1
         : getOverIndex(event);
-      console.log('====================================');
-      console.log('Parent:', idx, parent);
-      console.log('====================================');
       addComponent(newComponent, idx, parent);
       return;
     }
