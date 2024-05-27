@@ -7,6 +7,7 @@ import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
 import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 
 import { Metadata } from "next";
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
     title: "Avklo",
