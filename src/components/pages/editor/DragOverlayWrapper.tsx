@@ -32,10 +32,10 @@ export default function DragOverlayWrapper() {
 
   return (
     <DragOverlay>
-      <BaseDragComponent id={draggedItem.id} data={draggedItem.data.current}>
-        <div className="w-full border-2 h-fit">
+      <BaseDragComponent id={draggedItem.id} data={draggedItem.data.current} extraStyling="opacity-90">
+        <p>
           {draggedItem.data.current?.id}
-        </div>
+        </p>
       </BaseDragComponent>
     </DragOverlay>
   );

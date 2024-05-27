@@ -18,12 +18,14 @@ export default function BaseDragComponent({
   data,
   disabled,
   type,
+  extraStyling
 }: {
   id: number | string;
   children?: React.ReactNode;
   data?: any;
   disabled?: boolean;
   type?: "container" | "item";
+  extraStyling?: string;
 }) {
   const {
     attributes,
@@ -55,7 +57,8 @@ export default function BaseDragComponent({
       className={
         cn(
           isOver ? "bg-gray-200" : "bg-white",
-          type ? (type === "container" ? "base-container" : "base-item") : "base-item"
+          type ? (type === "container" ? "base-container" : "base-item") : "base-item",
+          extraStyling
         )
       }
     >
