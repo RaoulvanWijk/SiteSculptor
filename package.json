@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:generate": "drizzle-kit generate:mysql",
+    "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/lib/db/migrate.ts",
     "db:drop": "drizzle-kit drop",
-    "db:pull": "drizzle-kit introspect:mysql",
-    "db:push": "drizzle-kit push:mysql",
+    "db:pull": "drizzle-kit introspect",
+    "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:check": "drizzle-kit check:mysql",
+    "db:check": "drizzle-kit check",
     "stripe:listen": "stripe listen --forward-to localhost:3000/api/webhooks/stripe"
   },
   "dependencies": {

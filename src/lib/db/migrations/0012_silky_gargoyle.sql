@@ -1,0 +1,2 @@
+ALTER TABLE `page_components` ADD `component_id` varchar(191) NOT NULL;--> statement-breakpoint
+ALTER TABLE `page_components` ADD CONSTRAINT `page_components_component_id_components_id_fk` FOREIGN KEY (`component_id`) REFERENCES `components`(`id`) ON DELETE no action ON UPDATE no action;
