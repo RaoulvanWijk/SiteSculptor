@@ -102,6 +102,15 @@ export default function EditorContextProvider({
       };
       parent.children.splice(index, 0, newComponent);
       let newComponents = [...componentsInEditor];
+      newComponents = newComponents.map((c) => {
+        if (c.id === parent.id) {
+          return {
+            ...c,
+            children: reorderComponents(index, index + 1, parent.children),
+          };
+        }
+        return c;
+      });
       setComponents(newComponents);
       return;
     }
