@@ -19,6 +19,7 @@ import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
 import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
 import useSideNav from "@/components/hooks/useSideNav";
 import FooterSelected from "@/components/editor-drag-components/footer/FooterSelected";
+import { Component } from "editor";
 
 //#endregion
 
@@ -37,12 +38,22 @@ export default function EditorHandler() {
         RenderComponents,
         handleDragEnd,
     } = useEditor();
+    const { typesWithComponents, page } = useSideNav();
     const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
-        setComponents(testUsedComponents);
-        setAvailableComponents(testComponents);
-    }, [setComponents, setAvailableComponents]);
+        setComponents(page[0]?.pageComponents ?? []);
+        // make it so that all the components from typesWithComponents are available to be added to the editor by satisfying the Component[] type
+        let mergedComponents: Component[] = [];
+        typesWithComponents.map((type) => {
+            type.components?.map((component) => {
+                mergedComponents.push({
+                    ...component,
+                });
+            });
+        });
+        setAvailableComponents(mergedComponents);
+    }, [setComponents, setAvailableComponents, typesWithComponents, page]);
 
     useDndMonitor({
         onDragStart: (event) => {
