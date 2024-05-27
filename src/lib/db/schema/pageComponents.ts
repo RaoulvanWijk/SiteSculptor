@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
     int,
     varchar,
@@ -12,6 +12,7 @@ import { pages } from "./pages";
 import { type getPageComponents } from "@/lib/api/pageComponents/queries";
 
 import { nanoid, timestamps } from "@/lib/utils";
+import { components } from "./components";
 
 export const pageComponents: ReturnType<typeof mysqlTable> = mysqlTable(
     "page_components",
@@ -29,7 +30,9 @@ export const pageComponents: ReturnType<typeof mysqlTable> = mysqlTable(
             () => pageComponents.id,
             { onDelete: "cascade" }
         ),
-
+        componentId: varchar("component_id", { length: 191 }).references(
+            () => components.id,
+        ).notNull(),
         createdAt: timestamp("created_at")
             .notNull()
             .default(sql`now()`),
@@ -38,6 +41,15 @@ export const pageComponents: ReturnType<typeof mysqlTable> = mysqlTable(
             .default(sql`now()`),
     }
 );
+
+export const pageComponentsRelations = relations(pageComponents, ({many, one}) => ({
+    parent: one(pageComponents),
+    page: one(pages, {
+        fields: [pageComponents.pageId],
+        references: [pages.id],
+    }),
+    component: one(components),
+}));
 
 // Schema for pageComponents - used to validate API requests
 const baseSchema = createSelectSchema(pageComponents).omit(timestamps);
