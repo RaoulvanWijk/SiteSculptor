@@ -12,7 +12,11 @@ export async function GET(request: NextRequest, { params }: any) {
         const idPages = await db
             .query.pages.findMany({
                 with: {
-                    pageComponents: true,
+                    pageComponents: {
+                        with: {
+                            component: true,
+                        }
+                    },
                 }
             });
         return new NextResponse(JSON.stringify(idPages), {
