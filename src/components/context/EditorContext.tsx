@@ -275,11 +275,11 @@ export default function EditorContextProvider({
       // resort the parent components so that the index is correct
       let newComponents = [...componentsInEditor];
       newComponents = newComponents.map((c, i) => {
-        if (c.id === activeComponent?.parent) {
-          return updateIndexesOfContainer(c);
-        }
-        return c;
+        return updateIndexesOfContainer(c);
       });
+      console.log("New components", newComponents);
+      
+      setComponents(newComponents);
       return;
     }
 
