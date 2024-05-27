@@ -38,28 +38,16 @@ export function middleware(request: Request, response: Response) {
 
     const host = request.headers.get("host");
     const subdomain = getValidSubdomain(host);
+    const searchParams = url.searchParams.toString();
+    const pathWithSearchParams = `${url.pathname}${
+        searchParams.length > 0 ? `?${searchParams}` : ""
+    }`;
     if (subdomain) {
-        const home = new URL(`http://${subdomain}.localhost:3000/home`);
-        // Store subdomain in a custom header, which you can read later
-        const requestHeaders = new Headers(request.headers);
-        requestHeaders.set("x-subdomain", subdomain);
-
-        if (
-            url.pathname.includes("/app") ||
-            url.pathname.includes("/editor") ||
-            url.pathname.includes("/sign-in") ||
-            url.pathname.includes("/login")
-        ) {
-            // redirect to the home page
-            return NextResponse.redirect(home, { status: 301 });
-        }
-
-        return NextResponse.next({
-            request: {
-                // Apply new request headers
-                headers: requestHeaders,
-            },
-        });
+        const site = new URL(
+            `/${subdomain}${pathWithSearchParams}`,
+            request.url
+        );
+        return NextResponse.rewrite(site);
     }
     // Store current request url in a custom header, which you can read later
     const requestHeaders = new Headers(request.headers);
