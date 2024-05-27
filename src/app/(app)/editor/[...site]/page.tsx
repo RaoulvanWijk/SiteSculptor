@@ -110,7 +110,6 @@ export default function EditorPage() {
         droppableContainers = droppableContainers.filter((container: any) =>
           ["editor", "sideNav"].includes(container.data.current?.dropArea)
         );
-        console.log(droppableContainers, "droppableContainers");
       }
   
       if (allowedTypesInContainer.includes(active.type)) {
@@ -155,12 +154,10 @@ export default function EditorPage() {
   
     // first check if the pointer is over an element
     const pointerCollission = pointerWithin({ ...args, droppableContainers });
-    // console.log(pointerCollission);
   
     if (pointerCollission.length > 0) {
       return pointerCollission;
     }
-    // console.log(droppableContainers, args);
     droppableContainers = droppableContainers.filter(
       (container: any) => !container.data.current?.isSideNavDropArea
     );
@@ -168,7 +165,6 @@ export default function EditorPage() {
     // find the closest element
     const closestCollision = closestCenter({ ...args, droppableContainers });
   
-    // console.log(closestCollision, "closestCollision");
     return closestCollision;
   };
 
