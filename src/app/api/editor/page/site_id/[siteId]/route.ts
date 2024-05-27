@@ -12,7 +12,6 @@ export async function GET(request: NextRequest, { params }: any) {
     const idPages = await db.query.pages.findMany({
       with: {
         pageComponents: {
-          //   where: (pageComponents, { eq }) => eq(pageComponents.parentId, null),
           with: {
             children: {
               with: {
@@ -29,6 +28,7 @@ export async function GET(request: NextRequest, { params }: any) {
               },
             },
           },
+          where: (pageComponents, { isNull }) => isNull(pageComponents.parentId),
         },
       },
     });
