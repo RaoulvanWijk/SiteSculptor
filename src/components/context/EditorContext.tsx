@@ -126,6 +126,7 @@ export default function EditorContextProvider({
 
   const removeComponent = (component: UsedComponent) => {
     // find the component in the editor it can be a parent or a child
+    let newArr;
     setComponents((prev) => {
       const parent = prev.find((c) =>
         c.children.find((child) => child.id === component.id)
@@ -136,8 +137,11 @@ export default function EditorContextProvider({
         );
         return [...prev];
       }
-      return prev.filter((c) => c.id !== component.id);
+      console.log("Parent not found", component, prev);
+      newArr = prev.filter((c) => c.id !== component.id);
+      return newArr;
     });
+    return newArr ? [...newArr] : componentsInEditor;
   };
 
   const updateComponent = (component: UsedComponent) => {
@@ -271,9 +275,9 @@ export default function EditorContextProvider({
     if (event.over?.data.current?.dropArea === "sideNav") {
       console.log("Component is being dragged to the side nav");
       if (!activeComponent) return;
-      removeComponent(activeComponent);
+      let newComponents = removeComponent(activeComponent);
       // resort the parent components so that the index is correct
-      let newComponents = [...componentsInEditor];
+
       newComponents = newComponents.map((c, i) => {
         return updateIndexesOfContainer(c);
       });
