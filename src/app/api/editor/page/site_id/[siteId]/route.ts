@@ -31,6 +31,9 @@ export async function GET(request: NextRequest, { params }: any) {
           where: (pageComponents, { isNull }) => isNull(pageComponents.parentId),
         },
       },
+      where: (pages, { eq }) => {
+        return eq(pages.siteId, id);
+      },
     });
 
     if (idPages.length === 0) {
