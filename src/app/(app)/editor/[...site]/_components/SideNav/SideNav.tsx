@@ -30,7 +30,7 @@ export default function SideNav() {
     setNavType,
     navType,
     currentNavName,
-    page,
+    pages,
     loading,
     page_id,
     navbars,
@@ -143,7 +143,7 @@ export default function SideNav() {
 
   // find the current nav
   const currentNav = navs.find((nav) => nav.type === navType);
-  const currentPage = page.find((page) => page.id === page_id);
+  const currentPage = pages.find((page) => page.id === page_id);
 
   useEffect(() => {
     if (page_id) {
@@ -157,7 +157,7 @@ export default function SideNav() {
     // check if a matching page exists
   }, [page_id, currentPage, setCurrentNavName, setNavType]);
 
-  page.forEach((page) => {
+  pages.forEach((page) => {
     navs[0].content.unshift({
       text: page.title,
       type: "page-select",

@@ -42,7 +42,7 @@ export default function EditorHandler() {
     const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
-        setComponents(page[0]?.pageComponents ?? []);
+        setComponents(page?.pageComponents ?? []);
         // make it so that all the components from typesWithComponents are available to be added to the editor by satisfying the Component[] type
         let mergedComponents: Component[] = [];
         typesWithComponents.map((type) => {
