@@ -19,8 +19,10 @@ type SideNavContextType = {
     navType: String;
     setNavType: Dispatch<SetStateAction<String>>;
     site: Array<any>;
-    page: Array<any>;
-    setPage: Dispatch<SetStateAction<Array<any>>>;
+    pages: Array<any>;
+    setPages: Dispatch<SetStateAction<Array<any>>>;
+    page: any;
+    setPage: Dispatch<SetStateAction<any>>;
     site_id: string;
     page_id: string;
     loading: boolean;
@@ -55,8 +57,14 @@ async function getSiteData(site_id: string) {
     return data;
 }
 
-async function getPageData(site_id: string) {
+async function getPagesData(site_id: string) {
     const response = await fetch(`/api/editor/page/site_id/${site_id}`);
+    const data = await response.json();
+    return data;
+}
+
+async function getPageData(page_id: string) {
+    const response = await fetch(`/api/editor/page/${page_id}`);
     const data = await response.json();
     return data;
 }
@@ -103,7 +111,9 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
     const [modal, setModal] = useState<boolean>(false);
 
     const [site, setSite] = useState<any[]>([]);
-    const [page, setPage] = useState<any[]>([]);
+    const [pages, setPages] = useState<any[]>([]);
+
+    const [page, setPage] = useState<any>(null);
 
     const site_id = usePathname().split("/")[2];
     const page_id = usePathname().split("/")[3];
@@ -117,10 +127,11 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
         getNavbarData().then((data) => {
             setNavbars(data);
         });
-        getPageData(site_id).then((data) => {
-            setPage(data);
+        getPagesData(site_id).then((data) => {
+            setPages(data);
             isLoading(false);
         });
+
         getSiteNavbar(site_id).then((data) => {
             setSiteNavbar(data);
         });
@@ -134,6 +145,14 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
             setTypesWithComponents(data);
         });
     }, [site_id])
+
+    useEffect(() => {
+        if(page_id) {
+            getPageData(page_id).then((data) => {
+                setPage(data);
+            });
+        }
+    }, [page_id])
 
     // useEffect(() => {
 
@@ -152,8 +171,8 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 navType,
                 setNavType,
                 site,
-                page,
-                setPage,
+                pages,
+                setPages,
                 site_id,
                 page_id,
                 loading,
@@ -168,7 +187,9 @@ export function SideNavContextProvider({ children }: { children: ReactNode }) {
                 siteFooter,
                 setSiteFooter,
                 typesWithComponents,
-                setTypesWithComponents
+                setTypesWithComponents,
+                page,
+                setPage,
             }}
         >
             {children}
