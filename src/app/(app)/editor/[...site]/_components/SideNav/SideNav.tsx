@@ -196,7 +196,7 @@ export default function SideNav() {
       return components?.components?.map((component) => (
         <TestDragComponent
           id={component.id}
-          data={component}
+          data={{...component, isFromSideNav: true}}
           key={component.id}
         >
           {component.name}
