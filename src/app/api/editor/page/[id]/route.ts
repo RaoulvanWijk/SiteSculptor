@@ -6,13 +6,6 @@ import { eq } from "drizzle-orm";
 export async function GET(request: NextRequest, { params }: any) {
     try {
         const id: any = params.id;
-
-        // const idPages = await db
-        //     .select()
-        //     .from(pages)
-        //     .where(eq(pages.id, id))
-        //     .execute();
-
         let page = await db.query.pages.findMany({
             with: {
                 pageComponents: {
