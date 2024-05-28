@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 export default function NavBarSelected({ className, stijl, sideNav }: any) {
-    const { page } = useSideNav();
+    const { pages } = useSideNav();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -42,7 +42,7 @@ export default function NavBarSelected({ className, stijl, sideNav }: any) {
                         isMenuOpen ? "open" : ""
                     }`}
                 >
-                    {page.map((page) => (
+                    {pages.map((page) => (
                         <li key={page.id}>
                             <a href={page.id}>{page.title}</a>
                         </li>
