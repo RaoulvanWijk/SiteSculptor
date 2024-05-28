@@ -39,17 +39,14 @@ export async function GET(request: NextRequest, { params }: any) {
                 return eq(pages.id, id);
             },
         });
-        // TODO - Remove this code if chidren is already an empty array
-        // page[0].pageComponents.map((pageComponent: any) => {
-        //     pageComponent.component.type = pageComponent.component.type.name;
-        //     if (pageComponent.children.length > 0) {
-        //       pageComponent.children.map((child: any) => {
-        //         child.component.type = child.component.type.name;
-        //       });
-        //     } else {
-        //       pageComponent.children = [];
-        //     }
-        //   });
+        page[0].pageComponents.map((pageComponent: any) => {
+            pageComponent.component.type = pageComponent.component.type.name;
+            if (pageComponent.children.length > 0) {
+              pageComponent.children.map((child: any) => {
+                child.component.type = child.component.type.name;
+              });
+            }
+          });
         if (page.length === 0) {
             return new NextResponse(JSON.stringify({ message: "No pages found" }), {
                 status: 404,
