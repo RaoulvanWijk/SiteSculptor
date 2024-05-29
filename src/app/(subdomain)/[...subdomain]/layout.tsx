@@ -1,5 +1,6 @@
 import Navbar from "../_components/static/Navbar";
 import React from "react";
+import "../_resources/styling/layout.scss";
 
 type layoutProps = {
     children: React.ReactNode;
@@ -20,16 +21,16 @@ const checkSubdomain = async (subdomain: string) => {
 export default async function layout({ children, params }: layoutProps) {
     const { subdomain } = params;
     const data = await checkSubdomain(subdomain[0]);
-    const { siteId } = data[0];
-    console.log(data);
 
     if (data.message === "Site not found") {
         return <div>Site not found</div>;
     }
+    const { id } = data[0];
+
     return (
-        <div>
-            <Navbar siteId={siteId} />
-            <main>{children}</main>
-        </div>
+        <>
+            <Navbar siteId={id} />
+            <main className="layout">{children}</main>
+        </>
     );
 }
