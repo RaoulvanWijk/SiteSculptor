@@ -104,10 +104,7 @@ export default function EditorContextProvider({
       let newComponents = [...componentsInEditor];
       newComponents = newComponents.map((c) => {
         if (c.id === parent.id) {
-          return {
-            ...c,
-            children: reorderComponents(index, index + 1, parent.children),
-          };
+          return updateIndexesOfContainer(c);
         }
         return c;
       });
@@ -376,6 +373,9 @@ export default function EditorContextProvider({
           ? 0
           : getOverIndex(event) + 1
         : getOverIndex(event);
+
+      console.log("Parent", parent, idx, newComponent);
+      
       addComponent(newComponent, idx, parent);
       return;
     }
