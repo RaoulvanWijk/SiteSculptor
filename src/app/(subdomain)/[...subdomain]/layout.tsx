@@ -1,4 +1,5 @@
 import Navbar from "../_components/static/Navbar";
+import Footer from "../_components/static/Footer";
 import React from "react";
 import "../_resources/styling/layout.scss";
 
@@ -31,6 +32,7 @@ export default async function layout({ children, params }: layoutProps) {
         <>
             <Navbar siteId={id} />
             <main className="layout">{children}</main>
+            <Footer siteId={id} />
         </>
     );
 }
