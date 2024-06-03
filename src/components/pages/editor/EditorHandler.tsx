@@ -37,12 +37,15 @@ export default function EditorHandler() {
         setSelectedComponent,
         RenderComponents,
         handleDragEnd,
+        saveHandler,
+        publishHandler,
+        init,
     } = useEditor();
     const { typesWithComponents, page } = useSideNav();
     const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
-        setComponents(page?.pageComponents ?? []);
+        // setComponents(page?.pageComponents ?? []);
         // make it so that all the components from typesWithComponents are available to be added to the editor by satisfying the Component[] type
         let mergedComponents: Component[] = [];
         typesWithComponents.map((type) => {
@@ -52,7 +55,8 @@ export default function EditorHandler() {
                 });
             });
         });
-        setAvailableComponents(mergedComponents);
+        // setAvailableComponents(mergedComponents);
+        init(page?.pageComponents ?? [], mergedComponents);
     }, [setComponents, setAvailableComponents, typesWithComponents, page]);
 
     useDndMonitor({
@@ -91,7 +95,7 @@ export default function EditorHandler() {
                     <SideNav />
                 </div>
             </Editor.SideNav>
-            <Editor.TopNav />
+            <Editor.TopNav saveHandler={saveHandler} publishHandler={publishHandler} />
             <div className={cn("drag-container p-4 flex flex-col gap-4")}>
                 {siteNavbar[0] && (
                     <NavBarSelected stijl={siteNavbar[0].styles} />
