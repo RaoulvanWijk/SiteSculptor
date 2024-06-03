@@ -19,10 +19,15 @@ $defSpacing: 1rem;
   grid-template-rows: 0 1fr;
   overflow: hidden;
 }
-
-body {
+.layout-container-db {
   overflow: hidden;
+  // display: flex;
+  height: 100svh;
 }
+
+// body {
+//   overflow: hidden;
+// }
 
 .sidebar {
   grid-area: sidebar;
