@@ -8,7 +8,7 @@ export default function ContactForm() {
         return <p>Thanks for joining!</p>;
     }
     return (
-        <form onSubmit={handleSubmit}>
+        <form className='contact-form' onSubmit={handleSubmit}>
             <label htmlFor="email">
                 Email Address
             </label>

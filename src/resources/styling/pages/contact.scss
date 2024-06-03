@@ -20,34 +20,35 @@
     }
 
 }
-
-fieldset {
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    margin-top: 1rem;
-}
-
-input,
-textarea {
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-    font-size: 1rem;
-    width: 100%;
-    max-width: 400px;
-}
-
-input[type="submit"] {
-    margin-top: 1rem;
-    padding: 0.75rem;
-    background-color: #0070f3;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #005bb5;
+.contact-form {
+    fieldset {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    label {
+        margin-top: 1rem;
+    }
+    
+    input,
+    textarea {
+        margin-top: 0.5rem;
+        padding: 0.5rem;
+        font-size: 1rem;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    input[type="submit"] {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background-color: #0070f3;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    
+    input[type="submit"]:hover {
+        background-color: #005bb5;
+    }
 }
