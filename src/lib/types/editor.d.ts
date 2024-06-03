@@ -40,7 +40,6 @@ declare module "editor" {
     };
     children: NestedComponent[]; // The children components of the component
     parent?: string; // The parent component of the component
-
   };
   
   type NestedComponent = UsedComponent & {
