@@ -5,6 +5,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useRef,
   useState,
 } from "react";
 
@@ -40,6 +41,9 @@ type EditorContextType = {
   setSelectedComponent: Dispatch<SetStateAction<UsedComponent | null>>;
   RenderComponents: () => ReactNode;
   handleDragEnd: (event: DragEndEvent) => void;
+  saveHandler: () => void | Promise<void>;
+  publishHandler: () => void | Promise<void>;
+  init: (components: UsedComponent[], availableComponents: Component[]) => void;
 };
 
 export const EditorContext = createContext<EditorContextType | null>(null);
@@ -56,6 +60,17 @@ export default function EditorContextProvider({
 
   const [selectedComponent, setSelectedComponent] =
     useState<UsedComponent | null>(null);
+
+  const oldComponents = useRef<UsedComponent[]>([]);
+
+  const init = (
+    components: UsedComponent[],
+    availableComponents: Component[]
+  ) => {
+    setComponents(components);
+    setAvailableComponents(availableComponents);
+    oldComponents.current = components;
+  };
 
   const addComponent = (
     component: Component,
@@ -290,7 +305,7 @@ export default function EditorContextProvider({
       newComponents = newComponents.map((c, i) => {
         return updateIndexesOfContainer(c);
       });
-      
+
       setComponents(newComponents);
       return;
     }
@@ -338,7 +353,7 @@ export default function EditorContextProvider({
         if (!parent || !activeComponent) return;
 
         removeComponent(activeComponent);
-        activeComponent.index = 0
+        activeComponent.index = 0;
         parent.children.push(activeComponent);
         let newComponents = [...componentsInEditor];
         newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
@@ -381,6 +396,111 @@ export default function EditorContextProvider({
     }
   };
 
+  function getChangedProperties(
+    initial: any,
+    changed: any
+  ): Partial<UsedComponent> | undefined {
+    const result: any = {};
+    let hasChanges = false;
+  
+    for (const key in initial) {
+      if (initial[key] instanceof Object && changed[key] instanceof Object && !Array.isArray(initial[key])) {
+        const nestedChanges = getChangedProperties(initial[key], changed[key]);
+        if (nestedChanges) {
+          result[key] = nestedChanges;
+          hasChanges = true;
+        }
+      } else if (initial[key] !== changed[key]) {
+        result[key] = changed[key];
+        hasChanges = true;
+      }
+    }
+  
+    for (const key in changed) {
+      if (!(key in initial)) {
+        result[key] = changed[key];
+        hasChanges = true;
+      }
+    }
+  
+    return hasChanges ? result : undefined;
+  }
+  
+  function findChanges(
+    initialArray: UsedComponent[],
+    changedArray: UsedComponent[]
+  ): any[] {
+    const changes: any[] = [];
+  
+    const initialMap = new Map<string, UsedComponent>();
+    initialArray.forEach((component) => initialMap.set(component.id, component));
+  
+    const changedMap = new Map<string, UsedComponent>();
+    changedArray.forEach((component) => changedMap.set(component.id, component));
+  
+    // Find the removed components and add them to the changes array
+    initialArray.forEach((component) => {
+      if (!changedMap.has(component.id)) {
+        changes.push({
+          type: "removed",
+          component: {
+            id: component.id,
+            children: component.children.map((child) => {
+              return {
+                type: "removed",
+                id: child.id,
+              };
+            }),
+          },
+        });
+      } else {
+        //
+      }
+      
+    });
+
+    // Find the added components and add them to the changes array
+    // changedArray.forEach((component) => {
+    //   if (!initialMap.has(component.id)) {
+    //     changes.push({
+    //       type: "added",
+    //       component: {
+    //         id: component.id,
+    //         children: component.children.map((child) => child.id),
+    //       },
+    //     });
+    //   }
+    // });
+
+
+    return changes;
+  }
+
+  const saveHandler = () => {
+    const oldComponentsCurrent = oldComponents.current;
+    const newComponentsCurrent = componentsInEditor;
+    console.log("====================================");
+    console.log("Old components", oldComponentsCurrent);
+    console.log(
+      "newComponentsCurrent",
+      newComponentsCurrent
+    );
+
+    console.log("====================================");
+
+    // compare the old components with the new components
+    // and put the differences in an array
+    const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
+
+    console.log("====================================");
+    console.log("Differences", differences);
+    console.log("====================================");
+  };
+
+  const publishHandler = () => {
+    console.log("Publish handler");
+  };
+
   return (
     <EditorContext.Provider
       value={{
@@ -395,6 +515,9 @@ export default function EditorContextProvider({
         setSelectedComponent,
         RenderComponents,
         handleDragEnd,
+        saveHandler,
+        publishHandler,
+        init,
       }}
     >
       {children}
