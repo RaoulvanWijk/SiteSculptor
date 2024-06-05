@@ -8,6 +8,7 @@ import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 
 import { Metadata } from "next";
 import { headers } from "next/headers";
+import EasyToUse from "./_components/svg/EasyToUse";
 
 export const metadata: Metadata = {
     title: "Avklo",
@@ -45,7 +46,9 @@ export default function Home() {
                 <InfoCards icon={<Zap />} type="light">
                     Designed to be easy to use!
                 </InfoCards>
-                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards header="" type="dark">
+                    <EasyToUse />
+                </InfoCards>
             </div>
             <div className="cardRow">
                 <InfoCards header="" type="dark"></InfoCards>
