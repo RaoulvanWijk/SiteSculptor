@@ -7,8 +7,16 @@ import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
 import { nanoid } from "nanoid";
+import { useSession } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
+    // check if user is logged in
+    const { data: session } = useSession();
+    if (!session) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const { name } = await request.json();
         const siteId = nanoid();

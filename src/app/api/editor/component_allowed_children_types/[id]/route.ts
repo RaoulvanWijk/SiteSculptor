@@ -5,12 +5,20 @@ import {
     componentAllowedChildrenTypes,
 } from "@/lib/db/schema/componentAllowedChildrenTypes";
 import { eq } from "drizzle-orm";
+import { useSession } from "next-auth/react";
 
 export async function GET(
     req: NextRequest,
     res: NextResponse,
     { params }: any
 ) {
+    // check if user is logged in
+    const { data: session } = useSession();
+    if (!session) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const id: any = params.id;
         const idComponentAllowedChildrenTypes = await db

@@ -3,8 +3,16 @@ import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
 import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { getUserAuth } from "@/lib/auth/utils";
+import { useSession } from "next-auth/react";
 
 export async function PUT(request: NextRequest, { params }: any) {
+    // check if user is logged in
+    const { data: session } = useSession();
+    if (!session) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const id: any = params.id;
         const { name } = await request.json();
