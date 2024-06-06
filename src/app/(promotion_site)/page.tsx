@@ -38,8 +38,6 @@ export default function Home() {
                 </PageHeader>
             </div>
 
-            <Example />
-
             <Overview />
 
             <div className="cardRow">

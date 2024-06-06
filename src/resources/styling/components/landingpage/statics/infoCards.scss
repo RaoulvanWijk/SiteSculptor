@@ -10,16 +10,17 @@
         font-size: 3.5rem;
         line-height: 5rem;
     }
+    
 }
 
 .darkCard {
     width: 60%;
     height: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    text-align: center;
     background-color: var(--dark-purp);
+    svg {
+        height: 100%;
+    }
 }
 
 .lightCard {
