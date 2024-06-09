@@ -1,24 +1,47 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
+import { checkAuth, getUserAuth } from "./lib/auth/utils";
+import { withAuth } from "next-auth/middleware";
 
-export function middleware(request: Request) {
-  
-  if (process.env.CODE_ENV === 'test') {
-    console.log('API routes are disabled for this environment');
-    const host = process.env.NEXTAUTH_URL;
-    // return NextResponse.error(new Error('API routes are disabled for this environment'));
-    if (request.url.startsWith(host + '/api') || request.url.startsWith(host + '/app') || request.url.startsWith(host + '/editor')) {
-      return NextResponse.json({ error: 'routes are disabled for this environment' }, { status: 403 });
+export default withAuth(
+    function middleware(request: NextRequest) {
+        if (process.env.CODE_ENV === "test") {
+            console.log("API routes are disabled for this environment");
+            const host = process.env.NEXTAUTH_URL;
+            // return NextResponse.error(new Error('API routes are disabled for this environment'));
+            if (
+                request.url.startsWith(host + "/api") ||
+                request.url.startsWith(host + "/app") ||
+                request.url.startsWith(host + "/editor")
+            ) {
+                return NextResponse.json(
+                    { error: "routes are disabled for this environment" },
+                    { status: 403 }
+                );
+            }
+        }
+
+        // Store current request url in a custom header, which you can read later
+        const requestHeaders = new Headers(request.headers);
+        requestHeaders.set("x-url", request.url);
+
+        return NextResponse.next({
+            request: {
+                // Apply new request headers
+                headers: requestHeaders,
+            },
+        });
+    },
+    {
+        callbacks: {
+            authorized: ({ token }) => {
+                console.log("authorized", token);
+                if (token) {
+                    return false;
+                }
+                return true;
+            },
+        },
     }
-  }
+);
 
-  // Store current request url in a custom header, which you can read later
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-url', request.url);
-
-  return NextResponse.next({
-    request: {
-      // Apply new request headers
-      headers: requestHeaders,
-    }
-  });
-}
+export const config = { matcher: ["/"] };

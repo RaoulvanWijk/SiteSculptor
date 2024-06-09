@@ -5,12 +5,7 @@ import { useSession } from "next-auth/react";
 
 export async function POST(req: Request, res: Response) {
     // check if user is logged in
-    const { data: session } = useSession();
-    if (!session) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
+
     try {
         const { name, type, props, styles, hasChildren } = await req.json();
 

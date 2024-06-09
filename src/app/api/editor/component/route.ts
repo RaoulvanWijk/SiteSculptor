@@ -5,12 +5,7 @@ import { useSession } from "next-auth/react";
 
 export async function GET(req: NextRequest, res: NextResponse) {
     // check if user is logged in
-    const { data: session } = useSession();
-    if (!session) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
+
     try {
         const allComponents = await db.select().from(components).execute();
         return new NextResponse(JSON.stringify(allComponents), {

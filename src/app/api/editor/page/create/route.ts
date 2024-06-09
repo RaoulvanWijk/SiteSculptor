@@ -6,12 +6,7 @@ import { useSession } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
     // check if user is logged in
-    const { data: session } = useSession();
-    if (!session) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
+
     try {
         const { title, slug, siteId } = await request.json();
         const id = nanoid();
