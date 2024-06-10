@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkAuth, getUserAuth } from "./lib/auth/utils";
 import { withAuth } from "next-auth/middleware";
+const { headers, cookies } = require("next/headers");
 
 export default withAuth(
     function middleware(request: NextRequest) {
@@ -33,15 +33,18 @@ export default withAuth(
     },
     {
         callbacks: {
-            authorized: ({ token }) => {
-                console.log("authorized", token);
-                if (token) {
-                    return false;
+            authorized: (x) => {
+                const hasToken = x.req.cookies.has("next-auth.session-token");
+                if (hasToken) {
+                    return true;
                 }
-                return true;
+                return false;
             },
+        },
+        pages: {
+            error: "/404",
         },
     }
 );
 
-export const config = { matcher: ["/"] };
+export const config = { matcher: ["/api/editor/:path*"] };

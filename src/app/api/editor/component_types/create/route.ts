@@ -4,7 +4,6 @@ import {
     insertComponentTypeSchema,
     componentTypes,
 } from "@/lib/db/schema/componentTypes";
-import { useSession } from "next-auth/react";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     // check if user is logged in

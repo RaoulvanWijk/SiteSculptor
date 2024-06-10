@@ -3,11 +3,9 @@ import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { siteNavbars } from "@/lib/db/schema/siteNavbars";
 import { siteFooters } from "@/lib/db/schema/siteFooters";
-import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
 import { nanoid } from "nanoid";
-import { useSession } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
     // check if user is logged in

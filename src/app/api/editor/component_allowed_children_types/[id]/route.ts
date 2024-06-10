@@ -5,7 +5,6 @@ import {
     componentAllowedChildrenTypes,
 } from "@/lib/db/schema/componentAllowedChildrenTypes";
 import { eq } from "drizzle-orm";
-import { useSession } from "next-auth/react";
 
 export async function GET(
     req: NextRequest,

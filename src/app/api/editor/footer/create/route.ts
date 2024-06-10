@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { footers, insertFooterSchema } from "@/lib/db/schema/footers";
 import { db } from "@/lib/db/index";
-import { useSession } from "next-auth/react";
 
 export async function POST(request: NextRequest) {
     // check if user is logged in

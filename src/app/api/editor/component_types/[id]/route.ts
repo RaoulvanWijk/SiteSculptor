@@ -5,7 +5,6 @@ import {
     componentTypes,
 } from "@/lib/db/schema/componentTypes";
 import { eq } from "drizzle-orm";
-import { useSession } from "next-auth/react";
 
 export async function GET(
     req: NextRequest,
