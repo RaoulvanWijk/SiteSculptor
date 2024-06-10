@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { withAuth } from "next-auth/middleware";
+import { db } from "@/lib/db/index";
+import { sessions } from "./lib/db/schema/auth";
 const { headers, cookies } = require("next/headers");
 
 export default withAuth(
@@ -33,8 +35,19 @@ export default withAuth(
     },
     {
         callbacks: {
-            authorized: (x) => {
+            authorized: async (x) => {
                 const hasToken = x.req.cookies.has("next-auth.session-token");
+                const token = x.req.cookies.get("next-auth.session-token");
+
+                let checkDb;
+                try {
+                    checkDb = await db.select().from(sessions);
+                } catch (error) {
+                    console.log("error", error);
+                }
+
+                console.log("hasToken", checkDb);
+
                 if (hasToken) {
                     return true;
                 }
