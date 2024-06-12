@@ -9,6 +9,8 @@ import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
 import { Metadata } from "next";
 import { headers } from "next/headers";
 import EasyToUse from "./_components/svg/EasyToUse";
+import EasilyCustomizable from "./_components/svg/EasilyCustomizable";
+import FastWay from "./_components/svg/FastWay";
 
 export const metadata: Metadata = {
     title: "Avklo",
@@ -49,7 +51,9 @@ export default function Home() {
                 </InfoCards>
             </div>
             <div className="cardRow">
-                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards header="" type="dark">
+                    <EasilyCustomizable />
+                </InfoCards>
                 <InfoCards icon={<Palette />} type="light">
                     Easily customizable
                 </InfoCards>
@@ -61,7 +65,9 @@ export default function Home() {
                 <InfoCards type="dark"></InfoCards>
             </div>
             <div className="cardRow">
-                <InfoCards header="" type="dark"></InfoCards>
+                <InfoCards header="" type="dark">
+                    <FastWay />
+                </InfoCards>
                 <InfoCards icon={<AlarmClock />} type="light">
                     Fastest way to build your website
                 </InfoCards>
