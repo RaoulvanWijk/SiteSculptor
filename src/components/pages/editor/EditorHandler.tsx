@@ -56,7 +56,8 @@ export default function EditorHandler() {
             });
         });
         // setAvailableComponents(mergedComponents);
-        init(page?.pageComponents ?? [], mergedComponents);
+        if(!page) return;
+        init(page?.pageComponents ?? [], mergedComponents, page?.id);
     }, [setComponents, setAvailableComponents, typesWithComponents, page]);
 
     useDndMonitor({
@@ -95,7 +96,7 @@ export default function EditorHandler() {
                     <SideNav />
                 </div>
             </Editor.SideNav>
-            <Editor.TopNav saveHandler={saveHandler} publishHandler={publishHandler} />
+            <Editor.TopNav saveHandler={() => saveHandler(page?.id)} publishHandler={publishHandler} />
             <div className={cn("drag-container p-4 flex flex-col gap-4")}>
                 {siteNavbar[0] && (
                     <NavBarSelected stijl={siteNavbar[0].styles} />

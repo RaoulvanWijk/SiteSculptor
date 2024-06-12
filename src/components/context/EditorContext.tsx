@@ -41,9 +41,9 @@ type EditorContextType = {
   setSelectedComponent: Dispatch<SetStateAction<UsedComponent | null>>;
   RenderComponents: () => ReactNode;
   handleDragEnd: (event: DragEndEvent) => void;
-  saveHandler: () => void | Promise<void>;
+  saveHandler: (activePage: string) => void | Promise<void>;
   publishHandler: () => void | Promise<void>;
-  init: (components: UsedComponent[], availableComponents: Component[]) => void;
+  init: (components: UsedComponent[], availableComponents: Component[], activePage: string) => void;
 };
 
 export const EditorContext = createContext<EditorContextType | null>(null);
@@ -65,12 +65,17 @@ export default function EditorContextProvider({
 
   const init = (
     components: UsedComponent[],
-    availableComponents: Component[]
+    availableComponents: Component[],
+    activePage: string
   ) => {
     const changes = localStorage.getItem("changes");
     if (changes) {
       const parsedChanges = JSON.parse(changes);
-      setComponents(applyChanges(components, parsedChanges));
+      if (parsedChanges && parsedChanges[activePage] && parsedChanges[activePage].length > 0) {
+        setComponents(parsedChanges[activePage]);
+      } else {
+        setComponents(components);
+      } 
     } else {
       setComponents(components);
     }
@@ -192,7 +197,7 @@ export default function EditorContextProvider({
     return <></>;
   };
 
-  const handleNestedComponents = (component: UsedComponent) => {};
+  const handleNestedComponents = (component: UsedComponent) => { };
 
   const updateIndexesOfContainer = (component: UsedComponent) => {
     component.children = component.children.map((child, index) => ({
@@ -554,30 +559,41 @@ export default function EditorContextProvider({
     return newComponents;
   }
 
-  const saveHandler = () => {
+  const saveHandler = (activePage: string) => {
     const oldComponentsCurrent = oldComponents.current;
     const newComponentsCurrent = componentsInEditor;
-    // console.log("====================================");
-    // console.log("Old components", oldComponentsCurrent);
-    // console.log(
-    //   "newComponentsCurrent",
-    //   newComponentsCurrent
-    // );
 
-    // console.log("====================================");
+    let currentChanges = localStorage.getItem("changes")
+    let newChanges: { [key: string]: any } = {};
+    if (currentChanges) {
+      newChanges = JSON.parse(currentChanges)
 
-    // compare the old components with the new components
-    // and put the differences in an array
-    const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
+    } else {
+      newChanges = {}
+    }
 
-    console.log("====================================");
-    console.log("Differences", differences);
-    console.log("====================================");
-    localStorage.setItem("changes", JSON.stringify(differences));
+    if (!newChanges) {
+      newChanges = {}
+    }
+
+    if(JSON.stringify(newComponentsCurrent) == JSON.stringify(oldComponentsCurrent)) {
+      newChanges[activePage] = null
+    } else {
+      newChanges[activePage] = newComponentsCurrent
+    }
+
+    const stringifiedChanges = JSON.stringify(newChanges);
+    localStorage.setItem("changes", stringifiedChanges);
   };
 
   const publishHandler = () => {
     console.log("Publish handler");
+    const oldComponentsCurrent = oldComponents.current;
+    const newComponentsCurrent = componentsInEditor;
+
+    // find the differences between the old and new components
+    const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
+
   };
 
   return (
