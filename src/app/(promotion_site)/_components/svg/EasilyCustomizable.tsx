@@ -4,7 +4,7 @@ export default function EasilyCustomizable() {
     return (
         <svg
             width="820"
-            height="563"
+            height="500"
             viewBox="0 0 820 563"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"

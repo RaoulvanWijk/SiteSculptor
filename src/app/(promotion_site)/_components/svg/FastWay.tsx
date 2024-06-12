@@ -8,6 +8,7 @@ export default function FastWay() {
             viewBox="0 0 806 774"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            style={{ width: "30rem" }}
         >
             <path
                 opacity="0.03"
