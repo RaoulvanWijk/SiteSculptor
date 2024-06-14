@@ -19,9 +19,8 @@ declare module "editor" {
       [key: string]: string | string[]; // the different styles that the component can have (e.g. different button types, different text sizes, etc.)
     };
     hasChildren: boolean; // If the component is allowed to have children components inside itself
-    allowedChildren: ComponentTypes[]; // The types of components that are allowed to be children of this component
+    allowedChildren?: ComponentTypes[]; // The types of components that are allowed to be children of this component
   };
-
   type UsedComponent = {
     id: string; // The id of the component
     index: number; // The index of the component in the editor
@@ -33,11 +32,14 @@ declare module "editor" {
       [key: string]: string | string[]; // The styles that the component has
     };
     children: NestedComponent[]; // The children components of the component
-  };
+    parent?: string; // The parent component of the component
 
+  };
+  
   type NestedComponent = UsedComponent & {
     parent?: string; // The parent component of the component
   };
+
   type EditorHandlerState = {
     selectedComponent: Component | null; // The component that is currently selected in the editor
     components: UsedComponent[]; // The components that are currently in the editor

@@ -2,6 +2,7 @@
   background-color: var(--wht);
   box-shadow: 0px 0px 2px #AEAEAE;
   border-radius: 0.375rem 0rem 0 0;
+  height: 100%;
 }
 
 $sidenavWidth: 17.5rem;
@@ -35,9 +36,9 @@ body {
 .content {
   grid-area: container;
   overflow-x: hidden;
-  padding: .5rem 1.5rem;
   overflow-y: auto;
   padding-bottom: 6rem;
+  background-color: #ececec;
 
   h1, h3{
     font-weight: bold;
@@ -58,4 +59,27 @@ body {
   display: flex;
   flex-flow: row wrap;
   gap: $defSpacing;
+}
+
+.settings-content{
+  color:black;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 2rem 0 2rem;
+
+  .settings-header{
+
+    h2{
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  }
+
+  .settings-menu{
+    background-color: var(--wht);
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+  }
 }
