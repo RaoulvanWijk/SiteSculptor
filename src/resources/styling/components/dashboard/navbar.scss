@@ -3,8 +3,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-inline: 1.5rem;
+    padding: 1rem;
     height: 5rem;
+
     img {
         height: 50px;
         width: auto;
@@ -20,6 +21,7 @@
     position: relative;
     align-items: center;
     gap: .5rem;
+    height: inherit;
 }
 
 .rightside {
