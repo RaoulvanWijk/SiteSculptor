@@ -1,4 +1,4 @@
-:root{
+:root {
     // Base Colors
     --acc: #4759FF;
     --prm: #463ACB;
@@ -9,6 +9,7 @@
     --soft: #E2E8F0;
     --link: #0000EE;
     --warning: #ff0000;
+    --light: #7e7e7e;
 
     --blk: #050316;
 
@@ -44,37 +45,37 @@
 
 .dark {
 
-   // Base Colors
-   --acc: #4759FF;
-   --prm: #463ACB;
-   --sec: #DDDBFF;
-   --txt: #fff;
-   --wht: #fff;
+    // Base Colors
+    --acc: #4759FF;
+    --prm: #463ACB;
+    --sec: #DDDBFF;
+    --txt: #fff;
+    --wht: #fff;
 
-   --bg: #000000;
+    --bg: #000000;
 
-   // Faded Colors
-   --b-fade: #00000049;
+    // Faded Colors
+    --b-fade: #00000049;
 
-   // Gradient Colors
-   --s-gray: #EDEDED;
-   --e-gray: #B3B3B3;
-   --s-purp: #EDEDED;
-   --m-purp: #9747FF;
-   --e-purp: #4E3ABA;
-   --s-pink: #EDEDED;
-   --m-pink: #A24688;
-   --e-pink: #DB4E66;
+    // Gradient Colors
+    --s-gray: #EDEDED;
+    --e-gray: #B3B3B3;
+    --s-purp: #EDEDED;
+    --m-purp: #9747FF;
+    --e-purp: #4E3ABA;
+    --s-pink: #EDEDED;
+    --m-pink: #A24688;
+    --e-pink: #DB4E66;
 
-   // Gradient Angles
-   --45: 45deg;
-   --90: 90deg;
-   --30: 30deg;
-   --180: 180deg;
+    // Gradient Angles
+    --45: 45deg;
+    --90: 90deg;
+    --30: 30deg;
+    --180: 180deg;
 
-   // Gradients
-   --gr-gray: linear-gradient(var(--90), var(--s-gray), var(--e-gray));
-   --gr-purp: linear-gradient(var(--45), var(--s-purp), var(--m-purp), var(--e-purp));
-   --gr-pink: linear-gradient(var(--45), var(--s-pink), var(--m-pink), var(--e-pink));
+    // Gradients
+    --gr-gray: linear-gradient(var(--90), var(--s-gray), var(--e-gray));
+    --gr-purp: linear-gradient(var(--45), var(--s-purp), var(--m-purp), var(--e-purp));
+    --gr-pink: linear-gradient(var(--45), var(--s-pink), var(--m-pink), var(--e-pink));
 
 }

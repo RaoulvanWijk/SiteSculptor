@@ -9,6 +9,17 @@
         height: 50px;
         width: auto;
     }
+
+    .navbar-items{
+        font-weight: bold;
+    }
+}
+
+.leftside{
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: .5rem;
 }
 
 .rightside {
