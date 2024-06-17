@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
     varchar,
     int,
@@ -34,6 +34,17 @@ export const components = mysqlTable("components", {
         .notNull()
         .default(sql`now()`),
 });
+
+export const componentsRelations = relations(components, ({ one }) => ({
+    type: one(componentTypes, {
+        fields: [components.type],
+        references: [componentTypes.id],
+    }),
+    pageComponents: one(pageComponents, {
+        fields: [pageComponents.componentId],
+        references: [components.id],
+    }),
+}));
 
 // Schema for components - used to validate API requests
 const baseSchema = createSelectSchema(components).omit(timestamps);
