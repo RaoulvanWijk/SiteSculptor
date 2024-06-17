@@ -80,5 +80,14 @@ body {
     border-radius: 10px;
     width: 100%;
     height: 100%;
+    padding: .75rem;
+  }
+
+  .quick-link{
+    display: none;
+  }
+
+  .account-setting{
+    display: block;
   }
 }

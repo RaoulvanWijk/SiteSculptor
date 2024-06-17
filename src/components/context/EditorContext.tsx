@@ -5,6 +5,7 @@ import {
   ReactNode,
   SetStateAction,
   createContext,
+  useRef,
   useState,
 } from "react";
 
@@ -40,6 +41,9 @@ type EditorContextType = {
   setSelectedComponent: Dispatch<SetStateAction<UsedComponent | null>>;
   RenderComponents: () => ReactNode;
   handleDragEnd: (event: DragEndEvent) => void;
+  saveHandler: (activePage: string) => void | Promise<void>;
+  publishHandler: () => void | Promise<void>;
+  init: (components: UsedComponent[], availableComponents: Component[], activePage: string) => void;
 };
 
 export const EditorContext = createContext<EditorContextType | null>(null);
@@ -56,6 +60,30 @@ export default function EditorContextProvider({
 
   const [selectedComponent, setSelectedComponent] =
     useState<UsedComponent | null>(null);
+
+  const oldComponents = useRef<UsedComponent[]>([]);
+
+  const init = (
+    components: UsedComponent[],
+    availableComponents: Component[],
+    activePage: string
+  ) => {
+    const changes = localStorage.getItem("changes");
+    if (changes) {
+      const parsedChanges = JSON.parse(changes);
+      if (parsedChanges && parsedChanges[activePage] && parsedChanges[activePage].length > 0) {
+        setComponents(parsedChanges[activePage]);
+      } else {
+        setComponents(components);
+      } 
+    } else {
+      setComponents(components);
+    }
+    setAvailableComponents(availableComponents);
+    if (oldComponents.current.length === 0) {
+      oldComponents.current = components;
+    }
+  };
 
   const addComponent = (
     component: Component,
@@ -104,10 +132,7 @@ export default function EditorContextProvider({
       let newComponents = [...componentsInEditor];
       newComponents = newComponents.map((c) => {
         if (c.id === parent.id) {
-          return {
-            ...c,
-            children: reorderComponents(index, index + 1, parent.children),
-          };
+          return updateIndexesOfContainer(c);
         }
         return c;
       });
@@ -172,7 +197,7 @@ export default function EditorContextProvider({
     return <></>;
   };
 
-  const handleNestedComponents = (component: UsedComponent) => {};
+  const handleNestedComponents = (component: UsedComponent) => { };
 
   const updateIndexesOfContainer = (component: UsedComponent) => {
     component.children = component.children.map((child, index) => ({
@@ -290,7 +315,7 @@ export default function EditorContextProvider({
       newComponents = newComponents.map((c, i) => {
         return updateIndexesOfContainer(c);
       });
-      
+
       setComponents(newComponents);
       return;
     }
@@ -338,7 +363,7 @@ export default function EditorContextProvider({
         if (!parent || !activeComponent) return;
 
         removeComponent(activeComponent);
-        activeComponent.index = 0
+        activeComponent.index = 0;
         parent.children.push(activeComponent);
         let newComponents = [...componentsInEditor];
         newComponents = newComponents.map((c, i) => ({ ...c, index: i }));
@@ -376,9 +401,199 @@ export default function EditorContextProvider({
           ? 0
           : getOverIndex(event) + 1
         : getOverIndex(event);
+
+      console.log("Parent", parent, idx, newComponent);
+
       addComponent(newComponent, idx, parent);
       return;
     }
+  };
+
+  function getChangedProperties(
+    initial: any,
+    changed: any
+  ): Partial<UsedComponent> | undefined {
+    const result: any = {};
+    let hasChanges = false;
+
+    for (const key in initial) {
+      if (
+        initial[key] instanceof Object &&
+        changed[key] instanceof Object &&
+        !Array.isArray(initial[key])
+      ) {
+        if (key === "children") {
+          continue;
+        }
+        const nestedChanges = getChangedProperties(initial[key], changed[key]);
+        if (nestedChanges) {
+          result[key] = nestedChanges;
+          hasChanges = true;
+        }
+      } else if (initial[key] !== changed[key]) {
+        if (key === "children") {
+          continue;
+        }
+        result[key] = changed[key];
+        hasChanges = true;
+      }
+    }
+
+    for (const key in changed) {
+      if (!(key in initial)) {
+        if (key === "children") {
+          continue;
+        }
+        result[key] = changed[key];
+        hasChanges = true;
+      }
+    }
+
+    return hasChanges ? result : undefined;
+  }
+
+  function findChanges(
+    initialArray: UsedComponent[],
+    changedArray: UsedComponent[]
+  ): any[] {
+    let changes: any[] = [];
+
+    // Create a map of the initial components where the children are also in the same map level
+    const initialMap = new Map<string, UsedComponent>();
+    initialArray.forEach((component) => {
+      initialMap.set(component.id, component);
+      component.children.forEach((child) => {
+        child.parent = component.id;
+        initialMap.set(child.id, child);
+      });
+    });
+
+    // do the same for the changed components
+    const changedMap = new Map<string, UsedComponent>();
+    changedArray.forEach((component) => {
+      changedMap.set(component.id, component);
+      component.children.forEach((child) => {
+        child.parent = component.id;
+        changedMap.set(child.id, child);
+      });
+    });
+
+    // iterate over the initial components and compare them with the changed components
+    initialMap.forEach((initialComponent, id) => {
+      const changedComponent = changedMap.get(id);
+      if (!changedComponent) {
+        changes.push({ id, type: "remove" });
+        return;
+      }
+
+      const changedProperties = getChangedProperties(
+        initialComponent,
+        changedComponent
+      );
+      if (changedProperties) {
+        changes.push({ id, type: "update", changes: changedProperties });
+        return;
+      }
+    });
+
+    // iterate over the changed components and find the new components
+    changedMap.forEach((changedComponent, id) => {
+      if (!initialMap.has(id)) {
+        changes.push({ id, type: "add", component: changedComponent });
+      }
+    });
+    return changes;
+  }
+
+
+  /**
+   * TODO function to apply changes to the components array
+   * @param components 
+   * @param changes 
+   * @returns 
+   */
+  function applyChanges(
+    components: UsedComponent[],
+    changes: any[]
+  ): UsedComponent[] {
+    let newComponents = [...components];
+    changes.forEach((change) => {
+      // check if the change is from a child component
+      const parent = newComponents.find((c) =>
+        c.children.find((child) => child.id === change.id)
+      );
+      if (parent) {
+        const child = parent.children.find((child) => child.id === change.id);
+        if (!child) return;
+        if (change.type === "remove") {
+          parent.children = parent.children.filter(
+            (child) => child.id !== change.id
+          );
+        } else if (change.type === "update") {
+          const updatedChild = { ...child, ...change.changes };
+          parent.children = parent.children.map((c) =>
+            c.id === change.id ? updatedChild : c
+          );
+        }
+        return;
+      }
+
+      if (change.type === "remove") {
+        newComponents = newComponents.filter((c) => c.id !== change.id);
+      } else if (change.type === "update") {
+        const updatedComponent = newComponents.find((c) => c.id === change.id);
+        if (!updatedComponent) return;
+        newComponents = newComponents.map((c) =>
+          c.id === change.id ? { ...c, ...change.changes } : c
+        );
+      } else if (change.type === "add") {
+        newComponents.push(change.component);
+      }
+
+      return;
+    });
+
+    console.log('====================================');
+    console.log('New components', newComponents);
+    console.log('====================================');
+    return newComponents;
+  }
+
+  const saveHandler = (activePage: string) => {
+    const oldComponentsCurrent = oldComponents.current;
+    const newComponentsCurrent = componentsInEditor;
+
+    let currentChanges = localStorage.getItem("changes")
+    let newChanges: { [key: string]: any } = {};
+    if (currentChanges) {
+      newChanges = JSON.parse(currentChanges)
+
+    } else {
+      newChanges = {}
+    }
+
+    if (!newChanges) {
+      newChanges = {}
+    }
+
+    if(JSON.stringify(newComponentsCurrent) == JSON.stringify(oldComponentsCurrent)) {
+      newChanges[activePage] = null
+    } else {
+      newChanges[activePage] = newComponentsCurrent
+    }
+
+    const stringifiedChanges = JSON.stringify(newChanges);
+    localStorage.setItem("changes", stringifiedChanges);
+  };
+
+  const publishHandler = () => {
+    console.log("Publish handler");
+    const oldComponentsCurrent = oldComponents.current;
+    const newComponentsCurrent = componentsInEditor;
+
+    // find the differences between the old and new components
+    const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
+
   };
 
   return (
@@ -395,6 +610,9 @@ export default function EditorContextProvider({
         setSelectedComponent,
         RenderComponents,
         handleDragEnd,
+        saveHandler,
+        publishHandler,
+        init,
       }}
     >
       {children}

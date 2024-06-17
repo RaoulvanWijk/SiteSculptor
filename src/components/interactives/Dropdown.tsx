@@ -8,7 +8,7 @@ interface DropdownProps {
 
 const Dropdown: React.FC<DropdownProps> = ({ label, items }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(label || "English (US)");
+    const [selectedItem, setSelectedItem] = useState(label || "Option");
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);
