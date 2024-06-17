@@ -5,6 +5,7 @@ import {
     componentTypes,
 } from "@/lib/db/schema/componentTypes";
 import { eq } from "drizzle-orm";
+import validateSession from "@/lib/checkSession";
 
 export async function GET(
     req: NextRequest,
@@ -12,6 +13,13 @@ export async function GET(
     { params }: any
 ) {
     // check if user is logged in
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
 
     try {
         const id: any = params.id;

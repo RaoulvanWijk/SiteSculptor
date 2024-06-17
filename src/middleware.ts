@@ -36,22 +36,7 @@ export default withAuth(
     {
         callbacks: {
             authorized: async (x) => {
-                const hasToken = x.req.cookies.has("next-auth.session-token");
-                const token = x.req.cookies.get("next-auth.session-token");
-
-                let checkDb;
-                try {
-                    checkDb = await db.select().from(sessions);
-                } catch (error) {
-                    console.log("error", error);
-                }
-
-                console.log("hasToken", checkDb);
-
-                if (hasToken) {
-                    return true;
-                }
-                return false;
+                return true;
             },
         },
         pages: {

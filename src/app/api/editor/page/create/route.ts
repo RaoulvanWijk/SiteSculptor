@@ -2,10 +2,17 @@ import { db } from "@/lib/db/index";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
+import validateSession from "@/lib/checkSession";
 
 export async function POST(request: NextRequest) {
     // check if user is logged in
-
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const { title, slug, siteId } = await request.json();
         const id = nanoid();

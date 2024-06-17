@@ -4,8 +4,18 @@ import { eq } from "drizzle-orm";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
 import { useSession } from "next-auth/react";
+import checkSession from "@/lib/checkSession";
+import validateSession from "@/lib/checkSession";
 export async function GET(request: NextRequest, { params }: any) {
     // check if user is logged in
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
+
     try {
         const user = await getUserAuth();
         if (!user) {
@@ -18,6 +28,7 @@ export async function GET(request: NextRequest, { params }: any) {
         }
 
         const userId = user.session?.user.id as string;
+        console.log(userId);
 
         const site = await db
             .select()

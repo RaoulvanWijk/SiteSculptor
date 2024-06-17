@@ -5,10 +5,17 @@ import {
     componentAllowedChildrenTypes,
 } from "@/lib/db/schema/componentAllowedChildrenTypes";
 import { useSession } from "next-auth/react";
+import validateSession from "@/lib/checkSession";
 
 export async function GET(req: NextRequest, res: NextResponse) {
     // check if user is logged in
-
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const allComponentAllowedChildrenTypes = await db
             .select()

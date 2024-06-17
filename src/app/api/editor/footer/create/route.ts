@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { footers, insertFooterSchema } from "@/lib/db/schema/footers";
 import { db } from "@/lib/db/index";
+import validateSession from "@/lib/checkSession";
 
 export async function POST(request: NextRequest) {
     // check if user is logged in
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
 
     try {
         const { name, styles, props } = await request.json();

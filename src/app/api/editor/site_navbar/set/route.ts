@@ -7,11 +7,13 @@ import { navbars } from "@/lib/db/schema/navbars";
 import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
 import { useSession } from "next-auth/react";
+import validateSession from "@/lib/checkSession";
 
 export async function PUT(request: NextRequest) {
     // check if user is logged in
-    const { data: session } = useSession();
-    if (!session) {
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
         return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
             status: 401,
         });
