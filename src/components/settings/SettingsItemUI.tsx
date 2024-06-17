@@ -56,7 +56,7 @@ const SettingsItemUI = ({ itemName, itemDesc, type, items, linkto, placeholder }
                     <hr />
                     <div className="sm-row">
                         <p>{itemDesc}</p>
-                        <Link href={linkto || ""} />
+                        <div className="settings-button"><Link href={linkto || ""} />{placeholder}</div>
                     </div>
                 </div>
             )

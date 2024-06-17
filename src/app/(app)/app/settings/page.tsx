@@ -8,6 +8,7 @@ import SettingsItemUI from "@/components/settings/SettingsItemUI";
 export default function Page() {
     const { setTheme } = useTheme();
     const lang = ["English (US)", "Dutch", "Spanish"];
+    const theme = ["Dark", "Light", "System"];
 
     return (
         <div className="settings-content">
@@ -15,8 +16,19 @@ export default function Page() {
                 <h2>Quick Links</h2>
                 <p>A quick overview of the most used settings</p>
             </div>
-            <div className="settings-menu">
+            <div className="settings-menu quick-link">
                 <SettingsItemUI type="dropdown" itemName="Language" itemDesc="Choose Interface Language - Only English is supported in this version" items={lang} />
+                <SettingsItemUI type="radio" itemName="Theme" itemDesc="Choose Default Theme - Light, Dark or System" items={theme} />
+                <SettingsItemUI type="link" itemName="Account Settings" itemDesc="Go to account settings" linkto="#" placeholder="To Account Settings"/>
+                <SettingsItemUI type="link" itemName="Membership Settings" itemDesc="Go to membership settings" linkto="#" placeholder="To Membership Settings"/>
+                <SettingsItemUI type="link" itemName="Privacy Settings" itemDesc="Go to privacy settings" linkto="#" placeholder="To Privacy Settings"/>
+            </div>
+            <div className="settings-menu account-setting">
+                <SettingsItemUI type="dropdown" itemName="Language" itemDesc="Choose Interface Language - Only English is supported in this version" items={lang} />
+                <SettingsItemUI type="radio" itemName="Theme" itemDesc="Choose Default Theme - Light, Dark or System" items={theme} />
+                <SettingsItemUI type="link" itemName="Account Settings" itemDesc="Go to account settings" linkto="#" placeholder="To Account Settings"/>
+                <SettingsItemUI type="link" itemName="Membership Settings" itemDesc="Go to membership settings" linkto="#" placeholder="To Membership Settings"/>
+                <SettingsItemUI type="link" itemName="Privacy Settings" itemDesc="Go to privacy settings" linkto="#" placeholder="To Privacy Settings"/>
             </div>
         </div>
     );
