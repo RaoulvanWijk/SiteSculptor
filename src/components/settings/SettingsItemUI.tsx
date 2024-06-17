@@ -19,9 +19,11 @@ interface SettingsItemUIProps {
     items?: string[],
     linkto?: string,
     placeholder?: string,
+    def?: string,
+    onclick_function?: (theme: string) => void;
 }
 
-const SettingsItemUI = ({ itemName, itemDesc, type, items, linkto, placeholder }: SettingsItemUIProps) => {
+const SettingsItemUI = ({ itemName, itemDesc, type, items, linkto, placeholder, def, onclick_function }: SettingsItemUIProps) => {
     let SettingsItemUILayout;
 
     switch (type) {
@@ -32,7 +34,7 @@ const SettingsItemUI = ({ itemName, itemDesc, type, items, linkto, placeholder }
                     <hr />
                     <div className="sm-row">
                         <p>{itemDesc}</p>
-                        <Dropdown items={items || [""]} />
+                        <Dropdown items={items || [""]} defaultSelected={def} />
                     </div>
                 </div>
             )
@@ -44,7 +46,7 @@ const SettingsItemUI = ({ itemName, itemDesc, type, items, linkto, placeholder }
                     <hr />
                     <div className="sm-row">
                         <p>{itemDesc}</p>
-                        <RadioMenu items={items || [""]} />
+                        <RadioMenu items={items || [""]}  defaultSelectedItem={def} themeSetter={onclick_function} />
                     </div>
                 </div>
             )
