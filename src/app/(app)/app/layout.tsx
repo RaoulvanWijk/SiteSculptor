@@ -8,9 +8,9 @@ export default function layout({ children }: { children: React.ReactNode }) {
     return (
         <SearchProvider>
             <SidebarProvider>
-                <SettingsLayout>
+                <DashboardLayout>
                     {children}
-                </SettingsLayout>
+                </DashboardLayout>
             </SidebarProvider>
         </SearchProvider>
     );
