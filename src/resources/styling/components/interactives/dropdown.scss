@@ -3,8 +3,8 @@
     display: inline-block;
 
     .dropdown-toggle {
-        background-color: #e0e0e0;
-        color: black;
+        background-color: var(--light-bg);
+        color: var(-txt);
         border: none;
         cursor: pointer;
         display: flex;
@@ -35,7 +35,7 @@
         font-size: .85rem;
 
         &:hover {
-            background-color: #f1f1f1;
+            background-color: var(--wht);
         }
     }
 
