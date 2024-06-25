@@ -40,24 +40,25 @@ body {
   padding-bottom: 6rem;
   background-color: var(--content-bg);
 
-  h1, h3{
+  h1,
+  h3 {
     font-weight: bold;
     color: var(--txt);
   }
 
-  h1{
+  h1 {
     font-size: 2.5rem;
     margin-bottom: -20px;
     color: var(--txt);
   }
 
-  h3{
+  h3 {
     font-size: 1.5rem;
     color: var(--b2-fade);
   }
 }
 
-.project-row{
+.project-row {
   display: flex;
   flex-flow: row wrap;
   gap: $defSpacing;
@@ -70,9 +71,9 @@ body {
   flex-direction: column;
   padding: 1rem 2rem 0 2rem;
 
-  .settings-header{
+  .settings-header {
 
-    h2{
+    h2 {
       font-size: 2rem;
       font-weight: bold;
       color: var(--txt);
@@ -83,14 +84,14 @@ body {
     }
   }
 
-  .settings-menu{
+  .settings-menu {
     background-color: var(--wht);
     border-radius: 10px;
     width: 100%;
     height: 100%;
     padding: .75rem;
 
-    button{
+    button {
       display: flex;
       flex-direction: column;
       align-items: baseline;
@@ -99,11 +100,7 @@ body {
     }
   }
 
-  .quick-link{
-    display: none;
-  }
-
-  .account-setting{
+  .quick-link {
     display: block;
   }
 }

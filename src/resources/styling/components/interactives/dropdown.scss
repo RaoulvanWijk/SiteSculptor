@@ -4,13 +4,13 @@
 
     .dropdown-toggle {
         background-color: var(--light-bg);
-        color: var(-txt);
+        color: var(--txt);
         border: none;
         cursor: pointer;
         display: flex;
         align-items: center;
-        justify-content: space-between; 
-        width: 200px; 
+        justify-content: space-between;
+        width: 200px;
         height: 30px;
         border-radius: 5px;
         padding: 10px;
@@ -40,6 +40,6 @@
     }
 
     &:hover .dropdown-menu {
-        display: block; 
+        display: block;
     }
 }

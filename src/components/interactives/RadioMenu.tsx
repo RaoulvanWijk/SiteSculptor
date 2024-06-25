@@ -20,7 +20,6 @@ const RadioMenu: React.FC<RadioMenuProps> = ({ label, items, name, defaultSelect
         }
     };
 
-
     useEffect(() => {
         if (defaultSelectedItem !== undefined) {
             setSelectedItem(defaultSelectedItem);
@@ -29,7 +28,6 @@ const RadioMenu: React.FC<RadioMenuProps> = ({ label, items, name, defaultSelect
 
     return (
         <div className="radio-menu">
-            <p>{label}</p>
             {items.map((item, index) => (
                 <label key={index} className="radio-item">
                     <input
