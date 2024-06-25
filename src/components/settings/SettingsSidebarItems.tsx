@@ -1,12 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import "@/resources/styling/components/dashboard/sidebar.scss";
 import DefaultButton from "../interactives/Button";
 
 const SettingsSidebarItems = () => {
     return (
         <div className="sidebaritems">
-            <DefaultButton type="toggleLink" className="settings-button">Quick Links</DefaultButton>
+            <DefaultButton type="toggleLink" className="settings-button">Quick Settings</DefaultButton>
             <hr />
             <DefaultButton type="toggleLink" className="settings-button">Account Settings</DefaultButton>
             <DefaultButton type="toggleLink" className="settings-button">Membership Settings</DefaultButton>

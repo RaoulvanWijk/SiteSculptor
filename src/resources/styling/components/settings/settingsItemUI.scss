@@ -23,13 +23,13 @@
         .settings-button{
             width: 200px;
             height: 30px;
-            background-color: #e0e0e0;
+            background-color: var(--light-bg);
             border-radius: 5px;
             display: flex;
             flex-direction: column;
             align-items: baseline;
             justify-content: center;
-            padding-left: 5px;
+            padding: 10px;
             font-size: .85rem;
         }
     }
