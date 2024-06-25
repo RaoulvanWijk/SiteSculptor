@@ -1,12 +1,12 @@
 .input-field input {
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--light);
     border-radius: 4px;
     width: 100%;
     box-sizing: border-box;
 }
 
 .input-field input:focus {
-    border-color: #3498db;
+    border-color: var(--input-highlight);
     outline: none;
 }
