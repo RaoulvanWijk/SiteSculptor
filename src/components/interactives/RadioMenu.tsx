@@ -1,6 +1,5 @@
 // components/RadioMenu.tsx
 import { useState, useEffect } from 'react';
-import { useState, useEffect } from 'react';
 import "@/resources/styling/components/interactives/radio.scss"
 
 interface RadioMenuProps {
