@@ -75,6 +75,13 @@ declare module "editor" {
       styles: { [key: string]: string | string[] }
     ) => void; // The function to call when a component's styles are changed
   };
+
+  type Changes = {
+    id: string;
+    type: "remove" | "update" | "add";
+    changes?: Partial<UsedComponent>;
+    component?: UsedComponent;
+  };
 }
 
 export as namespace editor;

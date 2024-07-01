@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { int, varchar, timestamp, mysqlTable } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -7,6 +7,7 @@ import { users } from "@/lib/db/schema/auth";
 import { type getSites } from "@/lib/api/sites/queries";
 
 import { nanoid, timestamps } from "@/lib/utils";
+import { pages } from "./pages";
 
 export const sites = mysqlTable("sites", {
     id: varchar("id", { length: 191 })
@@ -27,6 +28,11 @@ export const sites = mysqlTable("sites", {
 
 // Schema for sites - used to validate API requests
 const baseSchema = createSelectSchema(sites).omit(timestamps);
+
+export const sitesRelations = relations(sites, ({ many }) => ({
+    users: many(users),
+    pages: many(pages),
+}));
 
 export const insertSiteSchema = createInsertSchema(sites).omit(timestamps);
 export const insertSiteParams = baseSchema
