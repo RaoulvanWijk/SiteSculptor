@@ -70,7 +70,7 @@ export default function Home() {
     }, [projects, executeSearch, currentSection]);
 
     return (
-        <main className="space-y-4">
+        <main className="ml-4 space-y-4">
             <h1>Welcome back, {session?.user?.name}</h1>
             {loading ? (
                 <SkeletonBox />

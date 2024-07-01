@@ -10,9 +10,7 @@ export default function layout({ children }: { children: React.ReactNode }) {
         <SearchProvider>
             <SidebarProvider>
                 <SettingsProvider>
-                    <SettingsLayout>
                         {children}
-                    </SettingsLayout>
                 </SettingsProvider>
             </SidebarProvider>
         </SearchProvider>
