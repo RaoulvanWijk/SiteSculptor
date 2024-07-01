@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import { navbars, insertNavbarSchema } from "@/lib/db/schema/navbars";
 import { db } from "@/lib/db/index";
+import { useSession } from "next-auth/react";
+import validateSession from "@/lib/checkSession";
 
 export async function POST(request: NextRequest) {
+    // check if user is logged in
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const { name, styles, props } = await request.json();
         const { error }: any = insertNavbarSchema.safeParse({

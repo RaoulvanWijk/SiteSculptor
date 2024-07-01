@@ -6,8 +6,19 @@ import {
 import { footers } from "@/lib/db/schema/footers";
 import { db } from "@/lib/db/index";
 import { eq } from "drizzle-orm";
+import { useSession } from "next-auth/react";
+import validateSession from "@/lib/checkSession";
 
 export async function PUT(request: NextRequest) {
+    // check if user is logged in
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
+
     try {
         const { siteId, footerId } = await request.json();
         // check if the site already
