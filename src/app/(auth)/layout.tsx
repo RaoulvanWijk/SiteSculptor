@@ -1,13 +1,11 @@
-import { getUserAuth } from "@/lib/auth/utils";
-import { redirect } from "next/navigation";
+import React, { Suspense } from 'react'
 
-export default async function AuthLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const session = await getUserAuth();
-  if (session?.session) redirect("/app/dashboard");
-
-  return ( <div className="bg-muted h-screen pt-8">{children}</div> );
+export default function Layout(
+    { children }: { children: React.ReactNode }
+) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+        {children}
+    </Suspense>
+  )
 }
