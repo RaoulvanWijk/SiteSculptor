@@ -1,24 +1,64 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { getValidSubdomain } from "@/utils/subdomain";
 
-export function middleware(request: Request) {
-  
-  if (process.env.CODE_ENV === 'test') {
-    console.log('API routes are disabled for this environment');
-    const host = process.env.NEXTAUTH_URL;
-    // return NextResponse.error(new Error('API routes are disabled for this environment'));
-    if (request.url.startsWith(host + '/api') || request.url.startsWith(host + '/app') || request.url.startsWith(host + '/editor')) {
-      return NextResponse.json({ error: 'routes are disabled for this environment' }, { status: 403 });
+const PUBLIC_FILE = /\.(.*)$/;
+
+// get sites from the database
+export async function getSite(subdomain: string) {
+    // fetch site from the database
+    return {
+        name: "My Site",
+        subdomain,
+    };
+}
+
+export function middleware(request: Request, response: Response) {
+    if (process.env.CODE_ENV === "test") {
+        console.log("API routes are disabled for this environment");
+        const host = process.env.NEXTAUTH_URL;
+        // return NextResponse.error(new Error('API routes are disabled for this environment'));
+        if (
+            request.url.startsWith(host + "/api") ||
+            request.url.startsWith(host + "/app") ||
+            request.url.startsWith(host + "/editor")
+        ) {
+            return NextResponse.json(
+                { error: "routes are disabled for this environment" },
+                { status: 403 }
+            );
+        }
     }
-  }
 
-  // Store current request url in a custom header, which you can read later
-  const requestHeaders = new Headers(request.headers);
-  requestHeaders.set('x-url', request.url);
+    const url = new URL(request.url);
 
-  return NextResponse.next({
-    request: {
-      // Apply new request headers
-      headers: requestHeaders,
+    // Skip public files
+    if (PUBLIC_FILE.test(url.pathname) || url.pathname.includes("_next"))
+        return;
+
+    const host = request.headers.get("host");
+    const subdomain = getValidSubdomain(host);
+    const searchParams = url.searchParams.toString();
+    const pathWithSearchParams = `${url.pathname}${
+        searchParams.length > 0 ? `?${searchParams}` : ""
+    }`;
+    if (subdomain) {
+        const site = new URL(
+            `/${subdomain}${pathWithSearchParams}`,
+            request.url
+        );
+        return NextResponse.rewrite(site);
     }
-  });
+    // Store current request url in a custom header, which you can read later
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-url", request.url);
+
+    // make sure the default app files cannot be accessed
+
+    return NextResponse.next({
+        request: {
+            // Apply new request headers
+            headers: requestHeaders,
+        },
+    });
 }

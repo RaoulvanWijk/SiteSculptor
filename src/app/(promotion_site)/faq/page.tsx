@@ -22,22 +22,20 @@ import Link from "next/link";
 import Image from "next/image";
 import Head from "next/head";
 import { FingerPrintIcon } from "@heroicons/react/20/solid";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Avklo | FAQ",
+    keywords:
+        "FAQ, Frequently asked questions, Avklo, avklo, avklo website builder, website builder, easy website builder, fast website builder, website builder for free, website builder for business, website builder for personal use,",
+    description:
+        "Checkout here the most frequently asked questions for Avklo websites. Like how to get started, how to build your website, our features, designs, hosing, SEO, support and resources, pricing and billing, security and privacy and troubleshooting.",
+};
 
 export default function page() {
     return (
         <>
             {/*  */}
-            <Head>
-                <meta
-                    name="keywords"
-                    content="FAQ, Frequently asked questions, Avklo, avklo, avklo website builder, website builder, easy website builder, fast website builder, website builder for free, website builder for business, website builder for personal use,"
-                />
-                <meta
-                    name="description"
-                    content="Checkout here the most frequently asked questions for Avklo websites. Like how to get started, how to build your website, our features, designs, hosing, SEO, support and resources, pricing and billing, security and privacy and troubleshooting."
-                    key="desc"
-                />
-            </Head>
             <div className="page-header-faq">
                 <div className="left">
                     <h1>FAQ</h1>

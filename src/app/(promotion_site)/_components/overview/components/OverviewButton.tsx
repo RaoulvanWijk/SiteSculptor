@@ -15,7 +15,6 @@ export default function OverviewButton({
     title: string;
     description: string;
 }) {
-    console.log(animate);
     return (
         <Link href="/" className="overview-button">
             <h2>{title}</h2>
