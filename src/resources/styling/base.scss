@@ -28,6 +28,14 @@
    
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 0 0% 98%;
+
+      // info and success colors info is blue and success is green
+      // --info: 215, 100%, 50%;
+      // --t: hsl(215, 100%, 50%);
+      // --info-foreground: 210 40% 98%;
+
+      --success: 217.2 32.6% 17.5%;
+      --success-foreground: 210 40% 98%;
   
       --border: 0 0% 89.8%;
       --input: 0 0% 89.8%;
@@ -59,6 +67,12 @@
    
       --destructive: 0 62.8% 30.6%;
       --destructive-foreground: 0 0% 98%;
+
+    --info: 217.2 32.6% 17.5%;
+    --info-foreground: 210 40% 98%;
+
+    --success: 217.2 32.6% 17.5%;
+    --success-foreground: 210 40% 98%;
    
       --border: 0 0% 14.9%;
       --input: 0 0% 14.9%;
