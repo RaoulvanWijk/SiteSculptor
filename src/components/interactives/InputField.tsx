@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import "@/resources/styling/components/interactives/InputField.scss"
+import { useState } from "react";
+import "@/resources/styling/components/interactives/inputfield.scss";
 
 interface InputFieldProps {
     placeholder: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({ placeholder }) => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState("");
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value);
