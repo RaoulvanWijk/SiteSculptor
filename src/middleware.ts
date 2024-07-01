@@ -38,12 +38,18 @@ export default withAuth(
             searchParams.length > 0 ? `?${searchParams}` : ""
         }`;
         if (subdomain) {
+            console.log('====================================');
+            console.log('subdomain', subdomain);
+            console.log('====================================');
             const site = new URL(
                 `/${subdomain}${pathWithSearchParams}`,
                 request.url
             );
             return NextResponse.rewrite(site);
         }
+        console.log('====================================');
+        console.log('no subdomain', subdomain);
+        console.log('====================================');
 
         // Store current request url in a custom header, which you can read later
         const requestHeaders = new Headers(request.headers);
