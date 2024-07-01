@@ -609,10 +609,6 @@ export default function EditorContextProvider({
 
     // find the differences between the old and new components
     const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
-    console.log('====================================');
-    console.log('Differences', differences);
-    console.log('====================================');
-    // debugger;
     toast({
       description: "Publishing the changes",
       variant: "info",
