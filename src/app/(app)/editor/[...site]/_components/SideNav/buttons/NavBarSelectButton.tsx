@@ -10,7 +10,7 @@ type navBarProps = {
     styles: any;
 };
 
-export default async function NavBarSelectButton({
+export default function NavBarSelectButton({
     name,
     id,
     styles,
