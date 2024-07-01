@@ -3,6 +3,9 @@ import { withAuth } from "next-auth/middleware";
 import { db } from "@/lib/db/index";
 import { sessions } from "./lib/db/schema/auth";
 const { headers, cookies } = require("next/headers");
+import { getValidSubdomain } from "@/utils/subdomain";
+
+const PUBLIC_FILE = /\.(.*)$/;
 
 export default withAuth(
     function middleware(request: NextRequest) {
@@ -21,7 +24,7 @@ export default withAuth(
                 );
             }
         }
-      
+
         const url = new URL(request.url);
 
         // Skip public files
