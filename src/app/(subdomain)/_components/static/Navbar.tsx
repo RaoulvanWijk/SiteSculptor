@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import "../../_resources/styling/navbar.scss";
-
+import { absoluteUrl } from "@/lib/utils";
 type NavbarProps = {
     siteId: string;
 };
 
 const getNavbar = async (siteId: string) => {
     const res = await fetch(
-        `http://localhost:3000/api/editor/site_navbar/styling/${siteId}`,
+        absoluteUrl(`/api/editor/site_navbar/styling/${siteId}`),
         {
             method: "GET",
         }
@@ -19,7 +19,7 @@ const getNavbar = async (siteId: string) => {
 
 const getNavbarItems = async (siteId: string) => {
     const res = await fetch(
-        `http://localhost:3000/api/editor/page/site_id/${siteId}`,
+        absoluteUrl(`/api/editor/page/site_id/${siteId}`),
         {
             method: "GET",
         }
@@ -44,9 +44,13 @@ const setLinks = (navbarItems: any) => {
 export default async function Navbar({ siteId }: NavbarProps) {
     const navbar = await getNavbar(siteId);
     const navbarItems = await getNavbarItems(siteId);
-    const { styles } = navbar[0];
+    // const { styles } = navbar[0];
+    console.log('====================================');
+    console.log('navbar', navbar);
+    console.log('====================================');
+
     return (
-        <nav className={`navbar`} style={styles}>
+        <nav className={`navbar`}>
             <div className={"hamburger-top"}>
                 <Link href={"/"}>LOGO</Link>
                 <div className="hamburgerIcon">
@@ -55,7 +59,7 @@ export default async function Navbar({ siteId }: NavbarProps) {
                     <div></div>
                 </div>
             </div>
-            <menu className={`navbar-items`}>{setLinks(navbarItems)}</menu>
+            {/* <menu className={`navbar-items`}>{setLinks(navbarItems)}</menu> */}
         </nav>
     );
 }

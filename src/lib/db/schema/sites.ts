@@ -30,7 +30,7 @@ export const sites = mysqlTable("sites", {
 const baseSchema = createSelectSchema(sites).omit(timestamps);
 
 export const sitesRelations = relations(sites, ({ many }) => ({
-    users: many(users),
+    // users: many(users),
     pages: many(pages),
 }));
 

@@ -2,6 +2,7 @@ import Navbar from "../_components/static/Navbar";
 import Footer from "../_components/static/Footer";
 import React from "react";
 import "../_resources/styling/layout.scss";
+import { absoluteUrl } from "@/lib/utils";
 
 type layoutProps = {
   children: React.ReactNode;
@@ -10,7 +11,7 @@ type layoutProps = {
 
 const checkSubdomain = async (subdomain: string) => {
   const res = await fetch(
-    `https://avklo.com/api/editor/site/check_site/${subdomain}`,
+    absoluteUrl(`/api/editor/site/check_site/${subdomain}`),
     {
       method: "GET",
     }

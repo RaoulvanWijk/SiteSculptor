@@ -4,15 +4,13 @@ import { db } from "@/lib/db/index";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
 import validateSession from "@/lib/checkSession";
-
+/**
+ * !DO NOT VALIDATE SESSION 
+ * @param request 
+ * @param param1 
+ * @returns 
+ */
 export async function GET(request: NextRequest, { params }: any) {
-    try {
-        const sesh = await validateSession();
-    } catch (error) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
     try {
         const id: any = params.id;
         const siteNavbarsRes = await db

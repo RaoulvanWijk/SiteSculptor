@@ -3,6 +3,7 @@ import Link from "next/link";
 import { MailIcon } from "lucide-react";
 import { InstagramLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import "../../_resources/styling/footer.scss";
+import { absoluteUrl } from "@/lib/utils";
 
 type FooterProps = {
     siteId: string;
@@ -10,7 +11,7 @@ type FooterProps = {
 
 const getFooter = async (siteId: string) => {
     const res = await fetch(
-        `http://localhost:3000/api/editor/site_footer/styling/${siteId}`,
+        absoluteUrl(`/api/editor/site_footer/styling/${siteId}`),
         {
             method: "GET",
         }
