@@ -10,7 +10,7 @@ type layoutProps = {
 
 const checkSubdomain = async (subdomain: string) => {
     const res = await fetch(
-        `http://localhost:3000/api/editor/site/check_site/${subdomain}`,
+        `https://avklo.com/api/editor/site/check_site/${subdomain}`,
         {
             method: "GET",
         }
