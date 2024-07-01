@@ -3,6 +3,9 @@ export const getValidSubdomain = (host: string | null) => {
     if (!host && typeof window !== "undefined") {
         host = window.location.host;
     }
+    if(host && host === "avklo.com") {
+        return;
+    }
     if (host && host.includes(".")) {
         const candidate = host.split(".")[0];
         if (
