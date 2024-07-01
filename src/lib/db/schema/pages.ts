@@ -26,8 +26,13 @@ export const pages = mysqlTable("pages", {
         .default(sql`now()`),
 });
 
-export const pagesRelations = relations(pages, ({ many }) => ({
+export const pagesRelations = relations(pages, ({ many, one }) => ({
     pageComponents: many(pageComponents),
+    sites: one(sites, {
+        fields: [pages.siteId],
+        references: [sites.id],
+    }
+    ),
 }));
 
 // Schema for pages - used to validate API requests
