@@ -21,6 +21,13 @@ declare module "editor" {
     hasChildren: boolean; // If the component is allowed to have children components inside itself
     allowedChildren?: ComponentTypes[]; // The types of components that are allowed to be children of this component
   };
+
+  type TypesWithComponentsType = [{
+    id: string;
+    name: string;
+    components: Component[];
+}] | [];
+
   type UsedComponent = {
     id: string; // The id of the component
     index: number; // The index of the component in the editor
@@ -33,7 +40,6 @@ declare module "editor" {
     };
     children: NestedComponent[]; // The children components of the component
     parent?: string; // The parent component of the component
-
   };
   
   type NestedComponent = UsedComponent & {

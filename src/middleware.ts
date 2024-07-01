@@ -21,6 +21,26 @@ export default withAuth(
                 );
             }
         }
+      
+        const url = new URL(request.url);
+
+        // Skip public files
+        if (PUBLIC_FILE.test(url.pathname) || url.pathname.includes("_next"))
+            return;
+
+        const host = request.headers.get("host");
+        const subdomain = getValidSubdomain(host);
+        const searchParams = url.searchParams.toString();
+        const pathWithSearchParams = `${url.pathname}${
+            searchParams.length > 0 ? `?${searchParams}` : ""
+        }`;
+        if (subdomain) {
+            const site = new URL(
+                `/${subdomain}${pathWithSearchParams}`,
+                request.url
+            );
+            return NextResponse.rewrite(site);
+        }
 
         // Store current request url in a custom header, which you can read later
         const requestHeaders = new Headers(request.headers);

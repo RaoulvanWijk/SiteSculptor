@@ -5,22 +5,20 @@ import Example from "@/app/(promotion_site)/_components/Example";
 import Overview from "./_components/overview/Overview";
 import BottomCTO from "@/components/pages/landingpage/statics/BottomCTO";
 import { AlarmClock, PackageCheck, Palette, Zap } from "lucide-react";
-import Head from "next/head";
+import { headers } from "next/headers";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Avklo",
+    keywords:
+        "Websites, web builder, website builder, Avklo, avklo, avklo website builder, website builder, easy website builder, fast website builder, website builder for free, website builder for business, website builder for personal use,",
+    description:
+        "Create your own website today! With our easy to use editor, you can create a website that truly represents you or your business in just 2 minutes! Get started now!",
+};
 
 export default function Home() {
     return (
         <>
-            <Head>
-                <meta
-                    name="keywords"
-                    content="Websites, web builder, website builder, Avklo, avklo, avklo website builder, website builder, easy website builder, fast website builder, website builder for free, website builder for business, website builder for personal use,"
-                />
-                <meta
-                    name="description"
-                    content="Create your own website today! With our easy to use editor, you can create a website that truly represents you or your business in just 2 minutes! Get started now!"
-                    key="desc"
-                />
-            </Head>
             <div className="topcontent">
                 <PageHeader headerName="Describe yourself in one website, in just 2 minutes!">
                     Join the revolution and create your own website today! With

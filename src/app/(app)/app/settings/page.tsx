@@ -1,106 +1,76 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import React, { useContext } from "react";
+import { SettingsProvider, SettingsContext } from "@/components/context/SettingsMenuContext";
 import { useTheme } from "next-themes";
+import "@/resources/styling/components/layouts/dashboardlayout.scss";
+import SettingsItemUI from "@/components/settings/SettingsItemUI";
+import SettingsSidebarItems from "@/components/settings/SettingsSidebarItems";
 
-export default function Page() {
+const SettingsContent: React.FC = () => {
+    const settingsContext = useContext(SettingsContext);
+    if (!settingsContext) {
+        throw new Error("SettingsContent must be used within a SettingsProvider");
+    }
+    const { currentSection } = settingsContext;
     const { setTheme } = useTheme();
+
+    const lang = ["English (US)", "Dutch", "Spanish"];
+    const theme = ["Dark", "Light", "System"];
+
+    const themeSwitch = (theme: string) => {
+        setTheme(theme.toLowerCase());
+        console.log(theme.toLowerCase());
+    };
+
     return (
-        <div>
-            <h1 className="text-2xl font-semibold">Settings</h1>
-            <div className="space-y-4">
-                <div>
-                    <h3 className="text-lg font-medium">Appearance</h3>
-                    <p className="text-sm text-muted-foreground">
-                        Customize the appearance of the app. Automatically
-                        switch between day and night themes.
-                    </p>
-                </div>
-                <Button
-                    asChild
-                    variant={"ghost"}
-                    className="w-fit h-fit"
-                    onClick={() => setTheme("light")}
-                >
-                    <div className="flex flex-col">
-                        <div className="items-center rounded-md border-2 border-muted p-1 hover:border-accent">
-                            <div className="space-y-2 rounded-sm bg-[#ecedef] p-2">
-                                <div className="space-y-2 rounded-md bg-white p-2 shadow-sm">
-                                    <div className="h-2 w-[80px] rounded-lg bg-[#ecedef]" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-white p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-[#ecedef]" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-[#ecedef]" />
-                                </div>
-                            </div>
-                        </div>
-                        <span className="block w-full p-2 text-center font-normal">
-                            Light
-                        </span>
-                    </div>
-                </Button>
-                <Button
-                    asChild
-                    variant={"ghost"}
-                    onClick={() => setTheme("dark")}
-                    className="w-fit h-fit"
-                >
-                    <div className="flex flex-col">
-                        <div className="items-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground">
-                            <div className="space-y-2 rounded-sm bg-neutral-950 p-2">
-                                <div className="space-y-2 rounded-md bg-neutral-800 p-2 shadow-sm">
-                                    <div className="h-2 w-[80px] rounded-lg bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-neutral-800 p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-neutral-800 p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                            </div>
-                        </div>
-                        <span className="block w-full p-2 text-center font-normal">
-                            Dark
-                        </span>
-                    </div>
-                </Button>
-                <Button
-                    asChild
-                    variant={"ghost"}
-                    onClick={() => setTheme("system")}
-                    className="w-fit h-fit"
-                >
-                    <div className="flex flex-col">
-                        <div className="items-center rounded-md border-2 border-muted bg-popover p-1 hover:bg-accent hover:text-accent-foreground">
-                            <div className="space-y-2 rounded-sm bg-neutral-300 p-2">
-                                <div className="space-y-2 rounded-md bg-neutral-600 p-2 shadow-sm">
-                                    <div className="h-2 w-[80px] rounded-lg bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-neutral-600 p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                                <div className="flex items-center space-x-2 rounded-md bg-neutral-600 p-2 shadow-sm">
-                                    <div className="h-4 w-4 rounded-full bg-neutral-400" />
-                                    <div className="h-2 w-[100px] rounded-lg bg-neutral-400" />
-                                </div>
-                            </div>
-                        </div>
-                        <span className="block w-full p-2 text-center font-normal">
-                            System
-                        </span>
-                    </div>
-                </Button>
+        <div className="settings-content">
+            <div className="settings-header">
+                <h2>Quick Settings</h2>
+                <p>A quick overview of the most used settings</p>
             </div>
+            {currentSection === "quick-link" && (
+                <div className="settings-menu quick-link">
+                    <SettingsItemUI type="dropdown" itemName="Language" itemDesc="Choose Interface Language - Only English is supported in this version" items={lang} def={lang[0]} />
+                    <SettingsItemUI type="radio" itemName="Theme" itemDesc="Choose Default Theme - Light, Dark or System" items={theme} def={theme[1]} onclick_function={themeSwitch} />
+                    <SettingsItemUI type="link" itemName="Account Settings" itemDesc="Go to account settings" linkto="#" placeholder="To Account Settings" />
+                    <SettingsItemUI type="link" itemName="Membership Settings" itemDesc="Go to membership settings" linkto="#" placeholder="To Membership Settings" />
+                    <SettingsItemUI type="link" itemName="Privacy Settings" itemDesc="Go to privacy settings" linkto="#" placeholder="To Privacy Settings" />
+                </div>
+            )}
+            {currentSection === "account-setting" && (
+                <div className="settings-menu account-setting">
+                    A
+                </div>
+            )}
+            {currentSection === "member-setting" && (
+                <div className="settings-menu member-setting">
+                    B
+                </div>
+            )}
+            {currentSection === "privacy-setting" && (
+                <div className="settings-menu privacy-setting">
+                    C
+                </div>
+            )}
+            {currentSection === "display-setting" && (
+                <div className="settings-menu display-setting">
+                    D
+                </div>
+            )}
+            {currentSection === "advanced-setting" && (
+                <div className="settings-menu advanced-setting">
+                    E
+                </div>
+            )}
         </div>
     );
-}
+};
+
+const Page: React.FC = () => {
+    return (
+        <SettingsContent />
+    );
+};
+
+export default Page;
