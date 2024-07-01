@@ -10,6 +10,7 @@ import {
 } from "react";
 
 import {
+  Changes,
   Component,
   EditorHandlerState,
   NestedComponent,
@@ -23,6 +24,9 @@ import { DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 import DefaultItem from "../editor-drag-components/DefaultItem";
 import DefaultContainerItem from "../editor-drag-components/DefaultContainerItem";
+
+import { useToast } from "@/components/ui/use-toast"
+import useSideNav from "../hooks/useSideNav";
 
 type EditorContextType = {
   componentsInEditor: UsedComponent[];
@@ -57,6 +61,9 @@ export default function EditorContextProvider({
   const [availableComponents, setAvailableComponents] = useState<Component[]>(
     []
   );
+
+  const { toast } = useToast();
+  const { page } = useSideNav();
 
   const [selectedComponent, setSelectedComponent] =
     useState<UsedComponent | null>(null);
@@ -455,8 +462,8 @@ export default function EditorContextProvider({
   function findChanges(
     initialArray: UsedComponent[],
     changedArray: UsedComponent[]
-  ): any[] {
-    let changes: any[] = [];
+  ): Changes[] {
+    let changes: Changes[] = [];
 
     // Create a map of the initial components where the children are also in the same map level
     const initialMap = new Map<string, UsedComponent>();
@@ -502,6 +509,11 @@ export default function EditorContextProvider({
         changes.push({ id, type: "add", component: changedComponent });
       }
     });
+
+
+    // create a type for the outcome of changes
+
+    
     return changes;
   }
 
@@ -586,14 +598,52 @@ export default function EditorContextProvider({
     localStorage.setItem("changes", stringifiedChanges);
   };
 
-  const publishHandler = () => {
-    console.log("Publish handler");
+  /**
+     * Send all the changes to the backend
+     * so that the changes can be saved to the database
+     */
+  const publishHandler = async () => {
+    toast({
+      description: "Publishing the changes",
+      variant: "info", 
+    });
     const oldComponentsCurrent = oldComponents.current;
     const newComponentsCurrent = componentsInEditor;
 
     // find the differences between the old and new components
     const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
 
+    const dataToSend = {differences: differences, page: page?.id}
+    // send to backend
+    const res = await fetch("/api/editor/publish", {
+      method: "PUT",
+      body: JSON.stringify(dataToSend),
+    });
+
+    if (res.ok && (await res.json()).message === "succes") {
+      
+      toast({
+        description: "Changes published",
+        variant: "success",
+      });
+    } else {
+      if((await res.json()).message === "no-changes")
+      {
+        toast({
+          description: "No changes to publish",
+          variant: "info",
+        });
+      } else {
+        toast({
+          description: "Failed to publish changes",
+          variant: "destructive",
+        });
+      }
+    }
+
+    // const data = await res.json();
+
+    // console.log(data);
   };
 
   return (
