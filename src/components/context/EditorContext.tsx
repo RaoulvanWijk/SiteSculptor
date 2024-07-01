@@ -603,16 +603,15 @@ export default function EditorContextProvider({
      * so that the changes can be saved to the database
      */
   const publishHandler = async () => {
-    console.log("Publish handler");
+    toast({
+      description: "Publishing the changes",
+      variant: "info", 
+    });
     const oldComponentsCurrent = oldComponents.current;
     const newComponentsCurrent = componentsInEditor;
 
     // find the differences between the old and new components
     const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
-    toast({
-      description: "Publishing the changes",
-      variant: "info",
-    });
 
     const dataToSend = {differences: differences, page: page?.id}
     // send to backend
@@ -620,6 +619,27 @@ export default function EditorContextProvider({
       method: "PUT",
       body: JSON.stringify(dataToSend),
     });
+
+    if (res.ok && (await res.json()).message === "succes") {
+      
+      toast({
+        description: "Changes published",
+        variant: "success",
+      });
+    } else {
+      if((await res.json()).message === "no-changes")
+      {
+        toast({
+          description: "No changes to publish",
+          variant: "info",
+        });
+      } else {
+        toast({
+          description: "Failed to publish changes",
+          variant: "destructive",
+        });
+      }
+    }
 
     // const data = await res.json();
 

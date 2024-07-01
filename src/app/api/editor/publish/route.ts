@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest) {
       page: string;
     } = body;
 
-    if (!differences || !page) {
+    if (!differences || differences.length == 0 || !page) {
       return new NextResponse(JSON.stringify({ message: "no-changes" }), {
         status: 400,
       });
