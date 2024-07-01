@@ -11,13 +11,6 @@ import validateSession from "@/lib/checkSession";
 export async function POST(request: NextRequest) {
     // check if user is logged in
     try {
-        const sesh = await validateSession();
-    } catch (error) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
-    try {
         const { name } = await request.json();
         const siteId = nanoid();
         const owner = await getUserAuth();
