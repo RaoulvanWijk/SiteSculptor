@@ -62,12 +62,13 @@ export default async function Components({ siteId, page }: any) {
     }
 
     const components = await getPageComponents(pageId.id);
+    console.log("components", components);
 
     return (
         <div>
             {components.map(async (pageComponent: any) => {
                 const comp = await renderComponent(pageComponent);
-                // console.log("comp", comp);
+                console.log("comp", comp);
                 return <Component type={comp.name} key={comp.id} />;
             })}
         </div>

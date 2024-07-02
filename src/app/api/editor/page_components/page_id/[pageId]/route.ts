@@ -8,10 +8,13 @@ export async function GET(request: NextRequest, { params }: any) {
     try {
         const id: any = params.pageId;
         console.log("id", id);
+
+        // select all page components
         const idPageComponents = await db
             .select()
             .from(pageComponents)
-            .where(eq(pageComponents.pageId, id));
+            .where(eq(pageComponents.pageId, id))
+            .execute();
 
         // show all page components
         return new NextResponse(JSON.stringify(idPageComponents), {
