@@ -26,6 +26,7 @@ export async function GET(request: NextRequest, { params }: any) {
                                     },
                                 },
                             },
+                            orderBy: (children: any, { asc }: any) => asc(children.index),
                         },
                         component: {
                             with: {
@@ -34,6 +35,7 @@ export async function GET(request: NextRequest, { params }: any) {
                         },
                     },
                     where: (pageComponents, { isNull }) => isNull(pageComponents.parentId),
+                    orderBy: (pageComponents, { asc }) => asc(pageComponents.index),
                 },
             },
             where: (pages, { eq }) => {
@@ -43,11 +45,11 @@ export async function GET(request: NextRequest, { params }: any) {
         page[0].pageComponents.map((pageComponent: any) => {
             pageComponent.component.type = pageComponent.component.type.name;
             if (pageComponent.children.length > 0) {
-              pageComponent.children.map((child: any) => {
-                child.component.type = child.component.type.name;
-              });
+                pageComponent.children.map((child: any) => {
+                    child.component.type = child.component.type.name;
+                });
             }
-          });
+        });
         if (page.length === 0) {
             return new NextResponse(JSON.stringify({ message: "No pages found" }), {
                 status: 404,
@@ -58,7 +60,7 @@ export async function GET(request: NextRequest, { params }: any) {
         });
     } catch (error) {
         console.log(error);
-        
+
         return new NextResponse(JSON.stringify({ message: "Invalid JSON" }), {
             status: 400,
         });
