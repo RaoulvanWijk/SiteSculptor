@@ -7,22 +7,12 @@ import {
 import { eq } from "drizzle-orm";
 import validateSession from "@/lib/checkSession";
 
-export async function GET(
-    req: NextRequest,
-    res: NextResponse,
-    { params }: any
-) {
+export async function GET(request: NextRequest, { params }: any) {
     // check if user is logged in
-    try {
-        const sesh = await validateSession();
-    } catch (error) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
 
     try {
         const id: any = params.id;
+        console.log("id", id);
 
         const idComponentTypes = await db
             .select()

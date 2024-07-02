@@ -5,18 +5,7 @@ import { eq } from "drizzle-orm";
 import { useSession } from "next-auth/react";
 import validateSession from "@/lib/checkSession";
 
-export async function GET(
-    req: NextRequest,
-    res: NextResponse,
-    { params }: any
-) {
-    try {
-        const sesh = await validateSession();
-    } catch (error) {
-        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
-            status: 401,
-        });
-    }
+export async function GET(request: NextRequest, { params }: any) {
     try {
         const id: any = params.id;
 
