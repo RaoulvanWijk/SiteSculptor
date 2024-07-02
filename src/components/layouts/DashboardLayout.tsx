@@ -12,7 +12,7 @@ export default function DashboardLayout({
 }) {
     return (
         <TrpcProvider cookies={cookies().toString()}>
-            <div className="layout-container-db">
+            <div>
                 <Navbar />
                 <div className="dashboard-main barstyling">
                     <Sidebar />
