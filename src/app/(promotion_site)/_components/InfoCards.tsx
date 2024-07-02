@@ -31,8 +31,7 @@ function InfoCard({ icon, header, children, type }: cardProps) {
                     transition={{ duration: 0.8 }}
                     className={"defaultCard " + variants[type ?? "default"]}
                 >
-                    <h3>{header}</h3>
-                    <p>{children}</p>
+                    {children}
                 </motion.div>
             );
             break;

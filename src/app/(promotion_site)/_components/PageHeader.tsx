@@ -3,6 +3,7 @@ import "@/resources/styling/components/landingpage/statics/pageHeader.scss";
 import DefaultButton from "@/components/interactives/Button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Hello from "./svg/Hello";
 
 type pageHeaderProps = {
     headerName: string;
@@ -23,6 +24,7 @@ export default function PageHeader({ headerName, children }: pageHeaderProps) {
                     Get started <ArrowRight />
                 </DefaultButton>
             </div>
+            <Hello />
         </div>
     );
 }
