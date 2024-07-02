@@ -5,6 +5,7 @@ import Component from "./Component";
 const getPages = async (siteId: string) => {
     const res = await fetch(absoluteUrl(`/api/editor/page/site_id/${siteId}`), {
         method: "GET",
+        cache: "no-cache",
     });
     const data = await res.json();
     return data;
@@ -15,6 +16,7 @@ const getPageComponents = async (pageId: string) => {
         absoluteUrl(`/api/editor/page_components/page_id/${pageId}`),
         {
             method: "GET",
+            cache: "no-cache",
         }
     );
 
@@ -27,6 +29,7 @@ const getComponent = async (componentId: string) => {
         absoluteUrl(`/api/editor/component/${componentId}`),
         {
             method: "GET",
+            cache: "no-cache",
         }
     );
 
@@ -40,6 +43,7 @@ const getComponentType = async (componentTypeId: string) => {
         absoluteUrl(`/api/editor/component_types/${componentTypeId}`),
         {
             method: "GET",
+            cache: "no-cache",
         }
     );
     const data = await res.json();

@@ -7,6 +7,7 @@ const checkSubdomain = async (subdomain: string) => {
         absoluteUrl(`/api/editor/site/check_site/${subdomain}`),
         {
             method: "GET",
+            cache: "no-cache",
         }
     );
     try {
@@ -16,9 +17,7 @@ const checkSubdomain = async (subdomain: string) => {
         const data = await res.json();
         return data;
     } catch (error) {
-        console.log("====================================");
         console.log("error", error);
-        console.log("====================================");
     }
 };
 

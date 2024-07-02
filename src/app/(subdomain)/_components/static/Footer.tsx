@@ -14,6 +14,7 @@ const getFooter = async (siteId: string) => {
         absoluteUrl(`/api/editor/site_footer/styling/${siteId}`),
         {
             method: "GET",
+            cache: "no-cache",
         }
     );
     const data = await res.json();
