@@ -4,9 +4,6 @@ export const getValidSubdomain = (host: string | null) => {
   if (!host && typeof window !== "undefined") {
     host = window.location.host;
   }
-  console.log('====================================');
-  console.log('host', host);
-  console.log('====================================');
   if (!host || mainDomains.some((domain) => host === domain) || !host.includes(".")) {
     return;
   }
