@@ -19,6 +19,7 @@ import SideNav from "@/app/(app)/editor/[...site]/_components/SideNav/SideNav";
 import NavBarSelected from "@/components/editor-drag-components/navbar/NavBarSelected";
 import useSideNav from "@/components/hooks/useSideNav";
 import FooterSelected from "@/components/editor-drag-components/footer/FooterSelected";
+import { Component } from "editor";
 
 //#endregion
 
@@ -34,15 +35,30 @@ export default function EditorHandler() {
         updateComponent,
         selectedComponent,
         setSelectedComponent,
-        renderComponents,
+        RenderComponents,
         handleDragEnd,
+        saveHandler,
+        publishHandler,
+        init,
     } = useEditor();
+    const { typesWithComponents, page } = useSideNav();
     const { siteNavbar, siteFooter } = useSideNav();
     const [sComp, setSComp] = useState<any>(null);
     useEffect(() => {
-        setComponents(testUsedComponents);
-        setAvailableComponents(testComponents);
-    }, [setComponents, setAvailableComponents]);
+        // setComponents(page?.pageComponents ?? []);
+        // make it so that all the components from typesWithComponents are available to be added to the editor by satisfying the Component[] type
+        let mergedComponents: Component[] = [];
+        typesWithComponents.map((type) => {
+            type.components?.map((component) => {
+                mergedComponents.push({
+                    ...component,
+                });
+            });
+        });
+        // setAvailableComponents(mergedComponents);
+        if(!page) return;
+        init(page?.pageComponents ?? [], mergedComponents, page?.id);
+    }, [setComponents, setAvailableComponents, typesWithComponents, page]);
 
     useDndMonitor({
         onDragStart: (event) => {
@@ -80,7 +96,7 @@ export default function EditorHandler() {
                     <SideNav />
                 </div>
             </Editor.SideNav>
-            <Editor.TopNav />
+            <Editor.TopNav saveHandler={() => saveHandler(page?.id)} publishHandler={publishHandler} />
             <div className={cn("drag-container p-4 flex flex-col gap-4")}>
                 {siteNavbar[0] && (
                     <NavBarSelected stijl={siteNavbar[0].styles} />
@@ -89,7 +105,7 @@ export default function EditorHandler() {
                     strategy={verticalListSortingStrategy}
                     items={componentsInEditor}
                 >
-                    {renderComponents()}
+                    {<RenderComponents />}
                 </SortableContext>
                 {siteFooter[0] && (
                     <FooterSelected stijl={siteFooter[0].styles} />

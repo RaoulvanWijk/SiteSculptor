@@ -4,8 +4,16 @@ import {
     pageComponents,
     insertPageComponentSchema,
 } from "@/lib/db/schema/pageComponents";
+import validateSession from "@/lib/checkSession";
 
 export async function POST(request: NextRequest) {
+    try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
     try {
         const { pageId, component_id, parent_id, index, props, styles } =
             await request.json();

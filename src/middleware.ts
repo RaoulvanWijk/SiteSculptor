@@ -1,10 +1,9 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+
 import { getValidSubdomain } from "@/utils/subdomain";
 
 const PUBLIC_FILE = /\.(.*)$/;
-
-export function middleware(request: Request, response: Response) {
+export function middleware(request: NextRequest) {
     if (process.env.CODE_ENV === "test") {
         console.log("API routes are disabled for this environment");
         const host = process.env.NEXTAUTH_URL;
@@ -29,18 +28,18 @@ export function middleware(request: Request, response: Response) {
 
     const host = request.headers.get("host");
     const subdomain = getValidSubdomain(host);
+    const searchParams = url.searchParams.toString();
+    const pathWithSearchParams = `${url.pathname}${
+        searchParams.length > 0 ? `?${searchParams}` : ""
+    }`;
     if (subdomain) {
-        // Store subdomain in a custom header, which you can read later
-        const requestHeaders = new Headers(request.headers);
-        requestHeaders.set("x-subdomain", subdomain);
-
-        return NextResponse.next({
-            request: {
-                // Apply new request headers
-                headers: requestHeaders,
-            },
-        });
+        const site = new URL(
+            `/${subdomain}${pathWithSearchParams}`,
+            request.url
+        );
+        return NextResponse.rewrite(site);
     }
+
     // Store current request url in a custom header, which you can read later
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-url", request.url);
@@ -52,3 +51,5 @@ export function middleware(request: Request, response: Response) {
         },
     });
 }
+
+export const config = {};

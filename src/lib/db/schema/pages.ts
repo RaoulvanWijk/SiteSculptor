@@ -1,4 +1,4 @@
-import { sql } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import { varchar, int, timestamp, mysqlTable } from "drizzle-orm/mysql-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
@@ -6,6 +6,7 @@ import { sites } from "./sites";
 import { type getPages } from "@/lib/api/pages/queries";
 
 import { nanoid, timestamps } from "@/lib/utils";
+import { pageComponents } from "./pageComponents";
 
 export const pages = mysqlTable("pages", {
     id: varchar("id", { length: 191 })
@@ -24,6 +25,15 @@ export const pages = mysqlTable("pages", {
         .notNull()
         .default(sql`now()`),
 });
+
+export const pagesRelations = relations(pages, ({ many, one }) => ({
+    pageComponents: many(pageComponents),
+    sites: one(sites, {
+        fields: [pages.siteId],
+        references: [sites.id],
+    }
+    ),
+}));
 
 // Schema for pages - used to validate API requests
 const baseSchema = createSelectSchema(pages).omit(timestamps);

@@ -13,7 +13,7 @@ import { X } from "lucide-react";
 export default function AddPage() {
     const ref = useRef<HTMLDialogElement>(null);
     const { site_id } = useSideNav();
-    const { modal, setModal, setPage } = useSideNav();
+    const { modal, setModal, setPages } = useSideNav();
 
     useEffect(() => {
         if (modal) {
@@ -54,7 +54,7 @@ export default function AddPage() {
                 slug: slug,
                 id: responseData.id,
             };
-            setPage((prev) => [...prev, data]);
+            setPages((prev) => [...prev, data]);
         } catch (error) {
             console.error("Error:", error);
         }

@@ -3,13 +3,22 @@ import { sites, insertSiteSchema } from "@/lib/db/schema/sites";
 import { pages, insertPageSchema } from "@/lib/db/schema/pages";
 import { siteNavbars } from "@/lib/db/schema/siteNavbars";
 import { siteFooters } from "@/lib/db/schema/siteFooters";
-import { getServerSession } from "next-auth";
 import { NextResponse, NextRequest } from "next/server";
 import { getUserAuth } from "@/lib/auth/utils";
 import { nanoid } from "nanoid";
+import validateSession from "@/lib/checkSession";
 
 export async function POST(request: NextRequest) {
+    // check if user is logged in
     try {
+        const sesh = await validateSession();
+    } catch (error) {
+        return new NextResponse(JSON.stringify({ message: "Unauthorized" }), {
+            status: 401,
+        });
+    }
+    try {
+        console.log("request", request);
         const { name } = await request.json();
         const siteId = nanoid();
         const owner = await getUserAuth();
@@ -62,7 +71,7 @@ export async function POST(request: NextRequest) {
             .values({ id: pageId, title: "Home", slug: "home", siteId })
             .execute();
         // set the default navbar
-        const navbarId = "dml2u4unvra2kd4kc7lv7";
+        const navbarId = "1zldb18jz27ls6x72hok2";
         await db.insert(siteNavbars).values({ siteId, navbarId }).execute();
 
         // set the default footer

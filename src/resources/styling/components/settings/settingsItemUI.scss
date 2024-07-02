@@ -1,0 +1,36 @@
+.sm-col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 .5rem;
+
+    h3 {
+        font-size: 1.25rem;
+    }
+
+    p {
+        color: var(--light);
+    }
+
+    .sm-row {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: inherit;
+        align-items: center;
+        padding: 5px;
+
+        .settings-button{
+            width: 200px;
+            height: 30px;
+            background-color: var(--light-bg);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: baseline;
+            justify-content: center;
+            padding: 10px;
+            font-size: .85rem;
+        }
+    }
+}

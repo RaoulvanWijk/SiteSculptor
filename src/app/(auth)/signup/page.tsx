@@ -1,6 +1,6 @@
 // custom nextjs auth login page
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getProviders, signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
@@ -14,15 +14,18 @@ import { redirect } from "next/navigation";
 
 export default function Signup() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const { status } = useSession();
+    const [search, setSearch] = useState<string>("");
 
     const searchParams = useSearchParams();
-
-    const search = searchParams.get("callbackUrl");
-    // if user is logged in, redirect to the callback url
-    const { status } = useSession();
-    if (status === "authenticated") {
-        redirect(search || "/app/dashboard");
-    }
+    useEffect(() => {
+        setIsLoading(true);
+        setSearch(searchParams.get("callbackUrl") ?? "");
+        // if user is logged in, redirect to the callback url
+        if (status === "authenticated") {
+            redirect(search || "/app/dashboard");
+        }
+    }, []);
     return (
         <div className={cn("grid gap-6")}>
             <div className="grid gap-2">

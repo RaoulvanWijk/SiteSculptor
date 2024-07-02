@@ -1,17 +1,19 @@
 export const getValidSubdomain = (host: string | null) => {
-    let subdomain: string | null = null;
-    if (!host && typeof window !== "undefined") {
-        host = window.location.host;
-    }
-    if (host && host.includes(".")) {
-        const candidate = host.split(".")[0];
-        if (
-            candidate &&
-            !candidate.includes("localhost") &&
-            !candidate.includes("www")
-        ) {
-            subdomain = candidate;
-        }
-    }
-    return subdomain;
+  const mainDomains = ["avklo.com", "localhost:3000"];
+  let subdomain: string | null = null;
+  if (!host && typeof window !== "undefined") {
+    host = window.location.host;
+  }
+  console.log('====================================');
+  console.log('host', host);
+  console.log('====================================');
+  if (!host || mainDomains.some((domain) => host === domain) || !host.includes(".")) {
+    return;
+  }
+
+  const candidate = host.split(".")[0];
+  if (candidate) {
+    subdomain = candidate;
+  }
+  return subdomain;
 };

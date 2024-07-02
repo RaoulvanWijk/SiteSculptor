@@ -1,0 +1,15 @@
+.radio-menu {
+    display: flex;
+    flex-direction: row;
+    gap: .25rem;
+}
+
+.radio-item {
+    margin: 5px 0;
+    width: 100px;
+    color: var(--txt)
+}
+
+.radio-item input {
+    margin-right: 10px;
+}
