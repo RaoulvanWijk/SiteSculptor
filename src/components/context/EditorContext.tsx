@@ -75,6 +75,8 @@ export default function EditorContextProvider({
     availableComponents: Component[],
     activePage: string
   ) => {
+    console.log(components);
+    
     const changes = localStorage.getItem("changes");
     if (changes) {
       const parsedChanges = JSON.parse(changes);
@@ -212,7 +214,7 @@ export default function EditorContextProvider({
       index,
     }));
     return component;
-  };
+  };  
 
   const RenderComponents = () => {
     let lastIndex = -1;
@@ -612,8 +614,9 @@ export default function EditorContextProvider({
 
     // find the differences between the old and new components
     const differences = findChanges(oldComponentsCurrent, newComponentsCurrent);
-
-    const dataToSend = {differences: differences, page: page?.id}
+    console.log(differences);
+    
+    const dataToSend = {differences: differences, page: page?.id, oldComponentsCurrent: oldComponentsCurrent, newComponentsCurrent: newComponentsCurrent}
     // send to backend
     const res = await fetch("/api/editor/publish", {
       method: "PUT",
